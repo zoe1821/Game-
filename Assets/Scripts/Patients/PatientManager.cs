@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using PsychHospital.Core;
 using PsychHospital.Hospital;
+using PsychHospital.Staffing;
 
 namespace PsychHospital.Patients
 {
@@ -16,20 +17,23 @@ namespace PsychHospital.Patients
         private HospitalGrid grid;
         private PatientNameData names;
         private TimeManager timeManager;
+        private StaffManager staffManager;
         private readonly System.Random rng = new System.Random();
         private readonly List<Patient> activePatients = new List<Patient>();
 
         private int nextId = 1000;
         private float hoursSinceLastSpawn;
         private float lastKnownHour;
+        private static readonly Vector2Int EntranceCell = new Vector2Int(0, 0);
 
         public IReadOnlyList<Patient> ActivePatients => activePatients;
 
-        public void Initialize(HospitalGrid hospitalGrid, PatientNameData nameData, TimeManager time)
+        public void Initialize(HospitalGrid hospitalGrid, PatientNameData nameData, TimeManager time, StaffManager staff)
         {
             grid = hospitalGrid;
             names = nameData;
             timeManager = time;
+            staffManager = staff;
             lastKnownHour = timeManager.CurrentHour;
             timeManager.OnHourChanged += HandleHourChanged;
 
@@ -62,9 +66,15 @@ namespace PsychHospital.Patients
             var go = new GameObject();
             go.transform.SetParent(transform);
             var patient = go.AddComponent<Patient>();
-            Vector3 spawnPos = grid.CellToWorldCenter(new Vector2Int(0, 0));
-            patient.Initialize(data, grid, rng, spawnPos);
+            Vector3 spawnPos = grid.CellToWorldCenter(EntranceCell);
+            patient.Initialize(data, grid, staffManager, rng, spawnPos, EntranceCell);
+            patient.OnDespawned += HandlePatientDespawned;
             activePatients.Add(patient);
+        }
+
+        private void HandlePatientDespawned(Patient patient)
+        {
+            activePatients.Remove(patient);
         }
 
         private PatientData GeneratePatientData()

@@ -13,6 +13,7 @@ namespace PsychHospital.Hospital
         public int height;
         public int buildCost;
         public string colorHex;
+        public string staffRole;
     }
 
     /// JsonUtility cannot deserialize a bare top-level array, so room lists are wrapped.

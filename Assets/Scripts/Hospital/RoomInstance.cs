@@ -8,6 +8,7 @@ namespace PsychHospital.Hospital
         public RoomTypeData RoomType { get; private set; }
         public Vector2Int Origin { get; private set; }
         public Vector2Int Size { get; private set; }
+        public Vector2Int EntrancePoint { get; private set; }
 
         public void Initialize(RoomTypeData roomType, Vector2Int origin, Vector2Int size, HospitalGrid grid)
         {
@@ -26,6 +27,11 @@ namespace PsychHospital.Hospital
             var renderer = gameObject.AddComponent<SpriteRenderer>();
             renderer.sprite = SpriteFactory.CreateSolidSprite(size.x, size.y, color);
             renderer.sortingOrder = 1;
+        }
+
+        public void SetEntrancePoint(Vector2Int cell)
+        {
+            EntrancePoint = cell;
         }
     }
 }

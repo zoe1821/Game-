@@ -35,6 +35,9 @@ namespace PsychHospital.Hospital
         public bool InBounds(Vector2Int cell) =>
             cell.x >= 0 && cell.y >= 0 && cell.x < width && cell.y < height;
 
+        public bool IsWalkable(Vector2Int cell) =>
+            InBounds(cell) && cells[cell.x, cell.y].isFree;
+
         public bool IsAreaFree(Vector2Int origin, Vector2Int size)
         {
             for (int x = origin.x; x < origin.x + size.x; x++)

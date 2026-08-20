@@ -1,0 +1,7 @@
+{
+  "roles": [
+    { "id": "receptionist", "displayName": "Recepcionista", "roomId": "reception", "colorHex": "#F2C744", "serviceMinutes": 20 },
+    { "id": "psychiatrist", "displayName": "Psiquiatra", "roomId": "psychiatrist_office", "colorHex": "#2E7D32", "serviceMinutes": 90 },
+    { "id": "psychologist", "displayName": "Psicologo", "roomId": "psychology_office", "colorHex": "#1565C0", "serviceMinutes": 75 }
+  ]
+}

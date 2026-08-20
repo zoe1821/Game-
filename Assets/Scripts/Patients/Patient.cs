@@ -1,30 +1,42 @@
+using System;
+using System.Collections;
 using UnityEngine;
 using PsychHospital.Hospital;
+using PsychHospital.Staffing;
 using PsychHospital.Utils;
 
 namespace PsychHospital.Patients
 {
-    /// Visual/behavioral representation of a patient on the map. For V0.1 this is
-    /// deliberately simple: a colored marker that wanders between free floor cells.
-    /// Real navigation (avoiding rooms/staff, walking to assigned destinations) is
-    /// scoped for V0.2 ("Movimiento de pacientes") per the roadmap.
+    /// V0.2 patient flow: walk to reception, get registered, walk to an available
+    /// psychiatrist or psychologist, get seen, then leave. Real diagnosis-based
+    /// routing (choosing which specialist based on symptoms) arrives with the
+    /// differential-diagnosis system in V0.4 -- for now the doctor is picked at random
+    /// between the two consultation roles. If a required role isn't staffed yet, the
+    /// patient wanders near the entrance instead of blocking or faking progress, and
+    /// picks the flow back up as soon as the hospital catches up.
     public class Patient : MonoBehaviour
     {
+        private static readonly string[] ConsultationRoles = { "psychiatrist", "psychologist" };
+
         public PatientData Data { get; private set; }
+        public event Action<Patient> OnDespawned;
 
         private HospitalGrid grid;
+        private StaffManager staffManager;
         private System.Random rng;
-        private Vector3 targetWorldPos;
-        private float waitTimer;
-        private const float MoveSpeed = 1.5f;
+        private GridMover mover;
+        private Vector2Int exitCell;
 
-        public void Initialize(PatientData data, HospitalGrid hospitalGrid, System.Random random, Vector3 spawnWorldPos)
+        public void Initialize(PatientData data, HospitalGrid hospitalGrid, StaffManager staff,
+            System.Random random, Vector3 spawnWorldPos, Vector2Int exit)
         {
             Data = data;
             grid = hospitalGrid;
+            staffManager = staff;
             rng = random;
+            exitCell = exit;
+
             transform.position = spawnWorldPos;
-            targetWorldPos = spawnWorldPos;
             gameObject.name = $"Patient_{data.fullName.Replace(' ', '_')}";
 
             Color color = data.sex == PatientSex.Masculino
@@ -35,25 +47,60 @@ namespace PsychHospital.Patients
             renderer.sprite = SpriteFactory.CreateCircleSprite(color);
             renderer.sortingOrder = 2;
 
-            PickNewTarget();
+            mover = gameObject.AddComponent<GridMover>();
+            mover.Initialize(grid);
+
+            StartCoroutine(Run());
         }
 
-        private void Update()
+        private IEnumerator Run()
         {
-            transform.position = Vector3.MoveTowards(transform.position, targetWorldPos, MoveSpeed * Time.deltaTime);
+            yield return VisitRole("receptionist");
 
-            if (Vector3.Distance(transform.position, targetWorldPos) < 0.05f)
+            string doctorRole = ConsultationRoles[rng.Next(ConsultationRoles.Length)];
+            yield return VisitRole(doctorRole);
+
+            yield return WalkTo(exitCell);
+            Destroy(gameObject);
+        }
+
+        private IEnumerator VisitRole(string roleId)
+        {
+            RoomInstance room = staffManager.GetAnyStaffedRoomForRole(roleId);
+            while (room == null)
             {
-                waitTimer -= Time.deltaTime;
-                if (waitTimer <= 0f) PickNewTarget();
+                yield return WalkTo(grid.GetRandomFreeCell(rng));
+                room = staffManager.GetAnyStaffedRoomForRole(roleId);
             }
+
+            yield return WalkTo(room.EntrancePoint);
+
+            Staff attendingStaff = staffManager.GetStaffInRoom(room);
+            while (attendingStaff.IsBusy)
+            {
+                yield return new WaitForSeconds(0.5f);
+            }
+
+            attendingStaff.IsBusy = true;
+            // serviceMinutes is used as real seconds for V0.2 pacing; once treatment/
+            // diagnosis exist this should run off TimeManager instead.
+            yield return new WaitForSeconds(Mathf.Max(1f, attendingStaff.RoleData.serviceMinutes * 0.5f));
+            attendingStaff.IsBusy = false;
         }
 
-        private void PickNewTarget()
+        private IEnumerator WalkTo(Vector2Int cell)
         {
-            Vector2Int cell = grid.GetRandomFreeCell(rng);
-            targetWorldPos = grid.CellToWorldCenter(cell);
-            waitTimer = (float)(rng.NextDouble() * 5.0 + 2.0);
+            if (!mover.MoveTo(cell))
+            {
+                yield return null;
+                yield break;
+            }
+            while (mover.IsMoving) yield return null;
+        }
+
+        private void OnDestroy()
+        {
+            OnDespawned?.Invoke(this);
         }
     }
 }

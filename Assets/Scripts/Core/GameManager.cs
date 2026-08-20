@@ -3,14 +3,15 @@ using UnityEngine;
 using PsychHospital.Data;
 using PsychHospital.Hospital;
 using PsychHospital.Patients;
+using PsychHospital.Staffing;
 using PsychHospital.UI;
 
 namespace PsychHospital.Core
 {
-    /// V0.1 entry point. Loads data-driven content (rooms, patient names) from
-    /// StreamingAssets, then wires up the grid, camera, build system, patient spawner
-    /// and HUD. Everything below GameManager is created at runtime so the project has
-    /// no hand-authored scene assets to keep in sync with the code.
+    /// Entry point. Loads data-driven content (rooms, staff roles, patient names) from
+    /// StreamingAssets, then wires up the grid, camera, build system, staffing, patient
+    /// spawner and HUD. Everything below GameManager is created at runtime so the
+    /// project has no hand-authored scene assets to keep in sync with the code.
     public class GameManager : MonoBehaviour
     {
         public static GameManager Instance { get; private set; }
@@ -20,6 +21,7 @@ namespace PsychHospital.Core
 
         private TimeManager timeManager;
         private HospitalManager hospitalManager;
+        private StaffManager staffManager;
         private PatientManager patientManager;
         private CameraController cameraController;
         private BuildController buildController;
@@ -46,11 +48,17 @@ namespace PsychHospital.Core
             RoomTypeListWrapper roomData = null;
             yield return JsonDataService.LoadStreamingAsset<RoomTypeListWrapper>("Data/rooms.json", r => roomData = r);
 
+            StaffRoleListWrapper staffRoleData = null;
+            yield return JsonDataService.LoadStreamingAsset<StaffRoleListWrapper>("Data/staff.json", s => staffRoleData = s);
+
             PatientNameData nameData = null;
             yield return JsonDataService.LoadStreamingAsset<PatientNameData>("Data/patient_names.json", n => nameData = n);
 
             var roomDb = new RoomDatabase();
             roomDb.Load(roomData);
+
+            var staffRoleDb = new StaffRoleDatabase();
+            staffRoleDb.Load(staffRoleData);
 
             timeManager = gameObject.AddComponent<TimeManager>();
 
@@ -65,11 +73,14 @@ namespace PsychHospital.Core
             buildController = gameObject.AddComponent<BuildController>();
             buildController.Initialize(hospitalManager, cam);
 
+            staffManager = gameObject.AddComponent<StaffManager>();
+            staffManager.Initialize(hospitalManager.Grid, staffRoleDb, hospitalManager, nameData);
+
             patientManager = gameObject.AddComponent<PatientManager>();
-            patientManager.Initialize(hospitalManager.Grid, nameData, timeManager);
+            patientManager.Initialize(hospitalManager.Grid, nameData, timeManager, staffManager);
 
             hudController = gameObject.AddComponent<HudController>();
-            hudController.Initialize(timeManager, buildController, roomDb, patientManager);
+            hudController.Initialize(timeManager, buildController, roomDb, patientManager, staffManager, staffRoleDb);
 
             timeManager.SetSpeed(1);
         }
