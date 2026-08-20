@@ -1,0 +1,11 @@
+{
+  "rooms": [
+    { "id": "reception", "displayName": "Recepcion", "category": "reception", "width": 3, "height": 3, "buildCost": 500, "colorHex": "#4A90D9" },
+    { "id": "waiting_room", "displayName": "Sala de Espera", "category": "reception", "width": 4, "height": 3, "buildCost": 300, "colorHex": "#7FB3D5" },
+    { "id": "psychiatrist_office", "displayName": "Consultorio Psiquiatrico", "category": "outpatient", "width": 3, "height": 3, "buildCost": 800, "colorHex": "#58A15C" },
+    { "id": "psychology_office", "displayName": "Consultorio de Psicologia", "category": "outpatient", "width": 3, "height": 3, "buildCost": 700, "colorHex": "#7FCB81" },
+    { "id": "evaluation_room", "displayName": "Sala de Evaluacion", "category": "diagnosis", "width": 3, "height": 3, "buildCost": 600, "colorHex": "#A3D9A5" },
+    { "id": "single_bedroom", "displayName": "Habitacion Individual", "category": "hospitalization", "width": 2, "height": 3, "buildCost": 400, "colorHex": "#D9A74A" },
+    { "id": "double_bedroom", "displayName": "Habitacion Doble", "category": "hospitalization", "width": 3, "height": 3, "buildCost": 550, "colorHex": "#E0B96A" }
+  ]
+}
