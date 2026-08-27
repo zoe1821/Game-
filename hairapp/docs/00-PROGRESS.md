@@ -12,7 +12,7 @@ Archivo de estado entre sesiones. Se actualiza al cerrar cada bloque de trabajo.
 | 2 — Foundation | ✅ Completa | Dominio, persistencia, API, auth, design system, i18n, cliente. |
 | 3 — Experiencia principal | ✅ Completa | Onboarding partido, perfil, mapa de zonas, rutina, scan, inventario, diario, twin, privacidad. |
 | 4 — Inteligencia | ✅ Completa | Reglas, confianza doble, matching, cold start, aprendizaje, twin, experimentos. |
-| 5 — Polish | 🟡 Parcial | Accesibilidad, dark mode y estados vacío/error/carga hechos. Faltan animaciones y comparación fotográfica. |
+| 5 — Polish | 🟡 Parcial | Accesibilidad, dark mode, estados vacío/error/carga y growth tracker hechos. Faltan animaciones y comparación fotográfica con slider. |
 | 6 — Validación | ✅ Completa | 174 tests backend + 59 mobile; ruff, mypy, tsc y eslint limpios; smoke test contra servidor real. |
 | Monetización | ✅ Implementada | Derechos de uso, cupo, suscripción, verificación de recibo en servidor y precio por país. Faltan las credenciales de tienda. |
 | LATAM | 🟡 En curso | Cronograma capilar, catálogo semilla y legal reenfocado. Falta portugués para Brasil. |
@@ -101,7 +101,8 @@ unos cientos etiquetados como buena/mala se podrían ajustar bien.
    verificación está y falla cerrado; sin las claves nadie puede activar una
    suscripción. `GET /billing/verification-status` dice exactamente qué falta.
 1. **Fase 5 restante**: animaciones sobrias respetando `reduceMotion`,
-   comparación fotográfica con slider, hair timeline y growth tracker.
+   comparación fotográfica con slider y hair timeline. El growth tracker ya
+   está.
 2. Reporte exportable para estilista (A26) y su flujo de consentimiento.
 3. Asistente conversacional (A20) con contexto acotado, por el coste.
 4. Sustituir `MockSegmenter` por un modelo real y recalibrar los umbrales de

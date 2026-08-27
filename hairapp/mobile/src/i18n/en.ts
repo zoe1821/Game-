@@ -166,6 +166,10 @@ export const en: Catalog = {
     not_your_history: 'This is not your data',
     experiment_incomplete: 'The experiment needs more repetitions',
     small_sample_experiment: 'An experiment with few repetitions',
+    growth_rate_assumed_not_measured: 'The growth rate is estimated, not measured',
+    home_measurement: 'Home measurement: it varies with how you stretch the hair',
+    only_two_measurements: 'Only two measurements so far',
+    short_period: 'The period is short to draw conclusions from',
     difference_within_noise: 'The difference sits within normal variation',
   },
 
@@ -588,6 +592,32 @@ export const en: Catalog = {
     cannot_verify: "We can't work it out from the ingredient list",
     calendarNote:
       'What holds up is the distinction between the three. The fixed calendar with assigned days does not: how much protein your hair takes depends on its porosity and its history, not on the day of the week.',
+  },
+
+
+  growth: {
+    title: 'Growth and retention',
+    subtitle:
+      "They're not the same. Hair grows at the follicle at a fairly steady rate; what you can change is how much of it you keep before it breaks.",
+    notEnough: 'Not enough measurements yet',
+    hint: {
+      measure_every_two_months: 'Measure every two months, not every week',
+      measure_the_same_way: 'Always measure the same way: same point, same stretch',
+    },
+    grewTotal: 'Grew %{cm} cm',
+    kept: 'You kept %{cm} cm',
+    lost: '%{cm} cm lost to breakage',
+    trimmed: 'You trimmed %{cm} cm on purpose',
+    retention: '%{percent}% retention',
+    perMonth: '%{cm} cm per month',
+    measured: 'Measured at the root',
+    assumed: 'Estimated, not measured',
+    assumedHint:
+      'Length at the ends cannot tell "slow growth" apart from "normal growth that breaks off". If your hair is coloured, measure from the scalp to the colour line and we will know which one it is.',
+    retentionProblem: 'Your hair grows fine; keeping it is the hard part',
+    retentionProblemBody:
+      'That part you can act on: less tension, detangle wet from the ends, and check the heat.',
+    healthy: "You're keeping nearly everything that grows",
   },
 
   error: {

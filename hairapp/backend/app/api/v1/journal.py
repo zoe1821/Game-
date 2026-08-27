@@ -117,6 +117,58 @@ def insights(profile: CurrentProfile, session: DbSession) -> dict[str, object]:
     }
 
 
+@router.get("/growth")
+def growth(profile: CurrentProfile, session: DbSession) -> dict[str, object]:
+    """Crecimiento y retención, separados (A13).
+
+    Nunca devuelve una sola cifra de "crecimiento": son dos cosas distintas y
+    confundirlas es el error más extendido del cuidado capilar. Quien cree que
+    su cabello no crece casi siempre tiene un problema de retención.
+    """
+    from ...domain.hair.growth import LengthObservation, read_growth
+
+    rows = (
+        session.execute(
+            select(JournalRow)
+            .where(JournalRow.profile_id == profile.id)
+            .order_by(JournalRow.entry_date)
+        )
+        .scalars()
+        .all()
+    )
+
+    observations = []
+    for row in rows:
+        measurements = (row.weather or {}).get("length_cm")
+        extra = row.amounts_ml or {}
+        length = measurements if isinstance(measurements, (int, float)) else extra.get("length_cm")
+        if not isinstance(length, (int, float)):
+            continue
+        observations.append(
+            LengthObservation(
+                observed_on=row.entry_date,
+                length_cm=float(length),
+                trimmed_cm=float(extra.get("trimmed_cm", 0.0) or 0.0),
+                root_regrowth_cm=(
+                    float(extra["root_regrowth_cm"]) if "root_regrowth_cm" in extra else None
+                ),
+            )
+        )
+
+    reading = read_growth(observations)
+    if reading is None:
+        return {
+            "has_reading": False,
+            "measurement_count": len(observations),
+            "message_key": "growth.not_enough_measurements",
+            "hint_keys": [
+                "growth.hint.measure_every_two_months",
+                "growth.hint.measure_the_same_way",
+            ],
+        }
+    return {"has_reading": True, **reading.as_dict()}
+
+
 @router.get("/cold-start")
 def cold_start(
     profile: CurrentProfile, user: CurrentUser, session: DbSession

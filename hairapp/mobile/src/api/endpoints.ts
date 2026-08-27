@@ -239,6 +239,9 @@ export function endpoints(client: ApiClient) {
       insights: () => client.request<Insights>('/api/v1/journal/insights'),
 
       coldStart: () => client.request<ColdStartGuidance>('/api/v1/journal/cold-start'),
+
+      /** Crecimiento y retención, separados: son cosas distintas (A13). */
+      growth: () => client.request<unknown>('/api/v1/journal/growth'),
     },
 
     twin: {

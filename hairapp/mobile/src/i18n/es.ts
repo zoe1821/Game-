@@ -172,6 +172,10 @@ export const es = {
     not_your_history: 'No son tus datos',
     experiment_incomplete: 'Al experimento le faltan repeticiones',
     small_sample_experiment: 'Un experimento con pocas repeticiones',
+    growth_rate_assumed_not_measured: 'El ritmo de crecimiento está estimado, no medido',
+    home_measurement: 'Medición casera: varía según cómo estires el pelo',
+    only_two_measurements: 'Solo hay dos mediciones',
+    short_period: 'El periodo es corto para sacar conclusiones',
     difference_within_noise: 'La diferencia cabe dentro del margen de variación',
   },
 
@@ -598,6 +602,34 @@ export const es = {
     // El matiz que evita convertir el cronograma en dogma.
     calendarNote:
       'Lo que se sostiene es la distinción entre las tres carencias. El calendario fijo de días asignados no: cuánta proteína admite tu cabello depende de tu porosidad y tu historial, no del día de la semana.',
+  },
+
+
+  growth: {
+    title: 'Crecimiento y retención',
+    // La distinción que da sentido a toda la pantalla.
+    subtitle:
+      'No son lo mismo. El cabello crece en el folículo a un ritmo bastante estable; lo que sí puedes cambiar es cuánto conservas antes de que se rompa.',
+    notEnough: 'Todavía no hay mediciones suficientes',
+    hint: {
+      measure_every_two_months: 'Mide cada dos meses, no cada semana',
+      measure_the_same_way: 'Mide siempre igual: mismo punto, mismo estiramiento',
+    },
+    grewTotal: 'Creció %{cm} cm',
+    kept: 'Conservaste %{cm} cm',
+    lost: 'Se perdieron %{cm} cm por rotura',
+    trimmed: 'Cortaste %{cm} cm a propósito',
+    retention: 'Retención %{percent}%',
+    perMonth: '%{cm} cm al mes',
+    measured: 'Medido en la raíz',
+    assumed: 'Estimado, no medido',
+    // El matiz que evita que la app afirme más de lo que sabe.
+    assumedHint:
+      'La longitud de las puntas no puede distinguir "crece poco" de "crece normal y se rompe". Si tienes el pelo teñido, mide desde el cuero cabelludo hasta la línea de color y sabremos cuál de las dos es.',
+    retentionProblem: 'Tu cabello crece bien; lo que cuesta es conservarlo',
+    retentionProblemBody:
+      'Ahí sí se puede hacer algo: bajar tensión, desenredar en húmedo desde las puntas y revisar el calor.',
+    healthy: 'Estás conservando casi todo lo que crece',
   },
 
   error: {
