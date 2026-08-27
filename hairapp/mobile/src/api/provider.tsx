@@ -1,6 +1,7 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import React, { createContext, useContext, useMemo } from 'react';
 
+import { createDemoEndpoints, isDemoMode } from '@/demo';
 import { secureTokenStore, useAuthStore } from '@/state/auth';
 
 import { ApiClient, ApiError } from './client';
@@ -31,6 +32,11 @@ export function ApiProvider({ children }: { children: React.ReactNode }): React.
   const setSignedOut = useAuthStore((state) => state.setSignedOut);
 
   const value = useMemo(() => {
+    // Sin servidor, la app sirve datos generados por el motor real en vez de
+    // quedarse en blanco. Ver `src/demo/`.
+    if (isDemoMode()) {
+      return createDemoEndpoints();
+    }
     const client = new ApiClient({
       ...secureTokenStore,
       async clear() {

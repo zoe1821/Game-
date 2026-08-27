@@ -1,0 +1,3848 @@
+{
+ "generated_note": "Generado ejecutando el motor real, no escrito a mano.",
+ "profile": {
+  "id": "demo",
+  "depth_level": "intermediate",
+  "completeness": 0.68,
+  "onboarding_essential_done": true,
+  "wash_frequency_days": 4.0,
+  "country": "MX",
+  "water_hardness_ppm": 210.0,
+  "uses_heat": true,
+  "owns_diffuser": true,
+  "protective_style": "none",
+  "goals": [
+   "definition",
+   "damage_recovery",
+   "frizz_control"
+  ],
+  "zones": [
+   {
+    "zone": "frontal_hairline",
+    "label_key": "zone.frontal_hairline",
+    "measurements": {
+     "pattern": {
+      "value": "3b",
+      "confidence": 0.45,
+      "source": "inferred",
+      "observed_at": null,
+      "notes": null
+     },
+     "length_cm": {
+      "value": 30.0,
+      "confidence": 1.0,
+      "source": "user",
+      "observed_at": null,
+      "notes": null
+     }
+    },
+    "damage_signs": [],
+    "notes": null,
+    "completeness": 0.143
+   },
+   {
+    "zone": "bangs",
+    "label_key": "zone.bangs",
+    "measurements": {
+     "pattern": {
+      "value": "3b",
+      "confidence": 0.45,
+      "source": "inferred",
+      "observed_at": null,
+      "notes": null
+     },
+     "length_cm": {
+      "value": 30.0,
+      "confidence": 1.0,
+      "source": "user",
+      "observed_at": null,
+      "notes": null
+     }
+    },
+    "damage_signs": [],
+    "notes": null,
+    "completeness": 0.143
+   },
+   {
+    "zone": "front_left",
+    "label_key": "zone.front_left",
+    "measurements": {
+     "pattern": {
+      "value": "3b",
+      "confidence": 0.45,
+      "source": "inferred",
+      "observed_at": null,
+      "notes": null
+     },
+     "length_cm": {
+      "value": 30.0,
+      "confidence": 1.0,
+      "source": "user",
+      "observed_at": null,
+      "notes": null
+     }
+    },
+    "damage_signs": [],
+    "notes": null,
+    "completeness": 0.143
+   },
+   {
+    "zone": "front_right",
+    "label_key": "zone.front_right",
+    "measurements": {
+     "pattern": {
+      "value": "3b",
+      "confidence": 0.45,
+      "source": "inferred",
+      "observed_at": null,
+      "notes": null
+     },
+     "length_cm": {
+      "value": 30.0,
+      "confidence": 1.0,
+      "source": "user",
+      "observed_at": null,
+      "notes": null
+     }
+    },
+    "damage_signs": [],
+    "notes": null,
+    "completeness": 0.143
+   },
+   {
+    "zone": "left_temple",
+    "label_key": "zone.left_temple",
+    "measurements": {
+     "pattern": {
+      "value": "3b",
+      "confidence": 0.45,
+      "source": "inferred",
+      "observed_at": null,
+      "notes": null
+     },
+     "length_cm": {
+      "value": 30.0,
+      "confidence": 1.0,
+      "source": "user",
+      "observed_at": null,
+      "notes": null
+     }
+    },
+    "damage_signs": [],
+    "notes": null,
+    "completeness": 0.143
+   },
+   {
+    "zone": "right_temple",
+    "label_key": "zone.right_temple",
+    "measurements": {
+     "pattern": {
+      "value": "3b",
+      "confidence": 0.45,
+      "source": "inferred",
+      "observed_at": null,
+      "notes": null
+     },
+     "length_cm": {
+      "value": 30.0,
+      "confidence": 1.0,
+      "source": "user",
+      "observed_at": null,
+      "notes": null
+     }
+    },
+    "damage_signs": [],
+    "notes": null,
+    "completeness": 0.143
+   },
+   {
+    "zone": "side_upper_left",
+    "label_key": "zone.side_upper_left",
+    "measurements": {
+     "pattern": {
+      "value": "3b",
+      "confidence": 0.45,
+      "source": "inferred",
+      "observed_at": null,
+      "notes": null
+     },
+     "length_cm": {
+      "value": 30.0,
+      "confidence": 1.0,
+      "source": "user",
+      "observed_at": null,
+      "notes": null
+     }
+    },
+    "damage_signs": [],
+    "notes": null,
+    "completeness": 0.143
+   },
+   {
+    "zone": "side_upper_right",
+    "label_key": "zone.side_upper_right",
+    "measurements": {
+     "pattern": {
+      "value": "3b",
+      "confidence": 0.45,
+      "source": "inferred",
+      "observed_at": null,
+      "notes": null
+     },
+     "length_cm": {
+      "value": 30.0,
+      "confidence": 1.0,
+      "source": "user",
+      "observed_at": null,
+      "notes": null
+     }
+    },
+    "damage_signs": [],
+    "notes": null,
+    "completeness": 0.143
+   },
+   {
+    "zone": "side_lower_left",
+    "label_key": "zone.side_lower_left",
+    "measurements": {
+     "pattern": {
+      "value": "3b",
+      "confidence": 0.45,
+      "source": "inferred",
+      "observed_at": null,
+      "notes": null
+     },
+     "length_cm": {
+      "value": 30.0,
+      "confidence": 1.0,
+      "source": "user",
+      "observed_at": null,
+      "notes": null
+     }
+    },
+    "damage_signs": [],
+    "notes": null,
+    "completeness": 0.143
+   },
+   {
+    "zone": "side_lower_right",
+    "label_key": "zone.side_lower_right",
+    "measurements": {
+     "pattern": {
+      "value": "3b",
+      "confidence": 0.45,
+      "source": "inferred",
+      "observed_at": null,
+      "notes": null
+     },
+     "length_cm": {
+      "value": 30.0,
+      "confidence": 1.0,
+      "source": "user",
+      "observed_at": null,
+      "notes": null
+     }
+    },
+    "damage_signs": [],
+    "notes": null,
+    "completeness": 0.143
+   },
+   {
+    "zone": "crown",
+    "label_key": "zone.crown",
+    "measurements": {
+     "pattern": {
+      "value": "3a",
+      "confidence": 1.0,
+      "source": "user",
+      "observed_at": null,
+      "notes": null
+     },
+     "porosity": {
+      "value": "high",
+      "confidence": 0.62,
+      "source": "inferred",
+      "observed_at": null,
+      "notes": null
+     },
+     "density": {
+      "value": "medium",
+      "confidence": 0.55,
+      "source": "inferred",
+      "observed_at": null,
+      "notes": null
+     },
+     "strand_diameter": {
+      "value": "fine",
+      "confidence": 0.6,
+      "source": "inferred",
+      "observed_at": null,
+      "notes": null
+     },
+     "processing": {
+      "value": "coloured",
+      "confidence": 1.0,
+      "source": "user",
+      "observed_at": null,
+      "notes": null
+     },
+     "length_cm": {
+      "value": 28.0,
+      "confidence": 1.0,
+      "source": "user",
+      "observed_at": null,
+      "notes": null
+     }
+    },
+    "damage_signs": [],
+    "notes": null,
+    "completeness": 0.429
+   },
+   {
+    "zone": "back_crown",
+    "label_key": "zone.back_crown",
+    "measurements": {
+     "pattern": {
+      "value": "3a",
+      "confidence": 1.0,
+      "source": "user",
+      "observed_at": null,
+      "notes": null
+     },
+     "porosity": {
+      "value": "high",
+      "confidence": 0.62,
+      "source": "inferred",
+      "observed_at": null,
+      "notes": null
+     },
+     "density": {
+      "value": "medium",
+      "confidence": 0.55,
+      "source": "inferred",
+      "observed_at": null,
+      "notes": null
+     },
+     "strand_diameter": {
+      "value": "fine",
+      "confidence": 0.6,
+      "source": "inferred",
+      "observed_at": null,
+      "notes": null
+     },
+     "processing": {
+      "value": "coloured",
+      "confidence": 1.0,
+      "source": "user",
+      "observed_at": null,
+      "notes": null
+     },
+     "length_cm": {
+      "value": 30.0,
+      "confidence": 1.0,
+      "source": "user",
+      "observed_at": null,
+      "notes": null
+     }
+    },
+    "damage_signs": [],
+    "notes": null,
+    "completeness": 0.429
+   },
+   {
+    "zone": "occipital",
+    "label_key": "zone.occipital",
+    "measurements": {
+     "pattern": {
+      "value": "3c",
+      "confidence": 1.0,
+      "source": "user",
+      "observed_at": null,
+      "notes": null
+     },
+     "porosity": {
+      "value": "medium",
+      "confidence": 0.62,
+      "source": "inferred",
+      "observed_at": null,
+      "notes": null
+     },
+     "density": {
+      "value": "high",
+      "confidence": 0.55,
+      "source": "inferred",
+      "observed_at": null,
+      "notes": null
+     },
+     "strand_diameter": {
+      "value": "medium",
+      "confidence": 0.6,
+      "source": "inferred",
+      "observed_at": null,
+      "notes": null
+     },
+     "processing": {
+      "value": "virgin",
+      "confidence": 1.0,
+      "source": "user",
+      "observed_at": null,
+      "notes": null
+     },
+     "length_cm": {
+      "value": 32.0,
+      "confidence": 1.0,
+      "source": "user",
+      "observed_at": null,
+      "notes": null
+     }
+    },
+    "damage_signs": [],
+    "notes": null,
+    "completeness": 0.429
+   },
+   {
+    "zone": "nape",
+    "label_key": "zone.nape",
+    "measurements": {
+     "pattern": {
+      "value": "3c",
+      "confidence": 1.0,
+      "source": "user",
+      "observed_at": null,
+      "notes": null
+     },
+     "porosity": {
+      "value": "medium",
+      "confidence": 0.62,
+      "source": "inferred",
+      "observed_at": null,
+      "notes": null
+     },
+     "density": {
+      "value": "high",
+      "confidence": 0.55,
+      "source": "inferred",
+      "observed_at": null,
+      "notes": null
+     },
+     "strand_diameter": {
+      "value": "medium",
+      "confidence": 0.6,
+      "source": "inferred",
+      "observed_at": null,
+      "notes": null
+     },
+     "processing": {
+      "value": "virgin",
+      "confidence": 1.0,
+      "source": "user",
+      "observed_at": null,
+      "notes": null
+     },
+     "length_cm": {
+      "value": 32.0,
+      "confidence": 1.0,
+      "source": "user",
+      "observed_at": null,
+      "notes": null
+     }
+    },
+    "damage_signs": [],
+    "notes": null,
+    "completeness": 0.429
+   },
+   {
+    "zone": "ends",
+    "label_key": "zone.ends",
+    "measurements": {
+     "pattern": {
+      "value": "3b",
+      "confidence": 1.0,
+      "source": "user",
+      "observed_at": null,
+      "notes": null
+     },
+     "porosity": {
+      "value": "high",
+      "confidence": 0.62,
+      "source": "inferred",
+      "observed_at": null,
+      "notes": null
+     },
+     "density": {
+      "value": "medium",
+      "confidence": 0.55,
+      "source": "inferred",
+      "observed_at": null,
+      "notes": null
+     },
+     "strand_diameter": {
+      "value": "fine",
+      "confidence": 0.6,
+      "source": "inferred",
+      "observed_at": null,
+      "notes": null
+     },
+     "processing": {
+      "value": "coloured",
+      "confidence": 1.0,
+      "source": "user",
+      "observed_at": null,
+      "notes": null
+     },
+     "length_cm": {
+      "value": 32.0,
+      "confidence": 1.0,
+      "source": "user",
+      "observed_at": null,
+      "notes": null
+     }
+    },
+    "damage_signs": [
+     "split_ends",
+     "breakage"
+    ],
+    "notes": null,
+    "completeness": 0.429
+   }
+  ]
+ },
+ "zones": [
+  {
+   "zone": "frontal_hairline",
+   "label_key": "zone.frontal_hairline",
+   "measurements": {
+    "pattern": {
+     "value": "3b",
+     "confidence": 0.45,
+     "source": "inferred",
+     "observed_at": null,
+     "notes": null
+    },
+    "length_cm": {
+     "value": 30.0,
+     "confidence": 1.0,
+     "source": "user",
+     "observed_at": null,
+     "notes": null
+    }
+   },
+   "damage_signs": [],
+   "notes": null,
+   "completeness": 0.143
+  },
+  {
+   "zone": "bangs",
+   "label_key": "zone.bangs",
+   "measurements": {
+    "pattern": {
+     "value": "3b",
+     "confidence": 0.45,
+     "source": "inferred",
+     "observed_at": null,
+     "notes": null
+    },
+    "length_cm": {
+     "value": 30.0,
+     "confidence": 1.0,
+     "source": "user",
+     "observed_at": null,
+     "notes": null
+    }
+   },
+   "damage_signs": [],
+   "notes": null,
+   "completeness": 0.143
+  },
+  {
+   "zone": "front_left",
+   "label_key": "zone.front_left",
+   "measurements": {
+    "pattern": {
+     "value": "3b",
+     "confidence": 0.45,
+     "source": "inferred",
+     "observed_at": null,
+     "notes": null
+    },
+    "length_cm": {
+     "value": 30.0,
+     "confidence": 1.0,
+     "source": "user",
+     "observed_at": null,
+     "notes": null
+    }
+   },
+   "damage_signs": [],
+   "notes": null,
+   "completeness": 0.143
+  },
+  {
+   "zone": "front_right",
+   "label_key": "zone.front_right",
+   "measurements": {
+    "pattern": {
+     "value": "3b",
+     "confidence": 0.45,
+     "source": "inferred",
+     "observed_at": null,
+     "notes": null
+    },
+    "length_cm": {
+     "value": 30.0,
+     "confidence": 1.0,
+     "source": "user",
+     "observed_at": null,
+     "notes": null
+    }
+   },
+   "damage_signs": [],
+   "notes": null,
+   "completeness": 0.143
+  },
+  {
+   "zone": "left_temple",
+   "label_key": "zone.left_temple",
+   "measurements": {
+    "pattern": {
+     "value": "3b",
+     "confidence": 0.45,
+     "source": "inferred",
+     "observed_at": null,
+     "notes": null
+    },
+    "length_cm": {
+     "value": 30.0,
+     "confidence": 1.0,
+     "source": "user",
+     "observed_at": null,
+     "notes": null
+    }
+   },
+   "damage_signs": [],
+   "notes": null,
+   "completeness": 0.143
+  },
+  {
+   "zone": "right_temple",
+   "label_key": "zone.right_temple",
+   "measurements": {
+    "pattern": {
+     "value": "3b",
+     "confidence": 0.45,
+     "source": "inferred",
+     "observed_at": null,
+     "notes": null
+    },
+    "length_cm": {
+     "value": 30.0,
+     "confidence": 1.0,
+     "source": "user",
+     "observed_at": null,
+     "notes": null
+    }
+   },
+   "damage_signs": [],
+   "notes": null,
+   "completeness": 0.143
+  },
+  {
+   "zone": "side_upper_left",
+   "label_key": "zone.side_upper_left",
+   "measurements": {
+    "pattern": {
+     "value": "3b",
+     "confidence": 0.45,
+     "source": "inferred",
+     "observed_at": null,
+     "notes": null
+    },
+    "length_cm": {
+     "value": 30.0,
+     "confidence": 1.0,
+     "source": "user",
+     "observed_at": null,
+     "notes": null
+    }
+   },
+   "damage_signs": [],
+   "notes": null,
+   "completeness": 0.143
+  },
+  {
+   "zone": "side_upper_right",
+   "label_key": "zone.side_upper_right",
+   "measurements": {
+    "pattern": {
+     "value": "3b",
+     "confidence": 0.45,
+     "source": "inferred",
+     "observed_at": null,
+     "notes": null
+    },
+    "length_cm": {
+     "value": 30.0,
+     "confidence": 1.0,
+     "source": "user",
+     "observed_at": null,
+     "notes": null
+    }
+   },
+   "damage_signs": [],
+   "notes": null,
+   "completeness": 0.143
+  },
+  {
+   "zone": "side_lower_left",
+   "label_key": "zone.side_lower_left",
+   "measurements": {
+    "pattern": {
+     "value": "3b",
+     "confidence": 0.45,
+     "source": "inferred",
+     "observed_at": null,
+     "notes": null
+    },
+    "length_cm": {
+     "value": 30.0,
+     "confidence": 1.0,
+     "source": "user",
+     "observed_at": null,
+     "notes": null
+    }
+   },
+   "damage_signs": [],
+   "notes": null,
+   "completeness": 0.143
+  },
+  {
+   "zone": "side_lower_right",
+   "label_key": "zone.side_lower_right",
+   "measurements": {
+    "pattern": {
+     "value": "3b",
+     "confidence": 0.45,
+     "source": "inferred",
+     "observed_at": null,
+     "notes": null
+    },
+    "length_cm": {
+     "value": 30.0,
+     "confidence": 1.0,
+     "source": "user",
+     "observed_at": null,
+     "notes": null
+    }
+   },
+   "damage_signs": [],
+   "notes": null,
+   "completeness": 0.143
+  },
+  {
+   "zone": "crown",
+   "label_key": "zone.crown",
+   "measurements": {
+    "pattern": {
+     "value": "3a",
+     "confidence": 1.0,
+     "source": "user",
+     "observed_at": null,
+     "notes": null
+    },
+    "porosity": {
+     "value": "high",
+     "confidence": 0.62,
+     "source": "inferred",
+     "observed_at": null,
+     "notes": null
+    },
+    "density": {
+     "value": "medium",
+     "confidence": 0.55,
+     "source": "inferred",
+     "observed_at": null,
+     "notes": null
+    },
+    "strand_diameter": {
+     "value": "fine",
+     "confidence": 0.6,
+     "source": "inferred",
+     "observed_at": null,
+     "notes": null
+    },
+    "processing": {
+     "value": "coloured",
+     "confidence": 1.0,
+     "source": "user",
+     "observed_at": null,
+     "notes": null
+    },
+    "length_cm": {
+     "value": 28.0,
+     "confidence": 1.0,
+     "source": "user",
+     "observed_at": null,
+     "notes": null
+    }
+   },
+   "damage_signs": [],
+   "notes": null,
+   "completeness": 0.429
+  },
+  {
+   "zone": "back_crown",
+   "label_key": "zone.back_crown",
+   "measurements": {
+    "pattern": {
+     "value": "3a",
+     "confidence": 1.0,
+     "source": "user",
+     "observed_at": null,
+     "notes": null
+    },
+    "porosity": {
+     "value": "high",
+     "confidence": 0.62,
+     "source": "inferred",
+     "observed_at": null,
+     "notes": null
+    },
+    "density": {
+     "value": "medium",
+     "confidence": 0.55,
+     "source": "inferred",
+     "observed_at": null,
+     "notes": null
+    },
+    "strand_diameter": {
+     "value": "fine",
+     "confidence": 0.6,
+     "source": "inferred",
+     "observed_at": null,
+     "notes": null
+    },
+    "processing": {
+     "value": "coloured",
+     "confidence": 1.0,
+     "source": "user",
+     "observed_at": null,
+     "notes": null
+    },
+    "length_cm": {
+     "value": 30.0,
+     "confidence": 1.0,
+     "source": "user",
+     "observed_at": null,
+     "notes": null
+    }
+   },
+   "damage_signs": [],
+   "notes": null,
+   "completeness": 0.429
+  },
+  {
+   "zone": "occipital",
+   "label_key": "zone.occipital",
+   "measurements": {
+    "pattern": {
+     "value": "3c",
+     "confidence": 1.0,
+     "source": "user",
+     "observed_at": null,
+     "notes": null
+    },
+    "porosity": {
+     "value": "medium",
+     "confidence": 0.62,
+     "source": "inferred",
+     "observed_at": null,
+     "notes": null
+    },
+    "density": {
+     "value": "high",
+     "confidence": 0.55,
+     "source": "inferred",
+     "observed_at": null,
+     "notes": null
+    },
+    "strand_diameter": {
+     "value": "medium",
+     "confidence": 0.6,
+     "source": "inferred",
+     "observed_at": null,
+     "notes": null
+    },
+    "processing": {
+     "value": "virgin",
+     "confidence": 1.0,
+     "source": "user",
+     "observed_at": null,
+     "notes": null
+    },
+    "length_cm": {
+     "value": 32.0,
+     "confidence": 1.0,
+     "source": "user",
+     "observed_at": null,
+     "notes": null
+    }
+   },
+   "damage_signs": [],
+   "notes": null,
+   "completeness": 0.429
+  },
+  {
+   "zone": "nape",
+   "label_key": "zone.nape",
+   "measurements": {
+    "pattern": {
+     "value": "3c",
+     "confidence": 1.0,
+     "source": "user",
+     "observed_at": null,
+     "notes": null
+    },
+    "porosity": {
+     "value": "medium",
+     "confidence": 0.62,
+     "source": "inferred",
+     "observed_at": null,
+     "notes": null
+    },
+    "density": {
+     "value": "high",
+     "confidence": 0.55,
+     "source": "inferred",
+     "observed_at": null,
+     "notes": null
+    },
+    "strand_diameter": {
+     "value": "medium",
+     "confidence": 0.6,
+     "source": "inferred",
+     "observed_at": null,
+     "notes": null
+    },
+    "processing": {
+     "value": "virgin",
+     "confidence": 1.0,
+     "source": "user",
+     "observed_at": null,
+     "notes": null
+    },
+    "length_cm": {
+     "value": 32.0,
+     "confidence": 1.0,
+     "source": "user",
+     "observed_at": null,
+     "notes": null
+    }
+   },
+   "damage_signs": [],
+   "notes": null,
+   "completeness": 0.429
+  },
+  {
+   "zone": "ends",
+   "label_key": "zone.ends",
+   "measurements": {
+    "pattern": {
+     "value": "3b",
+     "confidence": 1.0,
+     "source": "user",
+     "observed_at": null,
+     "notes": null
+    },
+    "porosity": {
+     "value": "high",
+     "confidence": 0.62,
+     "source": "inferred",
+     "observed_at": null,
+     "notes": null
+    },
+    "density": {
+     "value": "medium",
+     "confidence": 0.55,
+     "source": "inferred",
+     "observed_at": null,
+     "notes": null
+    },
+    "strand_diameter": {
+     "value": "fine",
+     "confidence": 0.6,
+     "source": "inferred",
+     "observed_at": null,
+     "notes": null
+    },
+    "processing": {
+     "value": "coloured",
+     "confidence": 1.0,
+     "source": "user",
+     "observed_at": null,
+     "notes": null
+    },
+    "length_cm": {
+     "value": 32.0,
+     "confidence": 1.0,
+     "source": "user",
+     "observed_at": null,
+     "notes": null
+    }
+   },
+   "damage_signs": [
+    "split_ends",
+    "breakage"
+   ],
+   "notes": null,
+   "completeness": 0.429
+  }
+ ],
+ "routine": {
+  "kind": "wash_day",
+  "halted": false,
+  "halt_block_key": null,
+  "total_minutes": 50,
+  "steps": [
+   {
+    "order": 1,
+    "stage": "cleanse",
+    "action_key": "step.chelate",
+    "zones": [
+     "frontal_hairline",
+     "bangs",
+     "front_left",
+     "front_right",
+     "left_temple",
+     "right_temple",
+     "side_upper_left",
+     "side_upper_right",
+     "side_lower_left",
+     "side_lower_right",
+     "crown",
+     "back_crown",
+     "occipital",
+     "nape"
+    ],
+    "product_category": "clarifying_shampoo",
+    "product_attributes": {
+     "chelating": true
+    },
+    "amount": {
+     "ml": 4.8,
+     "reference_key": "amount.ref.teaspoon",
+     "reference_multiplier": 1.0,
+     "zone": null
+    },
+    "technique_id": null,
+    "technique_steps": [],
+    "follow_up_technique_ids": [],
+    "params": {
+     "frequency_hint": "monthly"
+    },
+    "duration_seconds": null,
+    "explanation": {
+     "summary_key": "rule.cleanse.chelate_hard_water",
+     "inputs_used": [
+      "water.hardness_ppm"
+     ],
+     "observations": [
+      "cleanse.chelating_for_hard_water"
+     ],
+     "evidence_level": "scientific_evidence",
+     "evidence_confidence": 0.9,
+     "personal_confidence": 0.0,
+     "sample_size": 0,
+     "uncertainty_keys": [
+      "uncertainty.cold_start"
+     ],
+     "alternatives": [],
+     "params": {
+      "mechanism_rule_id": "cleanse.chelating_for_hard_water",
+      "personal_direction": "unknown",
+      "contributing_rules": [
+       "cleanse.chelating_for_hard_water"
+      ]
+     }
+    }
+   },
+   {
+    "order": 2,
+    "stage": "cleanse",
+    "action_key": "step.cleanse",
+    "zones": [
+     "frontal_hairline",
+     "bangs",
+     "front_left",
+     "front_right",
+     "left_temple",
+     "right_temple",
+     "side_upper_left",
+     "side_upper_right",
+     "side_lower_left",
+     "side_lower_right",
+     "occipital",
+     "nape"
+    ],
+    "product_category": "shampoo",
+    "product_attributes": {},
+    "amount": {
+     "ml": 3.98,
+     "reference_key": "amount.ref.almond",
+     "reference_multiplier": 2.0,
+     "zone": null
+    },
+    "technique_id": null,
+    "technique_steps": [],
+    "follow_up_technique_ids": [],
+    "params": {},
+    "duration_seconds": null,
+    "explanation": {
+     "summary_key": "step.cleanse.why.default",
+     "inputs_used": [
+      "input.goals"
+     ],
+     "observations": [],
+     "evidence_level": "professional_consensus",
+     "evidence_confidence": 0.7,
+     "personal_confidence": 0.0,
+     "sample_size": 0,
+     "uncertainty_keys": [
+      "uncertainty.cold_start"
+     ],
+     "alternatives": [],
+     "params": {}
+    }
+   },
+   {
+    "order": 3,
+    "stage": "cleanse",
+    "action_key": "step.cleanse",
+    "zones": [
+     "crown",
+     "back_crown"
+    ],
+    "product_category": "shampoo",
+    "product_attributes": {
+     "surfactant_strength": [
+      "mild",
+      "medium"
+     ]
+    },
+    "amount": {
+     "ml": 0.66,
+     "reference_key": "amount.ref.pea",
+     "reference_multiplier": 1.0,
+     "zone": null
+    },
+    "technique_id": null,
+    "technique_steps": [],
+    "follow_up_technique_ids": [],
+    "params": {
+     "frequency_hint": "as_needed"
+    },
+    "duration_seconds": null,
+    "explanation": {
+     "summary_key": "rule.cleanse.gentler_surfactant",
+     "inputs_used": [
+      "zone.porosity"
+     ],
+     "observations": [
+      "cleanse.sulfate_free_high_porosity"
+     ],
+     "evidence_level": "professional_consensus",
+     "evidence_confidence": 0.7,
+     "personal_confidence": 0.0,
+     "sample_size": 0,
+     "uncertainty_keys": [
+      "uncertainty.cold_start"
+     ],
+     "alternatives": [],
+     "params": {
+      "mechanism_rule_id": "cleanse.sulfate_free_high_porosity",
+      "personal_direction": "unknown",
+      "contributing_rules": [
+       "cleanse.sulfate_free_high_porosity"
+      ]
+     }
+    }
+   },
+   {
+    "order": 4,
+    "stage": "condition",
+    "action_key": "step.deep_condition",
+    "zones": [
+     "crown",
+     "back_crown",
+     "ends"
+    ],
+    "product_category": "deep_conditioner",
+    "product_attributes": {
+     "emollient_level": [
+      "medium",
+      "high"
+     ]
+    },
+    "amount": {
+     "ml": 3.63,
+     "reference_key": "amount.ref.chickpea",
+     "reference_multiplier": 3.0,
+     "zone": null
+    },
+    "technique_id": "squish_to_condish",
+    "technique_steps": [
+     "technique.squish_to_condish.step.1",
+     "technique.squish_to_condish.step.2"
+    ],
+    "follow_up_technique_ids": [],
+    "params": {
+     "frequency_hint": "weekly"
+    },
+    "duration_seconds": 1200,
+    "explanation": {
+     "summary_key": "rule.cond.deep_condition_porous",
+     "inputs_used": [
+      "zone.porosity"
+     ],
+     "observations": [
+      "cond.deep_condition_high_porosity"
+     ],
+     "evidence_level": "professional_consensus",
+     "evidence_confidence": 0.7,
+     "personal_confidence": 0.0,
+     "sample_size": 0,
+     "uncertainty_keys": [
+      "uncertainty.cold_start"
+     ],
+     "alternatives": [],
+     "params": {
+      "mechanism_rule_id": "cond.deep_condition_high_porosity",
+      "personal_direction": "unknown",
+      "contributing_rules": [
+       "cond.deep_condition_high_porosity"
+      ]
+     }
+    }
+   },
+   {
+    "order": 5,
+    "stage": "condition",
+    "action_key": "step.condition",
+    "zones": [
+     "frontal_hairline",
+     "bangs",
+     "front_left",
+     "front_right",
+     "left_temple",
+     "right_temple",
+     "side_upper_left",
+     "side_upper_right",
+     "side_lower_left",
+     "side_lower_right",
+     "crown",
+     "back_crown",
+     "occipital",
+     "nape",
+     "ends"
+    ],
+    "product_category": "conditioner",
+    "product_attributes": {
+     "cationic": true
+    },
+    "amount": {
+     "ml": 15.0,
+     "reference_key": "amount.ref.tablespoon",
+     "reference_multiplier": 1.0,
+     "zone": null
+    },
+    "technique_id": "squish_to_condish",
+    "technique_steps": [
+     "technique.squish_to_condish.step.1",
+     "technique.squish_to_condish.step.2"
+    ],
+    "follow_up_technique_ids": [],
+    "params": {},
+    "duration_seconds": null,
+    "explanation": {
+     "summary_key": "rule.cond.cationic_slip",
+     "inputs_used": [],
+     "observations": [
+      "cond.cationic_detangling"
+     ],
+     "evidence_level": "scientific_evidence",
+     "evidence_confidence": 0.9,
+     "personal_confidence": 0.0,
+     "sample_size": 0,
+     "uncertainty_keys": [
+      "uncertainty.cold_start"
+     ],
+     "alternatives": [],
+     "params": {
+      "mechanism_rule_id": "cond.cationic_detangling",
+      "personal_direction": "unknown",
+      "contributing_rules": [
+       "cond.cationic_detangling"
+      ]
+     }
+    }
+   },
+   {
+    "order": 6,
+    "stage": "detangle",
+    "action_key": "step.detangle",
+    "zones": [
+     "frontal_hairline",
+     "bangs",
+     "front_left",
+     "front_right",
+     "left_temple",
+     "right_temple",
+     "side_upper_left",
+     "side_upper_right",
+     "side_lower_left",
+     "side_lower_right",
+     "crown",
+     "back_crown",
+     "occipital",
+     "nape",
+     "ends"
+    ],
+    "product_category": null,
+    "product_attributes": {},
+    "amount": null,
+    "technique_id": "detangle_from_ends",
+    "technique_steps": [
+     "technique.detangle_from_ends.step.1",
+     "technique.detangle_from_ends.step.2",
+     "technique.detangle_from_ends.step.3"
+    ],
+    "follow_up_technique_ids": [],
+    "params": {
+     "direction": "ends_to_roots",
+     "state": "wet_with_conditioner",
+     "tension": "low"
+    },
+    "duration_seconds": null,
+    "explanation": {
+     "summary_key": "step.detangle.why.default",
+     "inputs_used": [
+      "input.goals"
+     ],
+     "observations": [],
+     "evidence_level": "professional_consensus",
+     "evidence_confidence": 0.7,
+     "personal_confidence": 0.0,
+     "sample_size": 0,
+     "uncertainty_keys": [
+      "uncertainty.cold_start"
+     ],
+     "alternatives": [],
+     "params": {}
+    }
+   },
+   {
+    "order": 7,
+    "stage": "apply_styler",
+    "action_key": "step.leave_in",
+    "zones": [
+     "frontal_hairline",
+     "bangs",
+     "front_left",
+     "front_right",
+     "left_temple",
+     "right_temple",
+     "side_upper_left",
+     "side_upper_right",
+     "side_lower_left",
+     "side_lower_right",
+     "occipital",
+     "nape"
+    ],
+    "product_category": "leave_in",
+    "product_attributes": {
+     "uv_filter": true,
+     "humectant_level": [
+      "low"
+     ],
+     "film_forming": true
+    },
+    "amount": {
+     "ml": 5.76,
+     "reference_key": "amount.ref.coin",
+     "reference_multiplier": 2.0,
+     "zone": null
+    },
+    "technique_id": "praying_hands",
+    "technique_steps": [
+     "technique.praying_hands.step.1",
+     "technique.praying_hands.step.2",
+     "technique.praying_hands.step.3"
+    ],
+    "follow_up_technique_ids": [],
+    "params": {
+     "hair_state": "damp",
+     "section_count": 4
+    },
+    "duration_seconds": null,
+    "explanation": {
+     "summary_key": "rule.climate.high_dewpoint",
+     "inputs_used": [
+      "weather.dew_point_c",
+      "weather.uv_index"
+     ],
+     "observations": [
+      "climate.high_dewpoint_reduce_humectants",
+      "climate.uv_exposure_protection"
+     ],
+     "evidence_level": "professional_consensus",
+     "evidence_confidence": 0.7,
+     "personal_confidence": 0.0,
+     "sample_size": 0,
+     "uncertainty_keys": [
+      "uncertainty.cold_start"
+     ],
+     "alternatives": [
+      "physical_cover"
+     ],
+     "params": {
+      "mechanism_rule_id": "climate.high_dewpoint_reduce_humectants",
+      "personal_direction": "unknown",
+      "contributing_rules": [
+       "climate.high_dewpoint_reduce_humectants",
+       "climate.uv_exposure_protection"
+      ]
+     }
+    }
+   },
+   {
+    "order": 8,
+    "stage": "apply_styler",
+    "action_key": "step.leave_in",
+    "zones": [
+     "crown",
+     "back_crown",
+     "ends"
+    ],
+    "product_category": "leave_in",
+    "product_attributes": {
+     "uv_filter": true,
+     "humectant_level": [
+      "low"
+     ],
+     "film_forming": true,
+     "weight": [
+      "light"
+     ]
+    },
+    "amount": {
+     "ml": 0.78,
+     "reference_key": "amount.ref.pea",
+     "reference_multiplier": 1.5,
+     "zone": null
+    },
+    "technique_id": "praying_hands",
+    "technique_steps": [
+     "technique.praying_hands.step.1",
+     "technique.praying_hands.step.2",
+     "technique.praying_hands.step.3"
+    ],
+    "follow_up_technique_ids": [],
+    "params": {
+     "hair_state": "soaking_wet",
+     "section_count": 4
+    },
+    "duration_seconds": null,
+    "explanation": {
+     "summary_key": "rule.climate.high_dewpoint",
+     "inputs_used": [
+      "weather.dew_point_c",
+      "zone.strand_diameter",
+      "zone.density",
+      "weather.uv_index"
+     ],
+     "observations": [
+      "climate.high_dewpoint_reduce_humectants",
+      "style.less_product_fine_low_density",
+      "climate.uv_exposure_protection"
+     ],
+     "evidence_level": "professional_consensus",
+     "evidence_confidence": 0.7,
+     "personal_confidence": 0.0,
+     "sample_size": 0,
+     "uncertainty_keys": [
+      "uncertainty.cold_start"
+     ],
+     "alternatives": [
+      "physical_cover"
+     ],
+     "params": {
+      "mechanism_rule_id": "climate.high_dewpoint_reduce_humectants",
+      "personal_direction": "unknown",
+      "contributing_rules": [
+       "climate.high_dewpoint_reduce_humectants",
+       "style.less_product_fine_low_density",
+       "climate.uv_exposure_protection"
+      ]
+     }
+    }
+   },
+   {
+    "order": 9,
+    "stage": "apply_styler",
+    "action_key": "step.cream",
+    "zones": [
+     "crown",
+     "back_crown",
+     "ends"
+    ],
+    "product_category": "cream",
+    "product_attributes": {
+     "emollient_level": [
+      "medium",
+      "high"
+     ],
+     "weight": [
+      "light"
+     ],
+     "uv_filter": true,
+     "humectant_level": [
+      "low"
+     ],
+     "film_forming": true
+    },
+    "amount": {
+     "ml": 0.93,
+     "reference_key": "amount.ref.chickpea",
+     "reference_multiplier": 1.0,
+     "zone": null
+    },
+    "technique_id": "praying_hands",
+    "technique_steps": [
+     "technique.praying_hands.step.1",
+     "technique.praying_hands.step.2",
+     "technique.praying_hands.step.3"
+    ],
+    "follow_up_technique_ids": [],
+    "params": {
+     "hair_state": "soaking_wet",
+     "section_count": 4
+    },
+    "duration_seconds": null,
+    "explanation": {
+     "summary_key": "rule.climate.high_dewpoint",
+     "inputs_used": [
+      "weather.dew_point_c",
+      "zone.strand_diameter",
+      "zone.density",
+      "weather.uv_index",
+      "zone.porosity"
+     ],
+     "observations": [
+      "climate.high_dewpoint_reduce_humectants",
+      "style.less_product_fine_low_density",
+      "climate.uv_exposure_protection",
+      "style.cream_for_dryness_and_coarse"
+     ],
+     "evidence_level": "professional_consensus",
+     "evidence_confidence": 0.7,
+     "personal_confidence": 0.0,
+     "sample_size": 0,
+     "uncertainty_keys": [
+      "uncertainty.cold_start"
+     ],
+     "alternatives": [
+      "physical_cover"
+     ],
+     "params": {
+      "mechanism_rule_id": "climate.high_dewpoint_reduce_humectants",
+      "personal_direction": "unknown",
+      "contributing_rules": [
+       "climate.high_dewpoint_reduce_humectants",
+       "style.less_product_fine_low_density",
+       "climate.uv_exposure_protection",
+       "style.cream_for_dryness_and_coarse"
+      ]
+     }
+    }
+   },
+   {
+    "order": 10,
+    "stage": "apply_styler",
+    "action_key": "step.gel",
+    "zones": [
+     "frontal_hairline",
+     "bangs",
+     "front_left",
+     "front_right",
+     "left_temple",
+     "right_temple",
+     "side_upper_left",
+     "side_upper_right",
+     "side_lower_left",
+     "side_lower_right",
+     "occipital",
+     "nape"
+    ],
+    "product_category": "gel",
+    "product_attributes": {
+     "uv_filter": true,
+     "humectant_level": [
+      "low"
+     ],
+     "film_forming": true,
+     "hold_level": [
+      "medium",
+      "strong"
+     ]
+    },
+    "amount": {
+     "ml": 8.07,
+     "reference_key": "amount.ref.walnut",
+     "reference_multiplier": 1.0,
+     "zone": null
+    },
+    "technique_id": "praying_hands",
+    "technique_steps": [
+     "technique.praying_hands.step.1",
+     "technique.praying_hands.step.2",
+     "technique.praying_hands.step.3"
+    ],
+    "follow_up_technique_ids": [],
+    "params": {
+     "hair_state": "damp",
+     "section_count": 4
+    },
+    "duration_seconds": null,
+    "explanation": {
+     "summary_key": "rule.style.gel_cast",
+     "inputs_used": [
+      "goal.primary",
+      "zone.pattern_family",
+      "weather.dew_point_c",
+      "weather.uv_index"
+     ],
+     "observations": [
+      "style.gel_cast_for_definition",
+      "climate.high_dewpoint_reduce_humectants",
+      "climate.uv_exposure_protection"
+     ],
+     "evidence_level": "professional_consensus",
+     "evidence_confidence": 0.7,
+     "personal_confidence": 0.0,
+     "sample_size": 0,
+     "uncertainty_keys": [
+      "uncertainty.cold_start"
+     ],
+     "alternatives": [
+      "physical_cover"
+     ],
+     "params": {
+      "mechanism_rule_id": "style.gel_cast_for_definition",
+      "personal_direction": "unknown",
+      "contributing_rules": [
+       "style.gel_cast_for_definition",
+       "climate.high_dewpoint_reduce_humectants",
+       "climate.uv_exposure_protection"
+      ]
+     }
+    }
+   },
+   {
+    "order": 11,
+    "stage": "apply_styler",
+    "action_key": "step.gel",
+    "zones": [
+     "crown",
+     "back_crown",
+     "ends"
+    ],
+    "product_category": "gel",
+    "product_attributes": {
+     "uv_filter": true,
+     "humectant_level": [
+      "low"
+     ],
+     "film_forming": true,
+     "weight": [
+      "light"
+     ],
+     "hold_level": [
+      "medium",
+      "strong"
+     ]
+    },
+    "amount": {
+     "ml": 1.09,
+     "reference_key": "amount.ref.chickpea",
+     "reference_multiplier": 1.0,
+     "zone": null
+    },
+    "technique_id": "praying_hands",
+    "technique_steps": [
+     "technique.praying_hands.step.1",
+     "technique.praying_hands.step.2",
+     "technique.praying_hands.step.3"
+    ],
+    "follow_up_technique_ids": [],
+    "params": {
+     "hair_state": "soaking_wet",
+     "section_count": 4
+    },
+    "duration_seconds": null,
+    "explanation": {
+     "summary_key": "rule.style.gel_cast",
+     "inputs_used": [
+      "goal.primary",
+      "zone.pattern_family",
+      "weather.dew_point_c",
+      "zone.strand_diameter",
+      "zone.density",
+      "weather.uv_index"
+     ],
+     "observations": [
+      "style.gel_cast_for_definition",
+      "climate.high_dewpoint_reduce_humectants",
+      "style.less_product_fine_low_density",
+      "climate.uv_exposure_protection"
+     ],
+     "evidence_level": "professional_consensus",
+     "evidence_confidence": 0.7,
+     "personal_confidence": 0.0,
+     "sample_size": 0,
+     "uncertainty_keys": [
+      "uncertainty.cold_start"
+     ],
+     "alternatives": [
+      "physical_cover"
+     ],
+     "params": {
+      "mechanism_rule_id": "style.gel_cast_for_definition",
+      "personal_direction": "unknown",
+      "contributing_rules": [
+       "style.gel_cast_for_definition",
+       "climate.high_dewpoint_reduce_humectants",
+       "style.less_product_fine_low_density",
+       "climate.uv_exposure_protection"
+      ]
+     }
+    }
+   },
+   {
+    "order": 12,
+    "stage": "dry",
+    "action_key": "step.dry",
+    "zones": [
+     "frontal_hairline",
+     "bangs",
+     "front_left",
+     "front_right",
+     "left_temple",
+     "right_temple",
+     "side_upper_left",
+     "side_upper_right",
+     "side_lower_left",
+     "side_lower_right",
+     "crown",
+     "back_crown",
+     "occipital",
+     "nape",
+     "ends"
+    ],
+    "product_category": null,
+    "product_attributes": {},
+    "amount": null,
+    "technique_id": "plopping",
+    "technique_steps": [
+     "technique.plopping.step.1",
+     "technique.plopping.step.2",
+     "technique.plopping.step.3"
+    ],
+    "follow_up_technique_ids": [
+     "diffusing",
+     "scrunch_out_the_crunch"
+    ],
+    "params": {
+     "air_speed": "low",
+     "heat": "medium",
+     "max_temperature_c": 170,
+     "require_heat_protectant": true,
+     "single_pass": true
+    },
+    "duration_seconds": 900,
+    "explanation": {
+     "summary_key": "rule.damage.heat_temperature",
+     "inputs_used": [
+      "routine.uses_heat",
+      "user.owns_diffuser",
+      "goal.primary"
+     ],
+     "observations": [
+      "damage.heat_temperature_by_state",
+      "style.diffuse_low_speed_low_heat",
+      "style.plopping_for_length_retention_of_shape"
+     ],
+     "evidence_level": "scientific_evidence",
+     "evidence_confidence": 0.9,
+     "personal_confidence": 0.0,
+     "sample_size": 0,
+     "uncertainty_keys": [
+      "uncertainty.cold_start",
+      "uncertainty.anecdotal_rule"
+     ],
+     "alternatives": [],
+     "params": {
+      "mechanism_rule_id": "damage.heat_temperature_by_state",
+      "personal_direction": "unknown",
+      "contributing_rules": [
+       "damage.heat_temperature_by_state",
+       "style.diffuse_low_speed_low_heat",
+       "style.plopping_for_length_retention_of_shape"
+      ]
+     }
+    }
+   }
+  ],
+  "warnings": [],
+  "education": [
+   {
+    "summary_key": "rule.damage.split_ends",
+    "inputs_used": [
+     "zone.damage_signs"
+    ],
+    "observations": [
+     "damage.split_ends_no_repair"
+    ],
+    "evidence_level": "scientific_evidence",
+    "evidence_confidence": 0.9,
+    "personal_confidence": 0.0,
+    "sample_size": 0,
+    "uncertainty_keys": [
+     "uncertainty.cold_start"
+    ],
+    "alternatives": [
+     "trim_and_reduce_mechanical_stress"
+    ],
+    "params": {
+     "rule_id": "damage.split_ends_no_repair",
+     "zones": [
+      "ends"
+     ],
+     "mechanism": "La fibra capilar visible es tejido queratinizado sin actividad celular: una vez que la cutícula se abre en punta abierta no vuelve a cerrarse. Los productos llamados \"selladores de puntas\" unen temporalmente la punta con polímeros y siliconas y mejoran el aspecto hasta el siguiente lavado. La única forma de eliminar una punta abierta es cortarla."
+    }
+   }
+  ],
+  "skipped_reason_keys": []
+ },
+ "routine_quick": {
+  "kind": "quick_10",
+  "halted": false,
+  "halt_block_key": null,
+  "total_minutes": 15,
+  "steps": [
+   {
+    "order": 1,
+    "stage": "cleanse",
+    "action_key": "step.cleanse",
+    "zones": [
+     "frontal_hairline",
+     "bangs",
+     "front_left",
+     "front_right",
+     "left_temple",
+     "right_temple",
+     "side_upper_left",
+     "side_upper_right",
+     "side_lower_left",
+     "side_lower_right",
+     "occipital",
+     "nape"
+    ],
+    "product_category": "shampoo",
+    "product_attributes": {},
+    "amount": {
+     "ml": 3.98,
+     "reference_key": "amount.ref.almond",
+     "reference_multiplier": 2.0,
+     "zone": null
+    },
+    "technique_id": null,
+    "technique_steps": [],
+    "follow_up_technique_ids": [],
+    "params": {},
+    "duration_seconds": null,
+    "explanation": {
+     "summary_key": "step.cleanse.why.default",
+     "inputs_used": [
+      "input.goals"
+     ],
+     "observations": [],
+     "evidence_level": "professional_consensus",
+     "evidence_confidence": 0.7,
+     "personal_confidence": 0.0,
+     "sample_size": 0,
+     "uncertainty_keys": [
+      "uncertainty.cold_start"
+     ],
+     "alternatives": [],
+     "params": {}
+    }
+   },
+   {
+    "order": 2,
+    "stage": "cleanse",
+    "action_key": "step.cleanse",
+    "zones": [
+     "crown",
+     "back_crown"
+    ],
+    "product_category": "shampoo",
+    "product_attributes": {
+     "surfactant_strength": [
+      "mild",
+      "medium"
+     ]
+    },
+    "amount": {
+     "ml": 0.66,
+     "reference_key": "amount.ref.pea",
+     "reference_multiplier": 1.0,
+     "zone": null
+    },
+    "technique_id": null,
+    "technique_steps": [],
+    "follow_up_technique_ids": [],
+    "params": {
+     "frequency_hint": "as_needed"
+    },
+    "duration_seconds": null,
+    "explanation": {
+     "summary_key": "rule.cleanse.gentler_surfactant",
+     "inputs_used": [
+      "zone.porosity"
+     ],
+     "observations": [
+      "cleanse.sulfate_free_high_porosity"
+     ],
+     "evidence_level": "professional_consensus",
+     "evidence_confidence": 0.7,
+     "personal_confidence": 0.0,
+     "sample_size": 0,
+     "uncertainty_keys": [
+      "uncertainty.cold_start"
+     ],
+     "alternatives": [],
+     "params": {
+      "mechanism_rule_id": "cleanse.sulfate_free_high_porosity",
+      "personal_direction": "unknown",
+      "contributing_rules": [
+       "cleanse.sulfate_free_high_porosity"
+      ]
+     }
+    }
+   },
+   {
+    "order": 3,
+    "stage": "condition",
+    "action_key": "step.condition",
+    "zones": [
+     "frontal_hairline",
+     "bangs",
+     "front_left",
+     "front_right",
+     "left_temple",
+     "right_temple",
+     "side_upper_left",
+     "side_upper_right",
+     "side_lower_left",
+     "side_lower_right",
+     "crown",
+     "back_crown",
+     "occipital",
+     "nape",
+     "ends"
+    ],
+    "product_category": "conditioner",
+    "product_attributes": {
+     "cationic": true
+    },
+    "amount": {
+     "ml": 15.0,
+     "reference_key": "amount.ref.tablespoon",
+     "reference_multiplier": 1.0,
+     "zone": null
+    },
+    "technique_id": "squish_to_condish",
+    "technique_steps": [
+     "technique.squish_to_condish.step.1",
+     "technique.squish_to_condish.step.2"
+    ],
+    "follow_up_technique_ids": [],
+    "params": {},
+    "duration_seconds": null,
+    "explanation": {
+     "summary_key": "rule.cond.cationic_slip",
+     "inputs_used": [],
+     "observations": [
+      "cond.cationic_detangling"
+     ],
+     "evidence_level": "scientific_evidence",
+     "evidence_confidence": 0.9,
+     "personal_confidence": 0.0,
+     "sample_size": 0,
+     "uncertainty_keys": [
+      "uncertainty.cold_start"
+     ],
+     "alternatives": [],
+     "params": {
+      "mechanism_rule_id": "cond.cationic_detangling",
+      "personal_direction": "unknown",
+      "contributing_rules": [
+       "cond.cationic_detangling"
+      ]
+     }
+    }
+   },
+   {
+    "order": 4,
+    "stage": "detangle",
+    "action_key": "step.detangle",
+    "zones": [
+     "frontal_hairline",
+     "bangs",
+     "front_left",
+     "front_right",
+     "left_temple",
+     "right_temple",
+     "side_upper_left",
+     "side_upper_right",
+     "side_lower_left",
+     "side_lower_right",
+     "crown",
+     "back_crown",
+     "occipital",
+     "nape",
+     "ends"
+    ],
+    "product_category": null,
+    "product_attributes": {},
+    "amount": null,
+    "technique_id": "detangle_from_ends",
+    "technique_steps": [
+     "technique.detangle_from_ends.step.1",
+     "technique.detangle_from_ends.step.2",
+     "technique.detangle_from_ends.step.3"
+    ],
+    "follow_up_technique_ids": [],
+    "params": {
+     "direction": "ends_to_roots",
+     "state": "wet_with_conditioner",
+     "tension": "low"
+    },
+    "duration_seconds": null,
+    "explanation": {
+     "summary_key": "step.detangle.why.default",
+     "inputs_used": [
+      "input.goals"
+     ],
+     "observations": [],
+     "evidence_level": "professional_consensus",
+     "evidence_confidence": 0.7,
+     "personal_confidence": 0.0,
+     "sample_size": 0,
+     "uncertainty_keys": [
+      "uncertainty.cold_start"
+     ],
+     "alternatives": [],
+     "params": {}
+    }
+   }
+  ],
+  "warnings": [],
+  "education": [
+   {
+    "summary_key": "rule.damage.split_ends",
+    "inputs_used": [
+     "zone.damage_signs"
+    ],
+    "observations": [
+     "damage.split_ends_no_repair"
+    ],
+    "evidence_level": "scientific_evidence",
+    "evidence_confidence": 0.9,
+    "personal_confidence": 0.0,
+    "sample_size": 0,
+    "uncertainty_keys": [
+     "uncertainty.cold_start"
+    ],
+    "alternatives": [
+     "trim_and_reduce_mechanical_stress"
+    ],
+    "params": {
+     "rule_id": "damage.split_ends_no_repair",
+     "zones": [
+      "ends"
+     ],
+     "mechanism": "La fibra capilar visible es tejido queratinizado sin actividad celular: una vez que la cutícula se abre en punta abierta no vuelve a cerrarse. Los productos llamados \"selladores de puntas\" unen temporalmente la punta con polímeros y siliconas y mejoran el aspecto hasta el siguiente lavado. La única forma de eliminar una punta abierta es cortarla."
+    }
+   }
+  ],
+  "skipped_reason_keys": [
+   "skipped.step.deep_condition.time_budget",
+   "skipped.step.leave_in.time_budget",
+   "skipped.step.leave_in.time_budget",
+   "skipped.step.cream.time_budget",
+   "skipped.step.gel.time_budget",
+   "skipped.step.gel.time_budget",
+   "skipped.step.dry.time_budget"
+  ]
+ },
+ "myths": [
+  {
+   "id": "cond.heat_not_required_low_porosity",
+   "myth": "low_porosity_needs_heat",
+   "message_key": "myth.low_porosity_heat",
+   "correction_key": "myth.low_porosity_heat.correction",
+   "related_concept": "",
+   "mechanism": "Circula que la porosidad baja \"necesita calor para que el producto entre\". El calor moderado aumenta algo la movilidad molecular y el hinchamiento, pero la limitación real en porosidad baja es que la cutícula compacta admite poco material de todos modos, y el exceso queda en superficie. El resultado percibido de \"producto que no entra\" se resuelve mejor usando menos cantidad y capas más finas que aplicando calor.",
+   "evidence_level": "unsupported_trend",
+   "evidence_label_key": "evidence.unsupported_trend",
+   "tags": [
+    "myth",
+    "porosity"
+   ]
+  },
+  {
+   "id": "cronograma.fixed_calendar_is_not_the_evidence",
+   "myth": "cronograma_fixed_calendar",
+   "message_key": "myth.cronograma_calendar",
+   "correction_key": "myth.cronograma_calendar.correction",
+   "related_concept": "personalised_frequency",
+   "mechanism": "La parte del cronograma que se sostiene es la distinción entre carencia de agua, de lípidos y de proteína, y que cada una se corrige con ingredientes distintos. Lo que no se sostiene es el calendario fijo con días asignados y ciclos de cuatro semanas iguales para todo el mundo. Cuánta proteína admite una fibra depende de su porosidad y de su historial químico, no del día de la semana; a un cabello virgen y poco poroso, un ciclo con reconstrucción semanal le sobra proteína, y a uno recién decolorado puede quedársele corto. La versión útil es ajustar la frecuencia de cada paso a cómo responde tu cabello, y ahí es donde el diario y los experimentos hacen el trabajo.",
+   "evidence_level": "unsupported_trend",
+   "evidence_label_key": "evidence.unsupported_trend",
+   "tags": [
+    "myth",
+    "cronograma"
+   ]
+  },
+  {
+   "id": "myth.trimming_makes_hair_grow",
+   "myth": "trimming_speeds_growth",
+   "message_key": "myth.trimming",
+   "correction_key": "myth.trimming.correction",
+   "related_concept": "length_retention_vs_growth",
+   "mechanism": "El crecimiento ocurre en el folículo, bajo la piel; cortar la punta no lo afecta de ninguna manera. Lo que sí hace cortar es eliminar puntas abiertas antes de que la apertura avance por la hebra y acabe rompiéndose, con lo que se conserva más longitud a lo largo del tiempo. El resultado percibido (\"me crece más si corto\") es retención de longitud, no velocidad de crecimiento.",
+   "evidence_level": "unsupported_trend",
+   "evidence_label_key": "evidence.unsupported_trend",
+   "tags": [
+    "myth",
+    "growth"
+   ]
+  },
+  {
+   "id": "myth.silicones_are_always_bad",
+   "myth": "all_silicones_bad",
+   "message_key": "myth.silicones",
+   "correction_key": "myth.silicones.correction",
+   "related_concept": "silicone_solubility",
+   "mechanism": "\"Silicona = malo\" agrupa moléculas con comportamientos muy distintos. Las solubles en agua (con prefijos PEG-, o dimeticona copoliol) se enjuagan con un champú suave; las no solubles (dimeticona, ciclometicona) necesitan un tensioactivo capaz de retirarlas y sí pueden acumularse si no se usa ninguno. La regla útil no es evitarlas: es que el tipo de silicona y el tipo de limpieza tienen que ser coherentes entre sí.",
+   "evidence_level": "unsupported_trend",
+   "evidence_label_key": "evidence.unsupported_trend",
+   "tags": [
+    "myth",
+    "ingredients"
+   ]
+  },
+  {
+   "id": "myth.float_test_measures_porosity",
+   "myth": "float_test_is_reliable",
+   "message_key": "myth.float_test",
+   "correction_key": "myth.float_test.correction",
+   "related_concept": "multi_signal_porosity",
+   "mechanism": "La prueba del vaso mide sobre todo si la hebra tiene producto, sebo o aire atrapado, y el resultado cambia según cómo se recoja la hebra y cuánto se espere. No mide el estado de la cutícula. La porosidad se estima mejor combinando historial químico, cuánto tarda en mojarse, cuánto tarda en secarse y cómo se comporta con humedad ambiental alta.",
+   "evidence_level": "unsupported_trend",
+   "evidence_label_key": "evidence.unsupported_trend",
+   "tags": [
+    "myth",
+    "porosity"
+   ]
+  },
+  {
+   "id": "myth.sleeping_with_wet_hair_causes_damage_only",
+   "myth": "wet_hair_sleep_is_inherently_damaging",
+   "message_key": "myth.wet_sleep",
+   "correction_key": "myth.wet_sleep.correction",
+   "related_concept": "nighttime_friction",
+   "mechanism": "La afirmación mezcla dos cosas. Es cierto que la fibra mojada es más elástica y más vulnerable a la fricción, así que dormir con el pelo mojado y suelto sobre algodón sí aumenta el rozamiento. Lo que no se sostiene es la versión de que el agua en sí \"pudre\" el cabello o el cuero cabelludo. El factor manejable es la fricción y la sujeción, no la humedad.",
+   "evidence_level": "unsupported_trend",
+   "evidence_label_key": "evidence.unsupported_trend",
+   "tags": [
+    "myth",
+    "nighttime"
+   ]
+  },
+  {
+   "id": "myth.hair_gets_used_to_products",
+   "myth": "hair_builds_tolerance",
+   "message_key": "myth.tolerance",
+   "correction_key": "myth.tolerance.correction",
+   "related_concept": "buildup_and_seasonality",
+   "mechanism": "La fibra capilar no tiene metabolismo ni memoria, así que no puede acostumbrarse a nada. Cuando un producto \"deja de funcionar\" lo habitual es que haya cambiado otra cosa: acumulación de residuo, otra estación con otra humedad, el cabello ha crecido y la proporción de largo procesado es distinta, o la formulación del producto cambió.",
+   "evidence_level": "unsupported_trend",
+   "evidence_label_key": "evidence.unsupported_trend",
+   "tags": [
+    "myth",
+    "products"
+   ]
+  },
+  {
+   "id": "myth.cold_water_seals_cuticle",
+   "myth": "cold_rinse_seals_cuticle",
+   "message_key": "myth.cold_rinse",
+   "correction_key": "myth.cold_rinse.correction",
+   "related_concept": "surface_smoothness_and_shine",
+   "mechanism": "La cutícula no es una puerta que se abra y se cierre con la temperatura del agua. El agua fría reduce algo el hinchamiento de la fibra y aplana el contorno de forma temporal, lo que puede dar algo más de brillo en el momento, pero no hay un mecanismo de sellado. El brillo depende sobre todo de qué tan lisa quede la superficie al secarse.",
+   "evidence_level": "unsupported_trend",
+   "evidence_label_key": "evidence.unsupported_trend",
+   "tags": [
+    "myth",
+    "technique"
+   ]
+  },
+  {
+   "id": "scalp.no_daily_wash_needed_myth",
+   "myth": "washing_trains_the_scalp",
+   "message_key": "myth.wash_training",
+   "correction_key": "myth.wash_training.correction",
+   "related_concept": "",
+   "mechanism": "Circula que lavar a diario \"estimula la producción de grasa\" y que espaciar el lavado \"reeduca el cuero cabelludo\". La producción de sebo depende sobre todo de factores hormonales e individuales, no de la frecuencia de lavado. Lo que sí cambia al espaciar el lavado es la percepción: se acumula más y se nota más, no que la glándula produzca más.",
+   "evidence_level": "unsupported_trend",
+   "evidence_label_key": "evidence.unsupported_trend",
+   "tags": [
+    "myth",
+    "scalp"
+   ]
+  }
+ ],
+ "rules": [
+  {
+   "id": "cleanse.sulfate_free_high_porosity",
+   "kind": "routine_step",
+   "evidence_level": "professional_consensus",
+   "evidence_label_key": "evidence.professional_consensus",
+   "evidence_confidence": 0.7,
+   "mechanism": "Los tensioactivos aniónicos fuertes (lauril sulfato de sodio) retiran lípidos superficiales con más eficacia que los anfóteros o no iónicos. En cabello de porosidad alta la cutícula está más levantada y retiene menos lípidos de partida, por lo que la misma limpieza deja la fibra más áspera al tacto y más difícil de desenredar.",
+   "sources": [
+    "química de tensioactivos aniónicos vs anfóteros",
+    "formación profesional en cabello texturizado"
+   ],
+   "tags": [
+    "porosity",
+    "cleansing"
+   ]
+  },
+  {
+   "id": "cleanse.strong_surfactant_for_buildup",
+   "kind": "routine_step",
+   "evidence_level": "professional_consensus",
+   "evidence_label_key": "evidence.professional_consensus",
+   "evidence_confidence": 0.7,
+   "mechanism": "Las siliconas no solubles en agua y los polímeros de fijación resistentes no se retiran con co-wash ni con tensioactivos suaves. Se acumulan capa sobre capa y reducen la absorción de agua, lo que se percibe como cabello apagado, pesado y que \"ya no responde\" a los productos de siempre.",
+   "sources": [
+    "solubilidad de siliconas (dimeticona vs PEG-dimeticona)",
+    "consenso de formulación"
+   ],
+   "tags": [
+    "buildup",
+    "cleansing"
+   ]
+  },
+  {
+   "id": "cleanse.chelating_for_hard_water",
+   "kind": "routine_step",
+   "evidence_level": "scientific_evidence",
+   "evidence_label_key": "evidence.scientific_evidence",
+   "evidence_confidence": 0.9,
+   "mechanism": "El agua dura aporta iones calcio y magnesio que se depositan sobre la fibra y forman sales insolubles con los tensioactivos aniónicos. Un quelante (EDTA, ácido cítrico, fitato) los secuestra formando complejos solubles que sí se enjuagan; un champú clarificante normal retira residuo orgánico pero no captura iones metálicos. Por eso clarificar y quelar no son lo mismo y no se sustituyen.",
+   "sources": [
+    "depósito de iones calcio sobre la fibra capilar",
+    "química de agentes quelantes"
+   ],
+   "tags": [
+    "water",
+    "cleansing"
+   ]
+  },
+  {
+   "id": "cleanse.scalp_focus_not_lengths",
+   "kind": "technique",
+   "evidence_level": "professional_consensus",
+   "evidence_label_key": "evidence.professional_consensus",
+   "evidence_confidence": 0.7,
+   "mechanism": "La grasa (sebo) se produce en el cuero cabelludo, no en los largos. La espuma que baja al enjuagar es suficiente para los largos, que además son la parte más antigua y más expuesta de la fibra. Frotar los largos añade fricción mecánica sin beneficio de limpieza.",
+   "sources": [
+    "distribución del sebo desde el folículo",
+    "formación profesional"
+   ],
+   "tags": [
+    "technique",
+    "cleansing"
+   ]
+  },
+  {
+   "id": "cleanse.cowash_low_porosity_caution",
+   "kind": "warning",
+   "evidence_level": "professional_consensus",
+   "evidence_label_key": "evidence.professional_consensus",
+   "evidence_confidence": 0.7,
+   "mechanism": "El co-wash limpia con tensioactivos catiónicos y emolientes, que dejan residuo acondicionador por diseño. En porosidad baja la cutícula está compacta y absorbe poco, así que ese residuo se queda en superficie y se acumula más rápido que en porosidad alta.",
+   "sources": [
+    "adsorción de catiónicos sobre cutícula",
+    "consenso de formulación"
+   ],
+   "tags": [
+    "porosity",
+    "buildup"
+   ]
+  },
+  {
+   "id": "climate.high_dewpoint_reduce_humectants",
+   "kind": "routine_step",
+   "evidence_level": "professional_consensus",
+   "evidence_label_key": "evidence.professional_consensus",
+   "evidence_confidence": 0.7,
+   "mechanism": "Los humectantes (glicerina, propilenglicol, miel) atraen agua desde el entorno. Con punto de rocío alto hay mucha agua disponible en el aire, la fibra la absorbe de forma desigual y se hincha, lo que levanta la cutícula y produce frizz. Bajar humectantes y subir la película de fijación o los emolientes reduce ese intercambio.",
+   "sources": [
+    "higroscopía de polioles",
+    "intercambio de humedad fibra-ambiente"
+   ],
+   "tags": [
+    "climate",
+    "frizz"
+   ]
+  },
+  {
+   "id": "climate.low_dewpoint_increase_emollients",
+   "kind": "routine_step",
+   "evidence_level": "professional_consensus",
+   "evidence_label_key": "evidence.professional_consensus",
+   "evidence_confidence": 0.7,
+   "mechanism": "Con punto de rocío bajo el aire tiene poca agua y los humectantes pueden llegar a extraerla de la propia fibra en vez de aportarla. En ese entorno los emolientes y oclusivos, que reducen la pérdida de agua en vez de atraerla, dan un resultado más estable.",
+   "sources": [
+    "comportamiento de humectantes según humedad ambiental"
+   ],
+   "tags": [
+    "climate",
+    "dryness"
+   ]
+  },
+  {
+   "id": "climate.uv_exposure_protection",
+   "kind": "routine_step",
+   "evidence_level": "scientific_evidence",
+   "evidence_label_key": "evidence.scientific_evidence",
+   "evidence_confidence": 0.9,
+   "mechanism": "La radiación UV degrada la melanina y oxida los aminoácidos azufrados de la queratina, lo que se ve como pérdida de color y superficie más áspera. El efecto es acumulativo y más visible en cabello aclarado o decolorado, donde queda menos melanina que absorba la radiación.",
+   "sources": [
+    "fotodegradación de la queratina y de la melanina"
+   ],
+   "tags": [
+    "climate",
+    "colour"
+   ]
+  },
+  {
+   "id": "climate.cold_dry_static",
+   "kind": "routine_step",
+   "evidence_level": "professional_consensus",
+   "evidence_label_key": "evidence.professional_consensus",
+   "evidence_confidence": 0.7,
+   "mechanism": "Con aire frío y seco la fibra pierde agua y acumula carga electrostática al rozar con ropa y gorros, lo que separa las hebras. Los acondicionadores catiónicos neutralizan parte de esa carga porque se adsorben con carga positiva sobre una fibra negativa.",
+   "sources": [
+    "carga electrostática en fibras queratínicas"
+   ],
+   "tags": [
+    "climate",
+    "static"
+   ]
+  },
+  {
+   "id": "cond.protein_when_excessive_elasticity",
+   "kind": "routine_step",
+   "evidence_level": "professional_consensus",
+   "evidence_label_key": "evidence.professional_consensus",
+   "evidence_confidence": 0.7,
+   "mechanism": "Una hebra que se estira mucho en húmedo y no vuelve a su longitud indica una red de queratina con menos enlaces efectivos, algo frecuente tras decoloración o alisado químico. Los hidrolizados de proteína de bajo peso molecular se adsorben y rellenan huecos de la cutícula de forma temporal, lo que aumenta la rigidez aparente. No reconstruyen el córtex: el efecto dura hasta el siguiente lavado.",
+   "sources": [
+    "adsorción de hidrolizados de proteína sobre la cutícula",
+    "consenso profesional en cabello procesado"
+   ],
+   "tags": [
+    "protein",
+    "elasticity"
+   ]
+  },
+  {
+   "id": "cond.reduce_protein_when_stiff",
+   "kind": "warning",
+   "evidence_level": "professional_consensus",
+   "evidence_label_key": "evidence.professional_consensus",
+   "evidence_confidence": 0.7,
+   "mechanism": "El uso repetido de hidrolizados sin emolientes suficientes deja la superficie rígida y con menos deslizamiento. La fibra se vuelve quebradiza al peinar en seco. Es reversible: se corrige espaciando la proteína y subiendo emolientes y humectantes, no añadiendo más proteína.",
+   "sources": [
+    "equilibrio proteína/emoliente en acondicionamiento",
+    "formación profesional"
+   ],
+   "tags": [
+    "protein",
+    "balance"
+   ]
+  },
+  {
+   "id": "cond.cationic_detangling",
+   "kind": "routine_step",
+   "evidence_level": "scientific_evidence",
+   "evidence_label_key": "evidence.scientific_evidence",
+   "evidence_confidence": 0.9,
+   "mechanism": "La fibra capilar tiene carga negativa neta, más acusada cuanto más dañada está la cutícula. Los tensioactivos catiónicos (behentrimonium, cetrimonium) se adsorben por atracción electrostática justo en las zonas más negativas, es decir donde más falta hace, y reducen el coeficiente de fricción entre hebras. Por eso el desenredo funciona mejor en húmedo y con acondicionador que en seco.",
+   "sources": [
+    "carga superficial de la fibra capilar",
+    "mecánica de fricción en peinado húmedo"
+   ],
+   "tags": [
+    "detangling",
+    "conditioning"
+   ]
+  },
+  {
+   "id": "cond.deep_condition_high_porosity",
+   "kind": "routine_step",
+   "evidence_level": "professional_consensus",
+   "evidence_label_key": "evidence.professional_consensus",
+   "evidence_confidence": 0.7,
+   "mechanism": "Con la cutícula más abierta el agua entra y sale más rápido, lo que produce hinchamiento y contracción repetidos (fatiga higral) y aumenta la pérdida de emolientes entre lavados. Una mascarilla con tiempo de contacto largo aporta emolientes que se quedan en superficie y reducen esa pérdida hasta el siguiente lavado.",
+   "sources": [
+    "fatiga higral por ciclos de hinchamiento",
+    "consenso profesional"
+   ],
+   "tags": [
+    "porosity",
+    "conditioning"
+   ]
+  },
+  {
+   "id": "cond.heat_not_required_low_porosity",
+   "kind": "myth",
+   "evidence_level": "unsupported_trend",
+   "evidence_label_key": "evidence.unsupported_trend",
+   "evidence_confidence": 0.0,
+   "mechanism": "Circula que la porosidad baja \"necesita calor para que el producto entre\". El calor moderado aumenta algo la movilidad molecular y el hinchamiento, pero la limitación real en porosidad baja es que la cutícula compacta admite poco material de todos modos, y el exceso queda en superficie. El resultado percibido de \"producto que no entra\" se resuelve mejor usando menos cantidad y capas más finas que aplicando calor.",
+   "sources": [],
+   "tags": [
+    "myth",
+    "porosity"
+   ]
+  },
+  {
+   "id": "cronograma.hydration_step",
+   "kind": "routine_step",
+   "evidence_level": "professional_consensus",
+   "evidence_label_key": "evidence.professional_consensus",
+   "evidence_confidence": 0.7,
+   "mechanism": "El paso llamado hidratación aporta humectantes, que atraen y retienen agua en la fibra. Es lo que corrige la sensación de cabello áspero y sin elasticidad cuando la carencia es de agua. No aporta lípidos ni proteína, así que no corrige esas otras dos carencias: por eso tiene sentido distinguir los tres pasos en vez de usar siempre lo mismo.",
+   "sources": [
+    "higroscopía de humectantes",
+    "consenso de formulación cosmética"
+   ],
+   "tags": [
+    "cronograma",
+    "hydration"
+   ]
+  },
+  {
+   "id": "cronograma.nutrition_step",
+   "kind": "routine_step",
+   "evidence_level": "professional_consensus",
+   "evidence_label_key": "evidence.professional_consensus",
+   "evidence_confidence": 0.7,
+   "mechanism": "El paso llamado nutrición aporta emolientes y aceites, que reponen la capa lipídica de la superficie y reducen la fricción entre hebras. Es lo que corrige el cabello opaco y con mal deslizamiento. Conviene el matiz de que \"nutrir\" aquí es acondicionar la superficie: la fibra visible es tejido sin actividad celular y no se alimenta.",
+   "sources": [
+    "reposición de la capa lipídica superficial",
+    "consenso profesional"
+   ],
+   "tags": [
+    "cronograma",
+    "nutrition"
+   ]
+  },
+  {
+   "id": "cronograma.reconstruction_step",
+   "kind": "routine_step",
+   "evidence_level": "professional_consensus",
+   "evidence_label_key": "evidence.professional_consensus",
+   "evidence_confidence": 0.7,
+   "mechanism": "El paso llamado reconstrucción aporta proteína hidrolizada, que se adsorbe y rellena huecos de la cutícula de forma temporal. Aumenta la rigidez aparente, que es justo lo que hace falta cuando la fibra se estira demasiado y no recupera. El efecto dura hasta el siguiente lavado: no reconstruye el córtex, y el nombre del paso sugiere más de lo que ocurre.",
+   "sources": [
+    "adsorción de hidrolizados de proteína",
+    "consenso profesional en cabello procesado"
+   ],
+   "tags": [
+    "cronograma",
+    "protein"
+   ]
+  },
+  {
+   "id": "cronograma.fixed_calendar_is_not_the_evidence",
+   "kind": "myth",
+   "evidence_level": "unsupported_trend",
+   "evidence_label_key": "evidence.unsupported_trend",
+   "evidence_confidence": 0.0,
+   "mechanism": "La parte del cronograma que se sostiene es la distinción entre carencia de agua, de lípidos y de proteína, y que cada una se corrige con ingredientes distintos. Lo que no se sostiene es el calendario fijo con días asignados y ciclos de cuatro semanas iguales para todo el mundo. Cuánta proteína admite una fibra depende de su porosidad y de su historial químico, no del día de la semana; a un cabello virgen y poco poroso, un ciclo con reconstrucción semanal le sobra proteína, y a uno recién decolorado puede quedársele corto. La versión útil es ajustar la frecuencia de cada paso a cómo responde tu cabello, y ahí es donde el diario y los experimentos hacen el trabajo.",
+   "sources": [],
+   "tags": [
+    "myth",
+    "cronograma"
+   ]
+  },
+  {
+   "id": "cronograma.reconstruction_needs_moisture_alongside",
+   "kind": "warning",
+   "evidence_level": "professional_consensus",
+   "evidence_label_key": "evidence.professional_consensus",
+   "evidence_confidence": 0.7,
+   "mechanism": "Encadenar pasos de reconstrucción sin emolientes ni humectantes entre medias deja la superficie rígida y con menos deslizamiento, y la fibra se vuelve quebradiza al peinar en seco. Es el mismo desequilibrio que describe la regla de exceso de proteína, y es reversible: se corrige espaciando la reconstrucción y subiendo los otros dos pasos.",
+   "sources": [
+    "equilibrio proteína/emoliente",
+    "formación profesional"
+   ],
+   "tags": [
+    "cronograma",
+    "protein",
+    "balance"
+   ]
+  },
+  {
+   "id": "damage.heat_temperature_by_state",
+   "kind": "routine_step",
+   "evidence_level": "scientific_evidence",
+   "evidence_label_key": "evidence.scientific_evidence",
+   "evidence_confidence": 0.9,
+   "mechanism": "La transición de la queratina y la pérdida de agua estructural ocurren en un rango de temperatura, no en un umbral único, y ese rango baja cuando la fibra ya está procesada químicamente o muy porosa. Por eso no existe una temperatura \"universal segura\": la misma plancha a 200 °C tiene un coste distinto en cabello virgen grueso que en cabello decolorado fino.",
+   "sources": [
+    "transición térmica de la queratina",
+    "efecto del procesado químico sobre la estabilidad térmica"
+   ],
+   "tags": [
+    "heat",
+    "damage"
+   ]
+  },
+  {
+   "id": "damage.split_ends_no_repair",
+   "kind": "education",
+   "evidence_level": "scientific_evidence",
+   "evidence_label_key": "evidence.scientific_evidence",
+   "evidence_confidence": 0.9,
+   "mechanism": "La fibra capilar visible es tejido queratinizado sin actividad celular: una vez que la cutícula se abre en punta abierta no vuelve a cerrarse. Los productos llamados \"selladores de puntas\" unen temporalmente la punta con polímeros y siliconas y mejoran el aspecto hasta el siguiente lavado. La única forma de eliminar una punta abierta es cortarla.",
+   "sources": [
+    "ausencia de actividad celular en la fibra queratinizada"
+   ],
+   "tags": [
+    "damage",
+    "education"
+   ]
+  },
+  {
+   "id": "damage.reduce_mechanical_stress_breakage",
+   "kind": "routine_step",
+   "evidence_level": "professional_consensus",
+   "evidence_label_key": "evidence.professional_consensus",
+   "evidence_confidence": 0.7,
+   "mechanism": "La rotura por mitad de la hebra suele venir de fatiga mecánica acumulada: peinar en seco desde la raíz, gomas con metal, secado con toalla de rizo y peinados con tensión mantenida. Cada uno de esos gestos aplica fuerza en un punto concreto de forma repetida hasta que la fibra cede ahí.",
+   "sources": [
+    "fatiga mecánica por peinado",
+    "formación profesional"
+   ],
+   "tags": [
+    "damage",
+    "mechanical"
+   ]
+  },
+  {
+   "id": "damage.tension_styles_edges",
+   "kind": "warning",
+   "evidence_level": "professional_consensus",
+   "evidence_label_key": "evidence.professional_consensus",
+   "evidence_confidence": 0.7,
+   "mechanism": "Los peinados que mantienen tensión sostenida sobre la línea frontal y las sienes aplican fuerza continuada sobre folículos que ya tienen la fibra más fina de toda la cabeza. La señal temprana es dolor o pequeñas protuberancias tras peinarse, y una línea frontal con menos densidad que antes. Es prevenible bajando tensión y alternando estilos.",
+   "sources": [
+    "tensión sostenida sobre el folículo",
+    "consenso profesional en cabello texturizado"
+   ],
+   "tags": [
+    "protective_styles",
+    "tension"
+   ]
+  },
+  {
+   "id": "damage.transition_line_of_demarcation",
+   "kind": "warning",
+   "evidence_level": "professional_consensus",
+   "evidence_label_key": "evidence.professional_consensus",
+   "evidence_confidence": 0.7,
+   "mechanism": "En una transición química conviven dos fibras con propiedades mecánicas distintas: la raíz nueva y el largo procesado. El punto donde se encuentran es el más débil de toda la hebra y concentra la rotura, especialmente al desenredar o al peinar en seco.",
+   "sources": [
+    "diferencia mecánica entre fibra virgen y procesada"
+   ],
+   "tags": [
+    "transition",
+    "damage"
+   ]
+  },
+  {
+   "id": "myth.trimming_makes_hair_grow",
+   "kind": "myth",
+   "evidence_level": "unsupported_trend",
+   "evidence_label_key": "evidence.unsupported_trend",
+   "evidence_confidence": 0.0,
+   "mechanism": "El crecimiento ocurre en el folículo, bajo la piel; cortar la punta no lo afecta de ninguna manera. Lo que sí hace cortar es eliminar puntas abiertas antes de que la apertura avance por la hebra y acabe rompiéndose, con lo que se conserva más longitud a lo largo del tiempo. El resultado percibido (\"me crece más si corto\") es retención de longitud, no velocidad de crecimiento.",
+   "sources": [],
+   "tags": [
+    "myth",
+    "growth"
+   ]
+  },
+  {
+   "id": "myth.silicones_are_always_bad",
+   "kind": "myth",
+   "evidence_level": "unsupported_trend",
+   "evidence_label_key": "evidence.unsupported_trend",
+   "evidence_confidence": 0.0,
+   "mechanism": "\"Silicona = malo\" agrupa moléculas con comportamientos muy distintos. Las solubles en agua (con prefijos PEG-, o dimeticona copoliol) se enjuagan con un champú suave; las no solubles (dimeticona, ciclometicona) necesitan un tensioactivo capaz de retirarlas y sí pueden acumularse si no se usa ninguno. La regla útil no es evitarlas: es que el tipo de silicona y el tipo de limpieza tienen que ser coherentes entre sí.",
+   "sources": [],
+   "tags": [
+    "myth",
+    "ingredients"
+   ]
+  },
+  {
+   "id": "myth.float_test_measures_porosity",
+   "kind": "myth",
+   "evidence_level": "unsupported_trend",
+   "evidence_label_key": "evidence.unsupported_trend",
+   "evidence_confidence": 0.0,
+   "mechanism": "La prueba del vaso mide sobre todo si la hebra tiene producto, sebo o aire atrapado, y el resultado cambia según cómo se recoja la hebra y cuánto se espere. No mide el estado de la cutícula. La porosidad se estima mejor combinando historial químico, cuánto tarda en mojarse, cuánto tarda en secarse y cómo se comporta con humedad ambiental alta.",
+   "sources": [],
+   "tags": [
+    "myth",
+    "porosity"
+   ]
+  },
+  {
+   "id": "myth.sleeping_with_wet_hair_causes_damage_only",
+   "kind": "myth",
+   "evidence_level": "unsupported_trend",
+   "evidence_label_key": "evidence.unsupported_trend",
+   "evidence_confidence": 0.0,
+   "mechanism": "La afirmación mezcla dos cosas. Es cierto que la fibra mojada es más elástica y más vulnerable a la fricción, así que dormir con el pelo mojado y suelto sobre algodón sí aumenta el rozamiento. Lo que no se sostiene es la versión de que el agua en sí \"pudre\" el cabello o el cuero cabelludo. El factor manejable es la fricción y la sujeción, no la humedad.",
+   "sources": [],
+   "tags": [
+    "myth",
+    "nighttime"
+   ]
+  },
+  {
+   "id": "myth.hair_gets_used_to_products",
+   "kind": "myth",
+   "evidence_level": "unsupported_trend",
+   "evidence_label_key": "evidence.unsupported_trend",
+   "evidence_confidence": 0.0,
+   "mechanism": "La fibra capilar no tiene metabolismo ni memoria, así que no puede acostumbrarse a nada. Cuando un producto \"deja de funcionar\" lo habitual es que haya cambiado otra cosa: acumulación de residuo, otra estación con otra humedad, el cabello ha crecido y la proporción de largo procesado es distinta, o la formulación del producto cambió.",
+   "sources": [],
+   "tags": [
+    "myth",
+    "products"
+   ]
+  },
+  {
+   "id": "myth.cold_water_seals_cuticle",
+   "kind": "myth",
+   "evidence_level": "unsupported_trend",
+   "evidence_label_key": "evidence.unsupported_trend",
+   "evidence_confidence": 0.0,
+   "mechanism": "La cutícula no es una puerta que se abra y se cierre con la temperatura del agua. El agua fría reduce algo el hinchamiento de la fibra y aplana el contorno de forma temporal, lo que puede dar algo más de brillo en el momento, pero no hay un mecanismo de sellado. El brillo depende sobre todo de qué tan lisa quede la superficie al secarse.",
+   "sources": [],
+   "tags": [
+    "myth",
+    "technique"
+   ]
+  },
+  {
+   "id": "scalp.visible_flaking_no_diagnosis",
+   "kind": "education",
+   "evidence_level": "professional_consensus",
+   "evidence_label_key": "evidence.professional_consensus",
+   "evidence_confidence": 0.7,
+   "mechanism": "La descamación visible tiene causas muy distintas entre sí, desde sequedad y residuo de producto hasta cuadros que corresponden a dermatología. Desde una foto no es posible distinguirlas, y actuar como si fuesen lo mismo puede empeorar el cuadro. Lo que sí es cosmético y seguro es revisar residuo, frecuencia de lavado y fricción.",
+   "sources": [
+    "consenso profesional sobre límites del análisis cosmético"
+   ],
+   "tags": [
+    "scalp",
+    "safety"
+   ]
+  },
+  {
+   "id": "scalp.referral_required",
+   "kind": "warning",
+   "evidence_level": "professional_consensus",
+   "evidence_label_key": "evidence.professional_consensus",
+   "evidence_confidence": 0.7,
+   "mechanism": "Hay señales ante las que una app de cuidado cosmético no debe interpretar nada, porque cualquier estimación puede retrasar una consulta que sí hace falta. En esos casos la respuesta correcta es dejar de estimar y decirlo.",
+   "sources": [
+    "límite cosmético / sanitario"
+   ],
+   "tags": [
+    "scalp",
+    "safety",
+    "referral"
+   ]
+  },
+  {
+   "id": "scalp.oil_wash_frequency",
+   "kind": "routine_step",
+   "evidence_level": "professional_consensus",
+   "evidence_label_key": "evidence.professional_consensus",
+   "evidence_confidence": 0.7,
+   "mechanism": "El sebo se produce de forma continua en el folículo y se acumula sobre el cuero cabelludo entre lavados. Espaciar mucho el lavado en cuero cabelludo con producción alta acumula sebo y residuo, lo que además apelmaza la raíz. La frecuencia adecuada es la que mantiene el cuero cabelludo cómodo, y varía por persona; no hay un número correcto universal.",
+   "sources": [
+    "producción sebácea continua",
+    "formación profesional"
+   ],
+   "tags": [
+    "scalp",
+    "frequency"
+   ]
+  },
+  {
+   "id": "scalp.no_daily_wash_needed_myth",
+   "kind": "myth",
+   "evidence_level": "unsupported_trend",
+   "evidence_label_key": "evidence.unsupported_trend",
+   "evidence_confidence": 0.0,
+   "mechanism": "Circula que lavar a diario \"estimula la producción de grasa\" y que espaciar el lavado \"reeduca el cuero cabelludo\". La producción de sebo depende sobre todo de factores hormonales e individuales, no de la frecuencia de lavado. Lo que sí cambia al espaciar el lavado es la percepción: se acumula más y se nota más, no que la glándula produzca más.",
+   "sources": [],
+   "tags": [
+    "myth",
+    "scalp"
+   ]
+  },
+  {
+   "id": "style.gel_cast_for_definition",
+   "kind": "routine_step",
+   "evidence_level": "professional_consensus",
+   "evidence_label_key": "evidence.professional_consensus",
+   "evidence_confidence": 0.7,
+   "mechanism": "Los polímeros de fijación forman una película continua al secarse que mantiene la forma del rizo mientras el agua se evapora. Esa película rígida (\"cast\") impide que las hebras se separen durante el secado, que es el momento en el que se forma el frizz. Al romperla con las manos secas, la forma ya está fijada y queda el rizo definido sin rigidez.",
+   "sources": [
+    "formación de película por polímeros de fijación",
+    "consenso profesional en cabello rizado"
+   ],
+   "tags": [
+    "definition",
+    "styling"
+   ]
+  },
+  {
+   "id": "style.apply_on_soaking_wet_high_porosity",
+   "kind": "technique",
+   "evidence_level": "professional_consensus",
+   "evidence_label_key": "evidence.professional_consensus",
+   "evidence_confidence": 0.7,
+   "mechanism": "El agua actúa como vehículo: distribuye el producto de forma uniforme con mucha menos cantidad y menos manipulación mecánica. En porosidad alta, además, la fibra pierde agua rápido, así que aplicar sobre cabello muy mojado alarga la ventana en la que el rizo se agrupa antes de secarse.",
+   "sources": [
+    "papel del agua como vehículo de distribución",
+    "consenso profesional"
+   ],
+   "tags": [
+    "technique",
+    "styling"
+   ]
+  },
+  {
+   "id": "style.less_product_fine_low_density",
+   "kind": "routine_step",
+   "evidence_level": "professional_consensus",
+   "evidence_label_key": "evidence.professional_consensus",
+   "evidence_confidence": 0.7,
+   "mechanism": "La cantidad de producto necesaria escala con la superficie total de fibra, no con la longitud. Cabello fino y de densidad baja tiene mucha menos superficie, así que la misma cantidad que funciona en cabello grueso y denso lo apelmaza y reduce el volumen en la raíz.",
+   "sources": [
+    "relación superficie/masa de la fibra",
+    "formación profesional"
+   ],
+   "tags": [
+    "amount",
+    "styling"
+   ]
+  },
+  {
+   "id": "style.diffuse_low_speed_low_heat",
+   "kind": "technique",
+   "evidence_level": "professional_consensus",
+   "evidence_label_key": "evidence.professional_consensus",
+   "evidence_confidence": 0.7,
+   "mechanism": "El difusor reduce la velocidad del aire para que las hebras no se muevan durante el secado; el movimiento en húmedo es lo que separa los grupos de rizo y genera frizz. La temperatura alta acelera la evaporación pero también aumenta la temperatura de la fibra, que es el factor asociado a la alteración de la cutícula. Velocidad baja y calor medio secan algo más lento con menos coste.",
+   "sources": [
+    "efecto del movimiento en húmedo sobre el agrupamiento",
+    "temperatura y cutícula"
+   ],
+   "tags": [
+    "drying",
+    "technique"
+   ]
+  },
+  {
+   "id": "style.plopping_for_length_retention_of_shape",
+   "kind": "technique",
+   "evidence_level": "extended_anecdote",
+   "evidence_label_key": "evidence.extended_anecdote",
+   "evidence_confidence": 0.45,
+   "mechanism": "Envolver el cabello en una camiseta de algodón absorbe agua sin la fricción de una toalla de rizo y mantiene el cabello elevado mientras escurre. Muchas personas reportan más volumen en raíz y menos frizz; no hay medición controlada publicada que lo cuantifique, y a cabello muy largo o muy denso a veces le deja la raíz aplastada por el peso.",
+   "sources": [],
+   "tags": [
+    "drying",
+    "technique"
+   ]
+  },
+  {
+   "id": "style.cream_for_dryness_and_coarse",
+   "kind": "routine_step",
+   "evidence_level": "professional_consensus",
+   "evidence_label_key": "evidence.professional_consensus",
+   "evidence_confidence": 0.7,
+   "mechanism": "Una crema de peinado aporta emolientes y algo de agua sin la película rígida del gel. En cabello grueso o de porosidad alta la superficie es mayor y pierde agua más rápido, así que una capa de emolientes antes del gel reduce esa pérdida durante el secado y deja el resultado menos áspero al tacto que el gel solo.",
+   "sources": [
+    "pérdida de agua por superficie de fibra",
+    "consenso profesional en capas de peinado"
+   ],
+   "tags": [
+    "styling",
+    "hydration"
+   ]
+  },
+  {
+   "id": "style.cream_for_coarse_strands",
+   "kind": "routine_step",
+   "evidence_level": "professional_consensus",
+   "evidence_label_key": "evidence.professional_consensus",
+   "evidence_confidence": 0.7,
+   "mechanism": "La hebra gruesa es más rígida y le cuesta más agruparse con otras. Un emoliente con algo de peso reduce esa rigidez aparente y ayuda a que las hebras se mantengan juntas mientras se secan, que es lo que forma el grupo de rizo.",
+   "sources": [
+    "rigidez de flexión según diámetro de fibra"
+   ],
+   "tags": [
+    "styling",
+    "clumping"
+   ]
+  }
+ ],
+ "journal": [
+  {
+   "id": "demo-11",
+   "date": "2026-08-20",
+   "product_ids": [
+    "gel-suave"
+   ],
+   "technique_ids": [
+    "praying_hands",
+    "diffusing"
+   ],
+   "amounts_ml": {
+    "gel": 8.0
+   },
+   "weather": {
+    "dew_point_c": 18.0
+   },
+   "ratings": {
+    "day1": 3,
+    "day2": 2
+   },
+   "notes": null,
+   "experiment_arm_id": null,
+   "longevity_days": 1
+  },
+  {
+   "id": "demo-10",
+   "date": "2026-08-13",
+   "product_ids": [
+    "gel-fuerte",
+    "crema"
+   ],
+   "technique_ids": [
+    "praying_hands",
+    "diffusing"
+   ],
+   "amounts_ml": {
+    "gel": 7.0
+   },
+   "weather": {
+    "dew_point_c": 13.0
+   },
+   "ratings": {
+    "day1": 3,
+    "day2": 3
+   },
+   "notes": null,
+   "experiment_arm_id": null,
+   "longevity_days": 2
+  },
+  {
+   "id": "demo-9",
+   "date": "2026-08-06",
+   "product_ids": [
+    "gel-fuerte",
+    "crema"
+   ],
+   "technique_ids": [
+    "praying_hands",
+    "diffusing"
+   ],
+   "amounts_ml": {
+    "gel": 6.0
+   },
+   "weather": {
+    "dew_point_c": 9.0
+   },
+   "ratings": {
+    "day1": 4,
+    "day2": 4
+   },
+   "notes": null,
+   "experiment_arm_id": null,
+   "longevity_days": 2
+  },
+  {
+   "id": "demo-8",
+   "date": "2026-07-30",
+   "product_ids": [
+    "gel-fuerte",
+    "crema"
+   ],
+   "technique_ids": [
+    "praying_hands",
+    "diffusing"
+   ],
+   "amounts_ml": {
+    "gel": 8.0
+   },
+   "weather": {
+    "dew_point_c": 12.0
+   },
+   "ratings": {
+    "day1": 4,
+    "day2": 3
+   },
+   "notes": null,
+   "experiment_arm_id": null,
+   "longevity_days": 2
+  },
+  {
+   "id": "demo-7",
+   "date": "2026-07-23",
+   "product_ids": [
+    "gel-suave"
+   ],
+   "technique_ids": [
+    "praying_hands",
+    "diffusing"
+   ],
+   "amounts_ml": {
+    "gel": 7.0
+   },
+   "weather": {
+    "dew_point_c": 16.0
+   },
+   "ratings": {
+    "day1": 3,
+    "day2": 2
+   },
+   "notes": null,
+   "experiment_arm_id": null,
+   "longevity_days": 1
+  },
+  {
+   "id": "demo-6",
+   "date": "2026-07-16",
+   "product_ids": [
+    "gel-suave"
+   ],
+   "technique_ids": [
+    "praying_hands",
+    "diffusing"
+   ],
+   "amounts_ml": {
+    "gel": 6.0
+   },
+   "weather": {
+    "dew_point_c": 21.0
+   },
+   "ratings": {
+    "day1": 2,
+    "day2": 2
+   },
+   "notes": null,
+   "experiment_arm_id": null,
+   "longevity_days": 0
+  },
+  {
+   "id": "demo-5",
+   "date": "2026-07-09",
+   "product_ids": [
+    "gel-suave"
+   ],
+   "technique_ids": [
+    "praying_hands",
+    "diffusing"
+   ],
+   "amounts_ml": {
+    "gel": 8.0
+   },
+   "weather": {
+    "dew_point_c": 24.0
+   },
+   "ratings": {
+    "day1": 2,
+    "day2": 1
+   },
+   "notes": null,
+   "experiment_arm_id": null,
+   "longevity_days": 0
+  },
+  {
+   "id": "demo-4",
+   "date": "2026-07-02",
+   "product_ids": [
+    "gel-suave"
+   ],
+   "technique_ids": [
+    "praying_hands",
+    "diffusing"
+   ],
+   "amounts_ml": {
+    "gel": 7.0
+   },
+   "weather": {
+    "dew_point_c": 22.0
+   },
+   "ratings": {
+    "day1": 2,
+    "day2": 2
+   },
+   "notes": null,
+   "experiment_arm_id": null,
+   "longevity_days": 0
+  },
+  {
+   "id": "demo-3",
+   "date": "2026-06-25",
+   "product_ids": [
+    "gel-fuerte",
+    "crema"
+   ],
+   "technique_ids": [
+    "praying_hands",
+    "diffusing"
+   ],
+   "amounts_ml": {
+    "gel": 6.0
+   },
+   "weather": {
+    "dew_point_c": 19.0
+   },
+   "ratings": {
+    "day1": 3,
+    "day2": 2
+   },
+   "notes": null,
+   "experiment_arm_id": null,
+   "longevity_days": 1
+  },
+  {
+   "id": "demo-2",
+   "date": "2026-06-18",
+   "product_ids": [
+    "gel-fuerte",
+    "crema"
+   ],
+   "technique_ids": [
+    "praying_hands",
+    "diffusing"
+   ],
+   "amounts_ml": {
+    "gel": 8.0
+   },
+   "weather": {
+    "dew_point_c": 14.0
+   },
+   "ratings": {
+    "day1": 3,
+    "day2": 3
+   },
+   "notes": null,
+   "experiment_arm_id": null,
+   "longevity_days": 2
+  },
+  {
+   "id": "demo-1",
+   "date": "2026-06-11",
+   "product_ids": [
+    "gel-fuerte",
+    "crema"
+   ],
+   "technique_ids": [
+    "praying_hands",
+    "diffusing"
+   ],
+   "amounts_ml": {
+    "gel": 7.0
+   },
+   "weather": {
+    "dew_point_c": 11.0
+   },
+   "ratings": {
+    "day1": 4,
+    "day2": 4
+   },
+   "notes": null,
+   "experiment_arm_id": null,
+   "longevity_days": 2
+  },
+  {
+   "id": "demo-0",
+   "date": "2026-06-04",
+   "product_ids": [
+    "gel-fuerte",
+    "crema"
+   ],
+   "technique_ids": [
+    "praying_hands",
+    "diffusing"
+   ],
+   "amounts_ml": {
+    "gel": 6.0
+   },
+   "weather": {
+    "dew_point_c": 8.0
+   },
+   "ratings": {
+    "day1": 4,
+    "day2": 3
+   },
+   "notes": null,
+   "experiment_arm_id": null,
+   "longevity_days": 2
+  }
+ ],
+ "insights": {
+  "entry_count": 12,
+  "findings": [
+   {
+    "subject": "crema",
+    "kind": "product",
+    "with_mean": 3.36,
+    "without_mean": 2.1,
+    "with_n": 7,
+    "without_n": 5,
+    "sample_size": 12,
+    "difference": 1.26,
+    "effect_size": 2.49,
+    "strength": "insufficient_data",
+    "is_actionable": false,
+    "uncontrolled_variables": [
+     "dew_point",
+     "other_products"
+    ],
+    "explanation": {
+     "summary_key": "learning.finding.why",
+     "inputs_used": [
+      "input.journal"
+     ],
+     "observations": [
+      "with_n=7",
+      "without_n=5",
+      "effect_size=2.49"
+     ],
+     "evidence_level": "extended_anecdote",
+     "evidence_confidence": 0.45,
+     "personal_confidence": 0.777,
+     "sample_size": 12,
+     "uncertainty_keys": [
+      "uncertainty.correlation_not_causation",
+      "uncertainty.uncontrolled.dew_point",
+      "uncertainty.uncontrolled.other_products"
+     ],
+     "alternatives": [
+      "learning.alternative.run_a_controlled_experiment"
+     ],
+     "params": {
+      "subject": "crema",
+      "kind": "product"
+     }
+    }
+   },
+   {
+    "subject": "gel-fuerte",
+    "kind": "product",
+    "with_mean": 3.36,
+    "without_mean": 2.1,
+    "with_n": 7,
+    "without_n": 5,
+    "sample_size": 12,
+    "difference": 1.26,
+    "effect_size": 2.49,
+    "strength": "insufficient_data",
+    "is_actionable": false,
+    "uncontrolled_variables": [
+     "dew_point",
+     "other_products"
+    ],
+    "explanation": {
+     "summary_key": "learning.finding.why",
+     "inputs_used": [
+      "input.journal"
+     ],
+     "observations": [
+      "with_n=7",
+      "without_n=5",
+      "effect_size=2.49"
+     ],
+     "evidence_level": "extended_anecdote",
+     "evidence_confidence": 0.45,
+     "personal_confidence": 0.777,
+     "sample_size": 12,
+     "uncertainty_keys": [
+      "uncertainty.correlation_not_causation",
+      "uncertainty.uncontrolled.dew_point",
+      "uncertainty.uncontrolled.other_products"
+     ],
+     "alternatives": [
+      "learning.alternative.run_a_controlled_experiment"
+     ],
+     "params": {
+      "subject": "gel-fuerte",
+      "kind": "product"
+     }
+    }
+   },
+   {
+    "subject": "gel-suave",
+    "kind": "product",
+    "with_mean": 2.1,
+    "without_mean": 3.36,
+    "with_n": 5,
+    "without_n": 7,
+    "sample_size": 12,
+    "difference": -1.26,
+    "effect_size": -2.49,
+    "strength": "insufficient_data",
+    "is_actionable": false,
+    "uncontrolled_variables": [
+     "dew_point",
+     "other_products"
+    ],
+    "explanation": {
+     "summary_key": "learning.finding.why",
+     "inputs_used": [
+      "input.journal"
+     ],
+     "observations": [
+      "with_n=5",
+      "without_n=7",
+      "effect_size=-2.49"
+     ],
+     "evidence_level": "extended_anecdote",
+     "evidence_confidence": 0.45,
+     "personal_confidence": 0.777,
+     "sample_size": 12,
+     "uncertainty_keys": [
+      "uncertainty.correlation_not_causation",
+      "uncertainty.uncontrolled.dew_point",
+      "uncertainty.uncontrolled.other_products"
+     ],
+     "alternatives": [
+      "learning.alternative.run_a_controlled_experiment"
+     ],
+     "params": {
+      "subject": "gel-suave",
+      "kind": "product"
+     }
+    }
+   }
+  ],
+  "has_enough_data": true,
+  "message_key": "learning.findings_available"
+ },
+ "twin": {
+  "profile_id": "demo",
+  "entry_count": 12,
+  "completeness": 0.38,
+  "traits": [
+   {
+    "key": "style_longevity_days",
+    "value": 1.25,
+    "confidence": 0.432,
+    "sample_size": 12,
+    "based_on": [
+     "demo-4",
+     "demo-5",
+     "demo-6",
+     "demo-7",
+     "demo-8",
+     "demo-9",
+     "demo-10",
+     "demo-11"
+    ],
+    "is_controlled": false,
+    "last_updated": null
+   },
+   {
+    "key": "humidity_sensitivity",
+    "value": 0.976,
+    "confidence": 0.739,
+    "sample_size": 12,
+    "based_on": [
+     "demo-4",
+     "demo-5",
+     "demo-6",
+     "demo-7",
+     "demo-8",
+     "demo-9",
+     "demo-10",
+     "demo-11"
+    ],
+    "is_controlled": false,
+    "last_updated": null
+   },
+   {
+    "key": "product_load_tolerance",
+    "value": 0.401,
+    "confidence": 0.154,
+    "sample_size": 12,
+    "based_on": [
+     "demo-4",
+     "demo-5",
+     "demo-6",
+     "demo-7",
+     "demo-8",
+     "demo-9",
+     "demo-10",
+     "demo-11"
+    ],
+    "is_controlled": false,
+    "last_updated": null
+   },
+   {
+    "key": "refresh_response",
+    "value": 0.0,
+    "confidence": 0.0,
+    "sample_size": 0,
+    "based_on": [],
+    "is_controlled": false,
+    "last_updated": null
+   },
+   {
+    "key": "protein_tolerance",
+    "value": 0.0,
+    "confidence": 0.0,
+    "sample_size": 0,
+    "based_on": [],
+    "is_controlled": false,
+    "last_updated": null
+   },
+   {
+    "key": "drying_speed",
+    "value": 0.0,
+    "confidence": 0.0,
+    "sample_size": 0,
+    "based_on": [],
+    "is_controlled": false,
+    "last_updated": null
+   },
+   {
+    "key": "heat_sensitivity",
+    "value": 0.0,
+    "confidence": 0.0,
+    "sample_size": 0,
+    "based_on": [],
+    "is_controlled": false,
+    "last_updated": null
+   },
+   {
+    "key": "buildup_speed",
+    "value": 0.0,
+    "confidence": 0.0,
+    "sample_size": 0,
+    "based_on": [],
+    "is_controlled": false,
+    "last_updated": null
+   }
+  ]
+ },
+ "projections": {
+  "higher_humidity": {
+   "scenario": "higher_humidity",
+   "direction": "likely_worse",
+   "magnitude": 0.94,
+   "confidence": 0.74,
+   "sample_size": 12,
+   "can_project": true,
+   "missing_data_keys": [],
+   "explanation": {
+    "summary_key": "twin.projection.based_on_your_history",
+    "inputs_used": [
+     "input.digital_twin",
+     "input.journal"
+    ],
+    "observations": [
+     "trait=humidity_sensitivity",
+     "trait_value=0.98",
+     "n=12"
+    ],
+    "evidence_level": "extended_anecdote",
+    "evidence_confidence": 0.45,
+    "personal_confidence": 0.739,
+    "sample_size": 12,
+    "uncertainty_keys": [
+     "uncertainty.projection_is_not_a_prediction",
+     "uncertainty.uncontrolled_observations"
+    ],
+    "alternatives": [
+     "twin.alternative.test_it_as_an_experiment"
+    ],
+    "params": {
+     "based_on": [
+      "demo-4",
+      "demo-5",
+      "demo-6",
+      "demo-7",
+      "demo-8",
+      "demo-9",
+      "demo-10",
+      "demo-11"
+     ],
+     "is_controlled": false
+    }
+   }
+  },
+  "lower_humidity": {
+   "scenario": "lower_humidity",
+   "direction": "likely_better",
+   "magnitude": 0.94,
+   "confidence": 0.74,
+   "sample_size": 12,
+   "can_project": true,
+   "missing_data_keys": [],
+   "explanation": {
+    "summary_key": "twin.projection.based_on_your_history",
+    "inputs_used": [
+     "input.digital_twin",
+     "input.journal"
+    ],
+    "observations": [
+     "trait=humidity_sensitivity",
+     "trait_value=0.98",
+     "n=12"
+    ],
+    "evidence_level": "extended_anecdote",
+    "evidence_confidence": 0.45,
+    "personal_confidence": 0.739,
+    "sample_size": 12,
+    "uncertainty_keys": [
+     "uncertainty.projection_is_not_a_prediction",
+     "uncertainty.uncontrolled_observations"
+    ],
+    "alternatives": [
+     "twin.alternative.test_it_as_an_experiment"
+    ],
+    "params": {
+     "based_on": [
+      "demo-4",
+      "demo-5",
+      "demo-6",
+      "demo-7",
+      "demo-8",
+      "demo-9",
+      "demo-10",
+      "demo-11"
+     ],
+     "is_controlled": false
+    }
+   }
+  },
+  "more_product": {
+   "scenario": "more_product",
+   "direction": "likely_similar",
+   "magnitude": 0.2,
+   "confidence": 0.15,
+   "sample_size": 12,
+   "can_project": true,
+   "missing_data_keys": [],
+   "explanation": {
+    "summary_key": "twin.projection.based_on_your_history",
+    "inputs_used": [
+     "input.digital_twin",
+     "input.journal"
+    ],
+    "observations": [
+     "trait=product_load_tolerance",
+     "trait_value=0.40",
+     "n=12"
+    ],
+    "evidence_level": "extended_anecdote",
+    "evidence_confidence": 0.45,
+    "personal_confidence": 0.154,
+    "sample_size": 12,
+    "uncertainty_keys": [
+     "uncertainty.projection_is_not_a_prediction",
+     "uncertainty.uncontrolled_observations"
+    ],
+    "alternatives": [
+     "twin.alternative.test_it_as_an_experiment"
+    ],
+    "params": {
+     "based_on": [
+      "demo-4",
+      "demo-5",
+      "demo-6",
+      "demo-7",
+      "demo-8",
+      "demo-9",
+      "demo-10",
+      "demo-11"
+     ],
+     "is_controlled": false
+    }
+   }
+  },
+  "less_product": {
+   "scenario": "less_product",
+   "direction": "likely_similar",
+   "magnitude": 0.2,
+   "confidence": 0.15,
+   "sample_size": 12,
+   "can_project": true,
+   "missing_data_keys": [],
+   "explanation": {
+    "summary_key": "twin.projection.based_on_your_history",
+    "inputs_used": [
+     "input.digital_twin",
+     "input.journal"
+    ],
+    "observations": [
+     "trait=product_load_tolerance",
+     "trait_value=0.40",
+     "n=12"
+    ],
+    "evidence_level": "extended_anecdote",
+    "evidence_confidence": 0.45,
+    "personal_confidence": 0.154,
+    "sample_size": 12,
+    "uncertainty_keys": [
+     "uncertainty.projection_is_not_a_prediction",
+     "uncertainty.uncontrolled_observations"
+    ],
+    "alternatives": [
+     "twin.alternative.test_it_as_an_experiment"
+    ],
+    "params": {
+     "based_on": [
+      "demo-4",
+      "demo-5",
+      "demo-6",
+      "demo-7",
+      "demo-8",
+      "demo-9",
+      "demo-10",
+      "demo-11"
+     ],
+     "is_controlled": false
+    }
+   }
+  },
+  "add_protein": {
+   "scenario": "add_protein",
+   "direction": "unknown",
+   "magnitude": 0.0,
+   "confidence": 0.0,
+   "sample_size": 0,
+   "can_project": false,
+   "missing_data_keys": [
+    "twin.unlock.run_protein_experiment"
+   ],
+   "explanation": {
+    "summary_key": "twin.projection.not_enough_history",
+    "inputs_used": [
+     "input.digital_twin"
+    ],
+    "observations": [
+     "missing_trait=protein_tolerance"
+    ],
+    "evidence_level": "extended_anecdote",
+    "evidence_confidence": 0.0,
+    "personal_confidence": 0.0,
+    "sample_size": 12,
+    "uncertainty_keys": [
+     "uncertainty.no_basis_for_projection"
+    ],
+    "alternatives": [
+     "twin.unlock.run_protein_experiment"
+    ],
+    "params": {
+     "required_trait": "protein_tolerance"
+    }
+   }
+  },
+  "skip_gel": {
+   "scenario": "skip_gel",
+   "direction": "likely_worse",
+   "magnitude": 0.17,
+   "confidence": 0.43,
+   "sample_size": 12,
+   "can_project": true,
+   "missing_data_keys": [],
+   "explanation": {
+    "summary_key": "twin.projection.based_on_your_history",
+    "inputs_used": [
+     "input.digital_twin",
+     "input.journal"
+    ],
+    "observations": [
+     "trait=style_longevity_days",
+     "trait_value=1.25",
+     "n=12"
+    ],
+    "evidence_level": "extended_anecdote",
+    "evidence_confidence": 0.45,
+    "personal_confidence": 0.432,
+    "sample_size": 12,
+    "uncertainty_keys": [
+     "uncertainty.projection_is_not_a_prediction",
+     "uncertainty.uncontrolled_observations"
+    ],
+    "alternatives": [
+     "twin.alternative.test_it_as_an_experiment"
+    ],
+    "params": {
+     "based_on": [
+      "demo-4",
+      "demo-5",
+      "demo-6",
+      "demo-7",
+      "demo-8",
+      "demo-9",
+      "demo-10",
+      "demo-11"
+     ],
+     "is_controlled": false
+    }
+   }
+  },
+  "stretch_wash_day": {
+   "scenario": "stretch_wash_day",
+   "direction": "likely_worse",
+   "magnitude": 0.17,
+   "confidence": 0.43,
+   "sample_size": 12,
+   "can_project": true,
+   "missing_data_keys": [],
+   "explanation": {
+    "summary_key": "twin.projection.based_on_your_history",
+    "inputs_used": [
+     "input.digital_twin",
+     "input.journal"
+    ],
+    "observations": [
+     "trait=style_longevity_days",
+     "trait_value=1.25",
+     "n=12"
+    ],
+    "evidence_level": "extended_anecdote",
+    "evidence_confidence": 0.45,
+    "personal_confidence": 0.432,
+    "sample_size": 12,
+    "uncertainty_keys": [
+     "uncertainty.projection_is_not_a_prediction",
+     "uncertainty.uncontrolled_observations"
+    ],
+    "alternatives": [
+     "twin.alternative.test_it_as_an_experiment"
+    ],
+    "params": {
+     "based_on": [
+      "demo-4",
+      "demo-5",
+      "demo-6",
+      "demo-7",
+      "demo-8",
+      "demo-9",
+      "demo-10",
+      "demo-11"
+     ],
+     "is_controlled": false
+    }
+   }
+  },
+  "refresh_instead_of_wash": {
+   "scenario": "refresh_instead_of_wash",
+   "direction": "unknown",
+   "magnitude": 0.0,
+   "confidence": 0.0,
+   "sample_size": 0,
+   "can_project": false,
+   "missing_data_keys": [
+    "twin.unlock.try_a_refresh_and_log_it"
+   ],
+   "explanation": {
+    "summary_key": "twin.projection.not_enough_history",
+    "inputs_used": [
+     "input.digital_twin"
+    ],
+    "observations": [
+     "missing_trait=refresh_response"
+    ],
+    "evidence_level": "extended_anecdote",
+    "evidence_confidence": 0.0,
+    "personal_confidence": 0.0,
+    "sample_size": 12,
+    "uncertainty_keys": [
+     "uncertainty.no_basis_for_projection"
+    ],
+    "alternatives": [
+     "twin.unlock.try_a_refresh_and_log_it"
+    ],
+    "params": {
+     "required_trait": "refresh_response"
+    }
+   }
+  }
+ },
+ "growth": {
+  "has_reading": true,
+  "months": 7.88,
+  "observed_gain_cm": 3.0,
+  "trimmed_cm": 1.0,
+  "growth_cm_per_month": 1.25,
+  "growth_source": "assumed_population",
+  "growth_is_measured": false,
+  "total_growth_cm": 9.86,
+  "retention_ratio": 0.406,
+  "lost_to_breakage_cm": 5.86,
+  "growth_is_typical": true,
+  "is_retention_problem": true,
+  "sample_size": 3,
+  "explanation": {
+   "summary_key": "growth.reading.why",
+   "inputs_used": [
+    "input.length_measurements",
+    "input.trims"
+   ],
+   "observations": [
+    "months=7.9",
+    "observed_gain_cm=3.0",
+    "trimmed_cm=1.0",
+    "growth_source=assumed_population"
+   ],
+   "evidence_level": "scientific_evidence",
+   "evidence_confidence": 0.55,
+   "personal_confidence": 0.5,
+   "sample_size": 3,
+   "uncertainty_keys": [
+    "uncertainty.home_measurement",
+    "uncertainty.growth_rate_assumed_not_measured"
+   ],
+   "alternatives": [
+    "growth.alternative.measure_root_regrowth",
+    "growth.alternative.measure_same_way_each_time"
+   ],
+   "params": {
+    "typical_range_cm_per_month": [
+     0.8,
+     1.5
+    ],
+    "growth_is_not_retention": true
+   }
+  }
+ },
+ "forecast": {
+  "band": "humid",
+  "dew_point_c": 20.6,
+  "frizz_risk": 1.0,
+  "dryness_risk": 0.0,
+  "uv_risk": 0.73,
+  "advice_keys": [
+   "weather.advice.reduce_humectants",
+   "weather.advice.increase_film_forming",
+   "weather.advice.uv_cover_or_filter"
+  ],
+  "explanation": {
+   "summary_key": "weather.forecast.why",
+   "inputs_used": [
+    "input.weather",
+    "input.porosity",
+    "input.routine_humectants"
+   ],
+   "observations": [
+    "dew_point_c=20.6",
+    "band=humid"
+   ],
+   "evidence_level": "professional_consensus",
+   "evidence_confidence": 0.7,
+   "personal_confidence": 0.0,
+   "sample_size": 0,
+   "uncertainty_keys": [
+    "uncertainty.weather_is_not_your_history"
+   ],
+   "alternatives": [],
+   "params": {
+    "porosity": "high",
+    "uses_humectants": true
+   }
+  }
+ },
+ "cold_start": {
+  "stage": "established",
+  "entry_count": 12,
+  "based_on_reference_profiles": false,
+  "reference_profile_id": null,
+  "reference_sample_size": 0,
+  "suggested_technique_ids": [],
+  "suggested_product_attributes": [],
+  "milestone_keys": [
+   "milestone.review_your_twin"
+  ],
+  "message_key": "cold_start.general_consensus_only",
+  "explanation": {
+   "summary_key": "cold_start.general_consensus_only",
+   "inputs_used": [
+    "input.hair_scan",
+    "input.cosmetic_consensus"
+   ],
+   "observations": [
+    "journal_entries=12"
+   ],
+   "evidence_level": "professional_consensus",
+   "evidence_confidence": 0.7,
+   "personal_confidence": 0.0,
+   "sample_size": 12,
+   "uncertainty_keys": [
+    "uncertainty.cold_start",
+    "uncertainty.no_personal_history"
+   ],
+   "alternatives": [
+    "cold_start.alternative.log_to_personalise"
+   ],
+   "params": {
+    "source": "inferred"
+   }
+  }
+ }
+}

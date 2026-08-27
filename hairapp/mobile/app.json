@@ -18,13 +18,15 @@
     },
     "android": {
       "package": "com.trichon.app",
+      "versionCode": 1,
       "permissions": ["CAMERA", "READ_MEDIA_IMAGES"],
       "adaptiveIcon": { "backgroundColor": "#F7F5F2" }
     },
     "plugins": ["expo-router", "expo-localization", "expo-secure-store"],
     "experiments": { "typedRoutes": true },
     "extra": {
-      "apiBaseUrl": "http://localhost:8000"
+      "apiBaseUrl": "http://localhost:8000",
+      "demoMode": true
     }
   }
 }

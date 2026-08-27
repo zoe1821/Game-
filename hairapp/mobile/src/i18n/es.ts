@@ -632,6 +632,14 @@ export const es = {
     healthy: 'Estás conservando casi todo lo que crece',
   },
 
+
+  demo: {
+    banner: 'Modo demostración · datos de ejemplo, nada se guarda',
+    title: 'Estás viendo una demostración',
+    body:
+      'Los datos son de un perfil de ejemplo, pero no están inventados: los genera el mismo motor que usaría con tu cabello. Lo que cambies aquí no se guarda al cerrar.',
+  },
+
   error: {
     generic: 'Algo no ha ido bien.',
     internal: 'Ha fallado algo por nuestra parte. Vuelve a intentarlo en un momento.',

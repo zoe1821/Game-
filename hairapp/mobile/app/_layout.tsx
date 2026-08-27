@@ -5,6 +5,7 @@ import React, { useEffect } from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { ApiProvider } from '@/api/provider';
+import { DemoBanner } from '@/components/DemoBanner';
 import { ThemeProvider, useTheme } from '@/design/theme';
 import { setLocale } from '@/i18n';
 import { useAuthStore, useOnboardingStore } from '@/state/auth';
@@ -14,6 +15,7 @@ function Navigator(): React.ReactElement {
   return (
     <>
       <StatusBar style={theme.scheme === 'dark' ? 'light' : 'dark'} />
+      <DemoBanner />
       <Stack
         screenOptions={{
           headerStyle: { backgroundColor: theme.colors.background },

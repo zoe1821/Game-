@@ -1,0 +1,97 @@
+# Compila la app de Android y la publica para poder instalarla desde el móvil.
+#
+# Por qué existe: sin esto, ver la app requiere una computadora con Node, el
+# servidor corriendo y el teléfono en la misma red WiFi. Con esto, se abre
+# GitHub en el celular, se descarga el archivo y se instala.
+#
+# La compilación se hace con gradle directamente, no con el servicio de
+# compilación en la nube de Expo: así no hace falta ninguna cuenta ni ningún
+# pago. GitHub Actions es gratis en repositorios públicos.
+
+name: APK de Android
+
+on:
+  push:
+    branches: ["claude/**", main]
+    paths:
+      - "hairapp/mobile/**"
+      - ".github/workflows/android-apk.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: apk-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: hairapp/mobile
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: hairapp/mobile/package-lock.json
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - uses: android-actions/setup-android@v3
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Comprobar tipos y tests
+        # Si esto falla, no tiene sentido compilar: mejor enterarse aquí que
+        # con la app instalada en el teléfono.
+        run: |
+          npx tsc --noEmit
+          npx jest --ci
+
+      - name: Generar el proyecto nativo
+        run: npx expo prebuild --platform android --no-install --clean
+
+      - name: Compilar el APK
+        run: ./gradlew assembleRelease --no-daemon
+        working-directory: hairapp/mobile/android
+
+      - name: Renombrar con la fecha
+        id: apk
+        run: |
+          NAME="trichon-$(date +%Y%m%d-%H%M).apk"
+          find . -name "*.apk" -path "*release*" -exec cp {} "../$NAME" \;
+          echo "name=$NAME" >> "$GITHUB_OUTPUT"
+        working-directory: hairapp/mobile/android
+
+      - name: Publicar para descargar desde el móvil
+        # Una release es más fácil de abrir desde el teléfono que un artifact:
+        # no hace falta iniciar sesión ni descomprimir un zip.
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: apk-latest
+          name: Última compilación de Android
+          body: |
+            Compilado desde `${{ github.ref_name }}` · commit `${{ github.sha }}`
+
+            **Cómo instalarlo en Android:**
+            1. Descarga el archivo `.apk` de aquí abajo, desde el propio teléfono.
+            2. Ábrelo. Android va a pedir permiso para instalar desde el
+               navegador: es normal y solo hay que darlo una vez.
+            3. Listo.
+
+            La app arranca en **modo demostración**: trae un perfil de ejemplo
+            y no necesita ningún servidor. Los datos no están inventados a
+            mano, los genera el motor real del proyecto.
+          files: hairapp/mobile/${{ steps.apk.outputs.name }}
+          prerelease: true
+          make_latest: false
