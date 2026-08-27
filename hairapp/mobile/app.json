@@ -1,0 +1,30 @@
+{
+  "expo": {
+    "name": "Trichon",
+    "slug": "trichon",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "scheme": "trichon",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": false,
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.trichon.app",
+      "infoPlist": {
+        "NSCameraUsageDescription": "Trichon usa la cámara para que puedas fotografiar tu cabello y analizarlo por zonas. Las fotos son tuyas: puedes recortar el rostro antes de subirlas y borrarlas cuando quieras.",
+        "NSPhotoLibraryUsageDescription": "Para que puedas elegir fotos que ya tengas en lugar de hacerlas en el momento."
+      }
+    },
+    "android": {
+      "package": "com.trichon.app",
+      "permissions": ["CAMERA", "READ_MEDIA_IMAGES"],
+      "adaptiveIcon": { "backgroundColor": "#F7F5F2" }
+    },
+    "plugins": ["expo-router", "expo-localization", "expo-secure-store"],
+    "experiments": { "typedRoutes": true },
+    "extra": {
+      "apiBaseUrl": "http://localhost:8000"
+    }
+  }
+}
