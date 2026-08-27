@@ -548,56 +548,74 @@ def test_free_plan_blocks_a_third_scan_before_taking_photos(client) -> None:
     assert client.get("/api/v1/journal", headers=headers).status_code == 200
 
 
-def test_subscribing_lifts_the_limits(client) -> None:
-    headers = _auth(client, email="suscrito@example.com")
-    activated = client.post(
+def _activate(client, headers, *, token="token-abcdefgh", product="trichon.studio.monthly"):
+    return client.post(
         "/api/v1/billing/activate",
         headers=headers,
-        params={
-            "plan": "studio",
+        json={
             "store": "app_store",
-            "store_transaction_id": "tx-123",
-            "period_end": "2099-12-31",
+            "token": token,
+            "product_id": product,
+            "transaction_id": f"tx-{token}",
             "billing_country": "MX",
         },
     )
+
+
+def test_activation_without_a_configured_store_grants_nothing(client) -> None:
+    """El fallo que esto cubre: la primera versión se creía lo que le mandaba
+    el cliente, así que un móvil modificado podía concederse el plan de pago
+    escribiendo un JSON."""
+    headers = _auth(client, email="sinverificar@example.com")
+    response = _activate(client, headers)
+    assert response.status_code == 403
+    assert response.json()["details"]["status"] == "unverifiable"
+
+    plan = client.get("/api/v1/billing/entitlements", headers=headers).json()
+    assert plan["plan"] == "free"
+
+
+def test_verification_status_is_visible_before_launch(client) -> None:
+    body = client.get("/api/v1/billing/verification-status").json()
+    assert body["billing_configured"] is False
+    assert all(not store["configured"] for store in body["stores"])
+    assert all(store["reason"] for store in body["stores"])
+
+
+def test_a_verified_receipt_lifts_the_limits(client, verified_store) -> None:
+    headers = _auth(client, email="suscrito@example.com")
+    activated = _activate(client, headers)
     assert activated.status_code == 200, activated.text
     assert activated.json()["plan"] == "studio"
+    assert activated.json()["verification"]["status"] == "verified"
 
     scan = client.get("/api/v1/billing/check", headers=headers, params={"feature": "scan"}).json()
     assert scan["limit"] is None
 
 
-def test_cancelling_keeps_the_plan_until_the_period_ends(client) -> None:
+def test_a_receipt_for_another_product_is_refused(client, verified_store) -> None:
+    headers = _auth(client, email="otroproducto@example.com")
+    response = _activate(client, headers, product="otra.app.premium")
+    assert response.status_code == 403
+    assert response.json()["details"]["status"] == "invalid"
+
+
+def test_the_same_receipt_cannot_activate_two_accounts(client, verified_store) -> None:
+    first = _auth(client, email="primero@example.com")
+    assert _activate(client, first, token="token-compartido").status_code == 200
+
+    second = _auth(client, email="segundo@example.com")
+    response = _activate(client, second, token="token-compartido")
+    assert response.status_code == 403
+    assert response.json()["message_key"] == "billing.verification.receipt_already_used"
+
+
+def test_cancelling_keeps_the_plan_until_the_period_ends(client, verified_store) -> None:
     headers = _auth(client, email="cancela@example.com")
-    client.post(
-        "/api/v1/billing/activate",
-        headers=headers,
-        params={
-            "plan": "studio",
-            "store": "play_store",
-            "store_transaction_id": "tx-9",
-            "period_end": "2099-12-31",
-        },
-    )
+    _activate(client, headers)
     cancelled = client.post("/api/v1/billing/cancel", headers=headers).json()
     assert cancelled["plan"] == "studio"
     assert cancelled["renews"] is False
-
-
-def test_pro_plan_is_not_self_serve(client) -> None:
-    headers = _auth(client, email="pro@example.com")
-    response = client.post(
-        "/api/v1/billing/activate",
-        headers=headers,
-        params={
-            "plan": "pro",
-            "store": "app_store",
-            "store_transaction_id": "tx-1",
-            "period_end": "2099-12-31",
-        },
-    )
-    assert response.status_code == 403
 
 
 def test_free_tier_limits_active_experiments_without_blocking_data(client) -> None:

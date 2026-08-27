@@ -14,7 +14,7 @@ Archivo de estado entre sesiones. Se actualiza al cerrar cada bloque de trabajo.
 | 4 — Inteligencia | ✅ Completa | Reglas, confianza doble, matching, cold start, aprendizaje, twin, experimentos. |
 | 5 — Polish | 🟡 Parcial | Accesibilidad, dark mode y estados vacío/error/carga hechos. Faltan animaciones y comparación fotográfica. |
 | 6 — Validación | ✅ Completa | 174 tests backend + 59 mobile; ruff, mypy, tsc y eslint limpios; smoke test contra servidor real. |
-| Monetización | ✅ Implementada | Derechos de uso, cupo, suscripción y pantalla de plan. Falta verificar recibo en servidor. |
+| Monetización | ✅ Implementada | Derechos de uso, cupo, suscripción, verificación de recibo en servidor y precio por país. Faltan las credenciales de tienda. |
 | LATAM | 🟡 En curso | Cronograma capilar, catálogo semilla y legal reenfocado. Falta portugués para Brasil. |
 
 ## Contexto del repositorio
@@ -97,8 +97,9 @@ unos cientos etiquetados como buena/mala se podrían ajustar bien.
 
 ## Siguiente
 
-0. **Verificar el recibo de suscripción en servidor.** Hoy `/billing/activate`
-   confía en el cliente. Es bloqueante antes de cobrar a nadie.
+0. **Configurar credenciales de App Store y Google Play.** El código de
+   verificación está y falla cerrado; sin las claves nadie puede activar una
+   suscripción. `GET /billing/verification-status` dice exactamente qué falta.
 1. **Fase 5 restante**: animaciones sobrias respetando `reduceMotion`,
    comparación fotográfica con slider, hair timeline y growth tracker.
 2. Reporte exportable para estilista (A26) y su flujo de consentimiento.

@@ -204,10 +204,14 @@ Decisión de producto v1: **la app se restringe a mayores de 16 años.**
 El modelo de ingresos es la suscripción (docs/02-MONETIZATION.md). Obligaciones
 concretas derivadas de eso:
 
-- `[ ]` **Verificación de recibo en servidor.** Hoy `/billing/activate` confía
-  en lo que le manda el cliente, lo que basta para desarrollo pero **no** para
-  producción: un cliente modificado podría concederse el plan de pago. Hay que
-  validar contra el servidor de App Store / Google Play antes de cobrar a nadie.
+- `[x]` **Verificación de recibo en servidor.** Implementada. `/billing/activate`
+  ya no se cree nada del cliente: solo manda el token a la tienda y usa lo que
+  la tienda responda. Si no se puede verificar — sin credenciales, o la tienda
+  no responde — **no concede nada**. El sistema falla cerrado.
+- `[ ]` **Configurar las credenciales de tienda.** El código está, las claves
+  no. Sin `TRICHON_APP_STORE_PRIVATE_KEY` y `TRICHON_PLAY_SERVICE_ACCOUNT_JSON`
+  nadie puede activar una suscripción. `GET /billing/verification-status` dice
+  qué falta.
 - `[ ]` **México — NOM-151 y PROFECO.** Las condiciones de la suscripción, la
   renovación automática y el procedimiento de cancelación deben estar en
   español, claros y accesibles antes de contratar. PROFECO vigila la renovación
@@ -218,8 +222,9 @@ concretas derivadas de eso:
 - `[ ]` **Impuestos.** IVA mexicano sobre servicios digitales prestados por
   extranjeros; sales tax en EE. UU. según estado. Las tiendas retienen en
   muchos casos, pero no en todos: confirmar con asesoría fiscal.
-- `[ ]` Precio localizado por país. Un precio en dólares aplicado tal cual a
-  toda LATAM deja el producto fuera de alcance en varios mercados.
+- `[x]` Precio localizado por país, en cinco niveles. Los importes son puntos
+  de partida para validar, no definitivos.
+- `[ ]` Validar los niveles con datos reales de cada mercado antes de publicar.
 - `[ ]` Confirmar que la app **no** vulnera las reglas de pago de las tiendas.
   Todo cobro digital debe ir por la tienda.
 
@@ -251,10 +256,11 @@ Ninguno de estos es negociable por presión de calendario:
    Es la misma pregunta de fondo — ¿medir textura capilar sin identificar a
    nadie es tratamiento biométrico? — y resolverla desbloquea el resto.
 3. `[ ]` Decisión sobre si se excluyen Illinois, Texas y Washington en la v1.
-4. `[ ]` Verificación de recibo de suscripción en servidor (§5 bis).
-5. `[ ]` Aviso de privacidad mexicano conforme a la LFPDPPP.
-6. `[ ]` Política de privacidad y ToS redactados por legal, no por IA.
-7. `[x]` Borrado de cuenta verificado end-to-end, incluida la purga del
+4. `[x]` Verificación de recibo de suscripción en servidor (§5 bis).
+5. `[ ]` Credenciales de App Store y Google Play configuradas en producción.
+6. `[ ]` Aviso de privacidad mexicano conforme a la LFPDPPP.
+7. `[ ]` Política de privacidad y ToS redactados por legal, no por IA.
+8. `[x]` Borrado de cuenta verificado end-to-end, incluida la purga del
    almacenamiento de fotos. Cubierto por test.
-8. `[x]` Auditoría de lenguaje: 0 hallazgos del glosario controlado, verificado
+9. `[x]` Auditoría de lenguaje: 0 hallazgos del glosario controlado, verificado
    en backend y en los catálogos de la app.

@@ -34,6 +34,21 @@ class Settings(BaseSettings):
 
     redis_url: str | None = None
 
+    # --- Verificación de recibos de suscripción ---------------------------
+    # Sin estas credenciales no se puede verificar ninguna compra, y el sistema
+    # **rechaza** las activaciones en vez de concederlas. Fallar cerrado.
+    app_store_issuer_id: str | None = None
+    app_store_key_id: str | None = None
+    app_store_private_key: str | None = None
+    app_store_bundle_id: str | None = None
+
+    play_package_name: str | None = None
+    play_service_account_json: str | None = None
+
+    @property
+    def billing_is_configured(self) -> bool:
+        return bool(self.app_store_private_key or self.play_service_account_json)
+
     @property
     def is_production(self) -> bool:
         return self.environment.lower() in {"production", "prod"}

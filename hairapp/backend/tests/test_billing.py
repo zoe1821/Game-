@@ -166,3 +166,54 @@ def test_every_feature_has_a_defined_position_in_every_plan(plan: Plan) -> None:
         # No lanza y devuelve None (ilimitado) o un entero.
         limit = quota(plan, feature)
         assert limit is None or isinstance(limit, int)
+
+
+# --- precio por país ------------------------------------------------------
+
+
+def test_latam_does_not_pay_the_us_price() -> None:
+    """Aplicar un precio en dólares tal cual a toda LATAM deja el producto
+    fuera de alcance. Cobrar lo mismo en todas partes no es neutralidad."""
+    from app.domain.billing.pricing import price_for
+
+    united_states = price_for(Plan.STUDIO, "US")
+    mexico = price_for(Plan.STUDIO, "MX")
+    guatemala = price_for(Plan.STUDIO, "GT")
+
+    assert united_states and mexico and guatemala
+    assert mexico.monthly_minor_units < united_states.monthly_minor_units
+    assert guatemala.monthly_minor_units < mexico.monthly_minor_units
+
+
+def test_unknown_country_falls_back_to_the_mid_tier_not_the_highest() -> None:
+    """Un país sin clasificar no debe pagar el precio más alto por defecto."""
+    from app.domain.billing.pricing import DEFAULT_TIER, Tier, price_for, tier_for
+
+    assert tier_for("XX") is DEFAULT_TIER
+    assert DEFAULT_TIER is not Tier.NORTH_AMERICA
+    assert price_for(Plan.STUDIO, None) == price_for(Plan.STUDIO, "MX")
+
+
+def test_annual_is_meaningfully_cheaper() -> None:
+    """El valor del producto es longitudinal: interesa quien acumule doce meses
+    de diario, no quien pruebe uno."""
+    from app.domain.billing.pricing import COUNTRY_TIER, price_for
+
+    for country in COUNTRY_TIER:
+        price = price_for(Plan.STUDIO, country)
+        assert price is not None
+        assert price.annual_discount_ratio > 0.25, country
+
+
+def test_pro_has_no_store_price_because_it_is_not_self_serve() -> None:
+    from app.domain.billing.pricing import price_for
+
+    assert price_for(Plan.PRO, "MX") is None
+    assert price_for(Plan.FREE, "MX") is None
+
+
+def test_every_launch_market_has_a_price() -> None:
+    from app.domain.billing.pricing import price_for
+
+    for country in ("US", "MX", "BR", "CO", "AR", "CL", "PE"):
+        assert price_for(Plan.STUDIO, country) is not None, country
