@@ -73,6 +73,20 @@ jobs:
           echo "name=$NAME" >> "$GITHUB_OUTPUT"
         working-directory: hairapp/mobile/android
 
+      - name: Borrar la compilación anterior
+        # Sin esto se acumulan archivos en la misma release y hay que mirar la
+        # hora del nombre para saber cuál es el bueno. Queda uno solo.
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release view apk-latest --repo "$GITHUB_REPOSITORY" \
+            --json assets --jq '.assets[].name' 2>/dev/null | while read -r asset; do
+              echo "borrando $asset"
+              gh release delete-asset apk-latest "$asset" \
+                --repo "$GITHUB_REPOSITORY" --yes || true
+            done
+
       - name: Publicar para descargar desde el móvil
         # Una release es más fácil de abrir desde el teléfono que un artifact:
         # no hace falta iniciar sesión ni descomprimir un zip.
