@@ -1,0 +1,117 @@
+pack: myths
+version: 1
+
+# Detector de mitos (A17). Estas reglas nunca generan una recomendación:
+# `EvidenceLevel.UNSUPPORTED_TREND.can_recommend` es False y el motor las
+# filtra. Solo aparecen desmontadas, con su explicación de por qué circula.
+
+rules:
+  - id: myth.trimming_makes_hair_grow
+    kind: myth
+    evidence_level: unsupported_trend
+    mechanism: >
+      El crecimiento ocurre en el folículo, bajo la piel; cortar la punta no lo
+      afecta de ninguna manera. Lo que sí hace cortar es eliminar puntas
+      abiertas antes de que la apertura avance por la hebra y acabe rompiéndose,
+      con lo que se conserva más longitud a lo largo del tiempo. El resultado
+      percibido ("me crece más si corto") es retención de longitud, no
+      velocidad de crecimiento.
+    conditions: []
+    outcome:
+      myth: trimming_speeds_growth
+      correction_key: myth.trimming.correction
+      related_concept: length_retention_vs_growth
+    message_key: myth.trimming
+    priority: 40
+    tags: [myth, growth]
+
+  - id: myth.silicones_are_always_bad
+    kind: myth
+    evidence_level: unsupported_trend
+    mechanism: >
+      "Silicona = malo" agrupa moléculas con comportamientos muy distintos. Las
+      solubles en agua (con prefijos PEG-, o dimeticona copoliol) se enjuagan
+      con un champú suave; las no solubles (dimeticona, ciclometicona) necesitan
+      un tensioactivo capaz de retirarlas y sí pueden acumularse si no se usa
+      ninguno. La regla útil no es evitarlas: es que el tipo de silicona y el
+      tipo de limpieza tienen que ser coherentes entre sí.
+    conditions: []
+    outcome:
+      myth: all_silicones_bad
+      correction_key: myth.silicones.correction
+      related_concept: silicone_solubility
+    message_key: myth.silicones
+    priority: 45
+    tags: [myth, ingredients]
+
+  - id: myth.float_test_measures_porosity
+    kind: myth
+    evidence_level: unsupported_trend
+    mechanism: >
+      La prueba del vaso mide sobre todo si la hebra tiene producto, sebo o aire
+      atrapado, y el resultado cambia según cómo se recoja la hebra y cuánto se
+      espere. No mide el estado de la cutícula. La porosidad se estima mejor
+      combinando historial químico, cuánto tarda en mojarse, cuánto tarda en
+      secarse y cómo se comporta con humedad ambiental alta.
+    conditions: []
+    outcome:
+      myth: float_test_is_reliable
+      correction_key: myth.float_test.correction
+      related_concept: multi_signal_porosity
+    message_key: myth.float_test
+    priority: 50
+    tags: [myth, porosity]
+
+  - id: myth.sleeping_with_wet_hair_causes_damage_only
+    kind: myth
+    evidence_level: unsupported_trend
+    mechanism: >
+      La afirmación mezcla dos cosas. Es cierto que la fibra mojada es más
+      elástica y más vulnerable a la fricción, así que dormir con el pelo mojado
+      y suelto sobre algodón sí aumenta el rozamiento. Lo que no se sostiene es
+      la versión de que el agua en sí "pudre" el cabello o el cuero cabelludo.
+      El factor manejable es la fricción y la sujeción, no la humedad.
+    conditions: []
+    outcome:
+      myth: wet_hair_sleep_is_inherently_damaging
+      correction_key: myth.wet_sleep.correction
+      related_concept: nighttime_friction
+    message_key: myth.wet_sleep
+    priority: 40
+    tags: [myth, nighttime]
+
+  - id: myth.hair_gets_used_to_products
+    kind: myth
+    evidence_level: unsupported_trend
+    mechanism: >
+      La fibra capilar no tiene metabolismo ni memoria, así que no puede
+      acostumbrarse a nada. Cuando un producto "deja de funcionar" lo habitual
+      es que haya cambiado otra cosa: acumulación de residuo, otra estación con
+      otra humedad, el cabello ha crecido y la proporción de largo procesado es
+      distinta, o la formulación del producto cambió.
+    conditions: []
+    outcome:
+      myth: hair_builds_tolerance
+      correction_key: myth.tolerance.correction
+      related_concept: buildup_and_seasonality
+    message_key: myth.tolerance
+    priority: 45
+    tags: [myth, products]
+
+  - id: myth.cold_water_seals_cuticle
+    kind: myth
+    evidence_level: unsupported_trend
+    mechanism: >
+      La cutícula no es una puerta que se abra y se cierre con la temperatura
+      del agua. El agua fría reduce algo el hinchamiento de la fibra y aplana el
+      contorno de forma temporal, lo que puede dar algo más de brillo en el
+      momento, pero no hay un mecanismo de sellado. El brillo depende sobre todo
+      de qué tan lisa quede la superficie al secarse.
+    conditions: []
+    outcome:
+      myth: cold_rinse_seals_cuticle
+      correction_key: myth.cold_rinse.correction
+      related_concept: surface_smoothness_and_shine
+    message_key: myth.cold_rinse
+    priority: 40
+    tags: [myth, technique]

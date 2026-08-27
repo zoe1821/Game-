@@ -1,0 +1,81 @@
+pack: scalp
+version: 1
+
+# Nota: este pack es el más sensible legalmente. Ninguna regla nombra una
+# condición médica ni sugiere que la app sepa qué la causa. Ver
+# docs/04-LEGAL-CHECKLIST.md §1-2.
+
+rules:
+  - id: scalp.visible_flaking_no_diagnosis
+    kind: education
+    evidence_level: professional_consensus
+    mechanism: >
+      La descamación visible tiene causas muy distintas entre sí, desde
+      sequedad y residuo de producto hasta cuadros que corresponden a
+      dermatología. Desde una foto no es posible distinguirlas, y actuar como si
+      fuesen lo mismo puede empeorar el cuadro. Lo que sí es cosmético y seguro
+      es revisar residuo, frecuencia de lavado y fricción.
+    conditions:
+      - {fact: scalp.observations, op: contains_any, value: [flaking]}
+    outcome:
+      education: flaking_has_multiple_causes
+      cosmetic_checks: [product_residue, wash_frequency, friction]
+      refer_if: [persistent, painful, spreading]
+    message_key: rule.scalp.flaking_multiple_causes
+    priority: 85
+    sources: ["consenso profesional sobre límites del análisis cosmético"]
+    tags: [scalp, safety]
+
+  - id: scalp.referral_required
+    kind: warning
+    evidence_level: professional_consensus
+    mechanism: >
+      Hay señales ante las que una app de cuidado cosmético no debe interpretar
+      nada, porque cualquier estimación puede retrasar una consulta que sí hace
+      falta. En esos casos la respuesta correcta es dejar de estimar y decirlo.
+    conditions:
+      - {fact: scalp.referral_signs, op: contains_any, value: [open_wound, inflammation, sudden_localised_loss, persistent_pain, bleeding, rapid_unexplained_change]}
+    outcome:
+      halt_analysis: true
+      show_block: safety.referral_block
+    message_key: safety.referral_block
+    priority: 100
+    sources: ["límite cosmético / sanitario"]
+    tags: [scalp, safety, referral]
+
+  - id: scalp.oil_wash_frequency
+    kind: routine_step
+    evidence_level: professional_consensus
+    mechanism: >
+      El sebo se produce de forma continua en el folículo y se acumula sobre el
+      cuero cabelludo entre lavados. Espaciar mucho el lavado en cuero cabelludo
+      con producción alta acumula sebo y residuo, lo que además apelmaza la raíz.
+      La frecuencia adecuada es la que mantiene el cuero cabelludo cómodo, y
+      varía por persona; no hay un número correcto universal.
+    conditions:
+      - {fact: scalp.observations, op: contains_any, value: [visible_oil]}
+    outcome:
+      adjust: wash_frequency
+      direction: increase
+      bounded_by: fibre_dryness
+    message_key: rule.scalp.oil_frequency
+    priority: 60
+    sources: ["producción sebácea continua", "formación profesional"]
+    tags: [scalp, frequency]
+
+  - id: scalp.no_daily_wash_needed_myth
+    kind: myth
+    evidence_level: unsupported_trend
+    mechanism: >
+      Circula que lavar a diario "estimula la producción de grasa" y que
+      espaciar el lavado "reeduca el cuero cabelludo". La producción de sebo
+      depende sobre todo de factores hormonales e individuales, no de la
+      frecuencia de lavado. Lo que sí cambia al espaciar el lavado es la
+      percepción: se acumula más y se nota más, no que la glándula produzca más.
+    conditions: []
+    outcome:
+      myth: washing_trains_the_scalp
+      correction_key: myth.wash_training.correction
+    message_key: myth.wash_training
+    priority: 40
+    tags: [myth, scalp]

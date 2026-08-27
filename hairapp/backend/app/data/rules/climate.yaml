@@ -1,0 +1,75 @@
+pack: climate
+version: 1
+
+rules:
+  - id: climate.high_dewpoint_reduce_humectants
+    kind: routine_step
+    evidence_level: professional_consensus
+    mechanism: >
+      Los humectantes (glicerina, propilenglicol, miel) atraen agua desde el
+      entorno. Con punto de rocío alto hay mucha agua disponible en el aire, la
+      fibra la absorbe de forma desigual y se hincha, lo que levanta la cutícula
+      y produce frizz. Bajar humectantes y subir la película de fijación o los
+      emolientes reduce ese intercambio.
+    conditions:
+      - {fact: weather.dew_point_c, op: gte, value: 18}
+    outcome:
+      product_attributes: {humectant_level: [low]}
+      add_attributes: {film_forming: true}
+    message_key: rule.climate.high_dewpoint
+    priority: 70
+    sources: ["higroscopía de polioles", "intercambio de humedad fibra-ambiente"]
+    tags: [climate, frizz]
+
+  - id: climate.low_dewpoint_increase_emollients
+    kind: routine_step
+    evidence_level: professional_consensus
+    mechanism: >
+      Con punto de rocío bajo el aire tiene poca agua y los humectantes pueden
+      llegar a extraerla de la propia fibra en vez de aportarla. En ese entorno
+      los emolientes y oclusivos, que reducen la pérdida de agua en vez de
+      atraerla, dan un resultado más estable.
+    conditions:
+      - {fact: weather.dew_point_c, op: lte, value: 4}
+    outcome:
+      product_attributes: {emollient_level: [medium, high], humectant_level: [low, medium]}
+    message_key: rule.climate.low_dewpoint
+    priority: 70
+    sources: ["comportamiento de humectantes según humedad ambiental"]
+    tags: [climate, dryness]
+
+  - id: climate.uv_exposure_protection
+    kind: routine_step
+    evidence_level: scientific_evidence
+    mechanism: >
+      La radiación UV degrada la melanina y oxida los aminoácidos azufrados de
+      la queratina, lo que se ve como pérdida de color y superficie más áspera.
+      El efecto es acumulativo y más visible en cabello aclarado o decolorado,
+      donde queda menos melanina que absorba la radiación.
+    conditions:
+      - {fact: weather.uv_index, op: gte, value: 7}
+    outcome:
+      add_attributes: {uv_filter: true}
+      suggestion: physical_cover
+    message_key: rule.climate.uv
+    priority: 60
+    sources: ["fotodegradación de la queratina y de la melanina"]
+    tags: [climate, colour]
+
+  - id: climate.cold_dry_static
+    kind: routine_step
+    evidence_level: professional_consensus
+    mechanism: >
+      Con aire frío y seco la fibra pierde agua y acumula carga electrostática
+      al rozar con ropa y gorros, lo que separa las hebras. Los acondicionadores
+      catiónicos neutralizan parte de esa carga porque se adsorben con carga
+      positiva sobre una fibra negativa.
+    conditions:
+      - {fact: weather.temperature_c, op: lte, value: 8}
+      - {fact: weather.relative_humidity, op: lte, value: 40}
+    outcome:
+      add_attributes: {cationic: true, anti_static: true}
+    message_key: rule.climate.cold_dry
+    priority: 55
+    sources: ["carga electrostática en fibras queratínicas"]
+    tags: [climate, static]

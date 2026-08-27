@@ -1,0 +1,106 @@
+pack: damage
+version: 1
+
+rules:
+  - id: damage.heat_temperature_by_state
+    kind: routine_step
+    evidence_level: scientific_evidence
+    mechanism: >
+      La transición de la queratina y la pérdida de agua estructural ocurren en
+      un rango de temperatura, no en un umbral único, y ese rango baja cuando la
+      fibra ya está procesada químicamente o muy porosa. Por eso no existe una
+      temperatura "universal segura": la misma plancha a 200 °C tiene un coste
+      distinto en cabello virgen grueso que en cabello decolorado fino.
+    conditions:
+      - {fact: routine.uses_heat, op: is_true}
+    outcome:
+      step: heat_styling
+      temperature_by_state:
+        bleached: 150
+        coloured: 170
+        relaxed: 160
+        keratin_treated: 180
+        virgin_fine: 170
+        virgin_medium: 185
+        virgin_coarse: 200
+      require: heat_protectant
+      single_pass: true
+    message_key: rule.damage.heat_temperature
+    priority: 90
+    sources: ["transición térmica de la queratina", "efecto del procesado químico sobre la estabilidad térmica"]
+    tags: [heat, damage]
+
+  - id: damage.split_ends_no_repair
+    kind: education
+    evidence_level: scientific_evidence
+    mechanism: >
+      La fibra capilar visible es tejido queratinizado sin actividad celular:
+      una vez que la cutícula se abre en punta abierta no vuelve a cerrarse. Los
+      productos llamados "selladores de puntas" unen temporalmente la punta con
+      polímeros y siliconas y mejoran el aspecto hasta el siguiente lavado. La
+      única forma de eliminar una punta abierta es cortarla.
+    conditions:
+      - {fact: zone.damage_signs, op: contains_any, value: [split_ends]}
+    outcome:
+      education: split_ends_cannot_be_repaired
+      suggestion: trim_and_reduce_mechanical_stress
+    message_key: rule.damage.split_ends
+    priority: 80
+    sources: ["ausencia de actividad celular en la fibra queratinizada"]
+    tags: [damage, education]
+
+  - id: damage.reduce_mechanical_stress_breakage
+    kind: routine_step
+    evidence_level: professional_consensus
+    mechanism: >
+      La rotura por mitad de la hebra suele venir de fatiga mecánica acumulada:
+      peinar en seco desde la raíz, gomas con metal, secado con toalla de rizo y
+      peinados con tensión mantenida. Cada uno de esos gestos aplica fuerza en
+      un punto concreto de forma repetida hasta que la fibra cede ahí.
+    conditions:
+      - {fact: zone.damage_signs, op: contains_any, value: [breakage, mid_shaft_splits]}
+    outcome:
+      technique: detangle_from_ends_wet
+      avoid: [metal_bands, terry_towel, tight_daily_ponytail]
+    message_key: rule.damage.mechanical_stress
+    priority: 85
+    sources: ["fatiga mecánica por peinado", "formación profesional"]
+    tags: [damage, mechanical]
+
+  - id: damage.tension_styles_edges
+    kind: warning
+    evidence_level: professional_consensus
+    mechanism: >
+      Los peinados que mantienen tensión sostenida sobre la línea frontal y las
+      sienes aplican fuerza continuada sobre folículos que ya tienen la fibra
+      más fina de toda la cabeza. La señal temprana es dolor o pequeñas
+      protuberancias tras peinarse, y una línea frontal con menos densidad que
+      antes. Es prevenible bajando tensión y alternando estilos.
+    conditions:
+      - {fact: routine.protective_style, op: in, value: [braids, twists, weave, extensions]}
+    outcome:
+      warning: tension_on_edges
+      suggestion: reduce_tension_alternate_styles
+      check_zones: [frontal_hairline, left_temple, right_temple, nape]
+    message_key: rule.damage.tension_edges
+    priority: 88
+    sources: ["tensión sostenida sobre el folículo", "consenso profesional en cabello texturizado"]
+    tags: [protective_styles, tension]
+
+  - id: damage.transition_line_of_demarcation
+    kind: warning
+    evidence_level: professional_consensus
+    mechanism: >
+      En una transición química conviven dos fibras con propiedades mecánicas
+      distintas: la raíz nueva y el largo procesado. El punto donde se
+      encuentran es el más débil de toda la hebra y concentra la rotura,
+      especialmente al desenredar o al peinar en seco.
+    conditions:
+      - {fact: zone.processing, op: eq, value: transitioning}
+    outcome:
+      warning: demarcation_line_fragility
+      suggestion: minimise_manipulation_at_line
+    message_key: rule.damage.demarcation
+    priority: 82
+    sources: ["diferencia mecánica entre fibra virgen y procesada"]
+    tags: [transition, damage]

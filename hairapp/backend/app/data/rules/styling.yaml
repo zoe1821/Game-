@@ -1,0 +1,138 @@
+pack: styling
+version: 1
+
+rules:
+  - id: style.gel_cast_for_definition
+    kind: routine_step
+    evidence_level: professional_consensus
+    mechanism: >
+      Los polímeros de fijación forman una película continua al secarse que
+      mantiene la forma del rizo mientras el agua se evapora. Esa película
+      rígida ("cast") impide que las hebras se separen durante el secado, que
+      es el momento en el que se forma el frizz. Al romperla con las manos
+      secas, la forma ya está fijada y queda el rizo definido sin rigidez.
+    conditions:
+      - {fact: goal.primary, op: in, value: [definition, frizz_control]}
+      - {fact: zone.pattern_family, op: in, value: ["2", "3", "4"]}
+    outcome:
+      step: style
+      product_attributes: {hold_level: [medium, strong]}
+      technique: scrunch_out_the_crunch
+      order: after_leave_in
+    message_key: rule.style.gel_cast
+    priority: 75
+    sources: ["formación de película por polímeros de fijación", "consenso profesional en cabello rizado"]
+    tags: [definition, styling]
+
+  - id: style.apply_on_soaking_wet_high_porosity
+    kind: technique
+    evidence_level: professional_consensus
+    mechanism: >
+      El agua actúa como vehículo: distribuye el producto de forma uniforme con
+      mucha menos cantidad y menos manipulación mecánica. En porosidad alta,
+      además, la fibra pierde agua rápido, así que aplicar sobre cabello muy
+      mojado alarga la ventana en la que el rizo se agrupa antes de secarse.
+    conditions:
+      - {fact: zone.porosity, op: in, value: [high, mixed]}
+    outcome:
+      technique: apply_soaking_wet
+      applies_to_zones: all
+    message_key: rule.style.soaking_wet
+    priority: 60
+    sources: ["papel del agua como vehículo de distribución", "consenso profesional"]
+    tags: [technique, styling]
+
+  - id: style.less_product_fine_low_density
+    kind: routine_step
+    evidence_level: professional_consensus
+    mechanism: >
+      La cantidad de producto necesaria escala con la superficie total de fibra,
+      no con la longitud. Cabello fino y de densidad baja tiene mucha menos
+      superficie, así que la misma cantidad que funciona en cabello grueso y
+      denso lo apelmaza y reduce el volumen en la raíz.
+    conditions:
+      - {fact: zone.strand_diameter, op: eq, value: fine}
+      - {fact: zone.density, op: in, value: [low, medium]}
+    outcome:
+      amount_modifier: 0.6
+      product_attributes: {weight: [light]}
+    message_key: rule.style.less_product_fine
+    priority: 70
+    sources: ["relación superficie/masa de la fibra", "formación profesional"]
+    tags: [amount, styling]
+
+  - id: style.diffuse_low_speed_low_heat
+    kind: technique
+    evidence_level: professional_consensus
+    mechanism: >
+      El difusor reduce la velocidad del aire para que las hebras no se muevan
+      durante el secado; el movimiento en húmedo es lo que separa los grupos de
+      rizo y genera frizz. La temperatura alta acelera la evaporación pero
+      también aumenta la temperatura de la fibra, que es el factor asociado a
+      la alteración de la cutícula. Velocidad baja y calor medio secan algo más
+      lento con menos coste.
+    conditions:
+      - {fact: user.owns_diffuser, op: is_true}
+    outcome:
+      technique: diffusing
+      params: {air_speed: low, heat: medium}
+    message_key: rule.style.diffuse_settings
+    priority: 55
+    sources: ["efecto del movimiento en húmedo sobre el agrupamiento", "temperatura y cutícula"]
+    tags: [drying, technique]
+
+  - id: style.plopping_for_length_retention_of_shape
+    kind: technique
+    evidence_level: extended_anecdote
+    mechanism: >
+      Envolver el cabello en una camiseta de algodón absorbe agua sin la
+      fricción de una toalla de rizo y mantiene el cabello elevado mientras
+      escurre. Muchas personas reportan más volumen en raíz y menos frizz; no
+      hay medición controlada publicada que lo cuantifique, y a cabello muy
+      largo o muy denso a veces le deja la raíz aplastada por el peso.
+    conditions:
+      - {fact: goal.primary, op: in, value: [volume, definition]}
+    outcome:
+      technique: plopping
+      duration_minutes: 15
+    message_key: rule.style.plopping
+    priority: 40
+    tags: [drying, technique]
+
+  - id: style.cream_for_dryness_and_coarse
+    kind: routine_step
+    evidence_level: professional_consensus
+    mechanism: >
+      Una crema de peinado aporta emolientes y algo de agua sin la película
+      rígida del gel. En cabello grueso o de porosidad alta la superficie es
+      mayor y pierde agua más rápido, así que una capa de emolientes antes del
+      gel reduce esa pérdida durante el secado y deja el resultado menos áspero
+      al tacto que el gel solo.
+    conditions:
+      - {fact: zone.porosity, op: in, value: [high, mixed]}
+    outcome:
+      step: cream
+      product_attributes: {emollient_level: [medium, high], weight: [medium]}
+      order: before_gel
+    message_key: rule.style.cream_layer
+    priority: 62
+    sources: ["pérdida de agua por superficie de fibra", "consenso profesional en capas de peinado"]
+    tags: [styling, hydration]
+
+  - id: style.cream_for_coarse_strands
+    kind: routine_step
+    evidence_level: professional_consensus
+    mechanism: >
+      La hebra gruesa es más rígida y le cuesta más agruparse con otras. Un
+      emoliente con algo de peso reduce esa rigidez aparente y ayuda a que las
+      hebras se mantengan juntas mientras se secan, que es lo que forma el
+      grupo de rizo.
+    conditions:
+      - {fact: zone.strand_diameter, op: eq, value: coarse}
+    outcome:
+      step: cream
+      product_attributes: {weight: [medium, rich]}
+    message_key: rule.style.cream_coarse
+    priority: 58
+    sources: ["rigidez de flexión según diámetro de fibra"]
+    tags: [styling, clumping]

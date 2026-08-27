@@ -1,0 +1,108 @@
+# Glosario de lenguaje controlado — requisito B6.
+# Este archivo NO es documentación: lo ejecuta
+# `app/domain/evidence/language.py` y lo verifica `tests/test_controlled_language.py`.
+#
+# Motivo: en la UE y EE. UU. la clasificación regulatoria de una app se
+# determina en gran parte por su **finalidad declarada**, es decir, por las
+# palabras. Una app cosmética que dice "trata la dermatitis" se convierte en
+# otra cosa a ojos del regulador. Ver docs/04-LEGAL-CHECKLIST.md §1.
+
+version: 1
+
+blocked:
+  - term: dermatitis
+    replacement_key: lang.visible_irritation
+    reason: medical_condition
+  - term: seborrea
+    replacement_key: lang.visible_oil
+    reason: medical_condition
+  - term: seborreica
+    replacement_key: lang.visible_oil
+    reason: medical_condition
+  - term: psoriasis
+    replacement_key: lang.visible_flaking
+    reason: medical_condition
+  - term: alopecia
+    replacement_key: lang.reduced_density_observed
+    reason: medical_condition
+  - term: calvicie
+    replacement_key: lang.reduced_density_observed
+    reason: medical_condition
+  - term: foliculitis
+    replacement_key: lang.visible_irritation
+    reason: medical_condition
+  - term: infección
+    replacement_key: lang.refer_to_professional
+    reason: medical_condition
+  - term: hongos
+    replacement_key: lang.refer_to_professional
+    reason: medical_condition
+  - term: diagnóstico
+    replacement_key: lang.observation
+    reason: medical_act
+  - term: diagnosticar
+    replacement_key: lang.estimate
+    reason: medical_act
+  - term: tratamiento
+    replacement_key: lang.routine
+    reason: medical_act
+  - term: tratar
+    replacement_key: lang.you_can_consider
+    reason: medical_act
+  - term: curar
+    replacement_key: lang.improve_appearance
+    reason: medical_promise
+  - term: sanar
+    replacement_key: lang.improve_appearance
+    reason: medical_promise
+  - term: regenerar
+    replacement_key: lang.condition_surface
+    reason: false_mechanism
+  - term: clínicamente probado
+    replacement_key: lang.use_evidence_label
+    reason: regulated_claim
+  - term: garantizado
+    replacement_key: lang.tends_to_work
+    reason: outcome_promise
+  - term: detox
+    replacement_key: lang.clarify
+    reason: pseudoscience
+  - term: desintoxicar
+    replacement_key: lang.clarify
+    reason: pseudoscience
+  - term: células madre capilares
+    replacement_key: lang.remove
+    reason: pseudoscience
+  - term: dermatitis seborreica
+    replacement_key: lang.visible_oil
+    reason: medical_condition
+  - term: detox capilar
+    replacement_key: lang.clarify
+    reason: pseudoscience
+
+# Bloqueados solo en contextos prescriptivos (el motor de rutinas y las
+# recomendaciones). Se permiten en contenido educativo neutro.
+prescriptive_blocked:
+  - term: debes
+    replacement_key: lang.you_can_consider
+    reason: prescriptive_imperative
+  - term: tienes que
+    replacement_key: lang.you_can_consider
+    reason: prescriptive_imperative
+  - term: hay que
+    replacement_key: lang.tends_to_work
+    reason: prescriptive_imperative
+
+# Permitidos, pero solo si el texto cumple la condición indicada. La condición
+# se revisa a mano en code review; el checker solo la reporta como aviso.
+conditional:
+  - term: proteína
+    condition: must_mention_balance
+  - term: daño
+    condition: visible_only
+  - term: porosidad
+    condition: must_state_estimate
+  - term: crecimiento
+    condition: distinguish_growth_from_retention
+
+referral_block_key: safety.referral_block

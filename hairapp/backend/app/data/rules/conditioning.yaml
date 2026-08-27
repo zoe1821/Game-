@@ -1,0 +1,105 @@
+pack: conditioning
+version: 1
+
+rules:
+  - id: cond.protein_when_excessive_elasticity
+    kind: routine_step
+    evidence_level: professional_consensus
+    mechanism: >
+      Una hebra que se estira mucho en húmedo y no vuelve a su longitud indica
+      una red de queratina con menos enlaces efectivos, algo frecuente tras
+      decoloración o alisado químico. Los hidrolizados de proteína de bajo peso
+      molecular se adsorben y rellenan huecos de la cutícula de forma temporal,
+      lo que aumenta la rigidez aparente. No reconstruyen el córtex: el efecto
+      dura hasta el siguiente lavado.
+    conditions:
+      - {fact: zone.elasticity, op: eq, value: excessive}
+    outcome:
+      step: protein_treatment
+      product_attributes: {protein_level: [medium, high]}
+      frequency_hint: every_2_4_washes
+      caution: monitor_stiffness
+    message_key: rule.cond.protein_for_excessive_elasticity
+    priority: 75
+    sources: ["adsorción de hidrolizados de proteína sobre la cutícula", "consenso profesional en cabello procesado"]
+    tags: [protein, elasticity]
+    conflicts_with: [cond.reduce_protein_when_stiff]
+
+  - id: cond.reduce_protein_when_stiff
+    kind: warning
+    evidence_level: professional_consensus
+    mechanism: >
+      El uso repetido de hidrolizados sin emolientes suficientes deja la
+      superficie rígida y con menos deslizamiento. La fibra se vuelve quebradiza
+      al peinar en seco. Es reversible: se corrige espaciando la proteína y
+      subiendo emolientes y humectantes, no añadiendo más proteína.
+    conditions:
+      - {fact: user.reports_stiff_hair, op: is_true}
+      - {fact: routine.protein_frequency_per_month, op: gte, value: 3}
+    outcome:
+      warning: protein_overload_signs
+      suggestion: increase_emollients_space_protein
+    message_key: rule.cond.protein_overload
+    priority: 85
+    sources: ["equilibrio proteína/emoliente en acondicionamiento", "formación profesional"]
+    tags: [protein, balance]
+    conflicts_with: [cond.protein_when_excessive_elasticity]
+
+  - id: cond.cationic_detangling
+    kind: routine_step
+    evidence_level: scientific_evidence
+    mechanism: >
+      La fibra capilar tiene carga negativa neta, más acusada cuanto más
+      dañada está la cutícula. Los tensioactivos catiónicos (behentrimonium,
+      cetrimonium) se adsorben por atracción electrostática justo en las zonas
+      más negativas, es decir donde más falta hace, y reducen el coeficiente de
+      fricción entre hebras. Por eso el desenredo funciona mejor en húmedo y
+      con acondicionador que en seco.
+    conditions: []
+    outcome:
+      step: condition
+      product_attributes: {cationic: true}
+      technique: detangle_wet_with_conditioner
+    message_key: rule.cond.cationic_slip
+    priority: 70
+    sources: ["carga superficial de la fibra capilar", "mecánica de fricción en peinado húmedo"]
+    tags: [detangling, conditioning]
+
+  - id: cond.deep_condition_high_porosity
+    kind: routine_step
+    evidence_level: professional_consensus
+    mechanism: >
+      Con la cutícula más abierta el agua entra y sale más rápido, lo que
+      produce hinchamiento y contracción repetidos (fatiga higral) y aumenta la
+      pérdida de emolientes entre lavados. Una mascarilla con tiempo de contacto
+      largo aporta emolientes que se quedan en superficie y reducen esa pérdida
+      hasta el siguiente lavado.
+    conditions:
+      - {fact: zone.porosity, op: in, value: [high, mixed]}
+    outcome:
+      step: deep_condition
+      duration_minutes: 20
+      frequency_hint: weekly
+      product_attributes: {emollient_level: [medium, high]}
+    message_key: rule.cond.deep_condition_porous
+    priority: 65
+    sources: ["fatiga higral por ciclos de hinchamiento", "consenso profesional"]
+    tags: [porosity, conditioning]
+
+  - id: cond.heat_not_required_low_porosity
+    kind: myth
+    evidence_level: unsupported_trend
+    mechanism: >
+      Circula que la porosidad baja "necesita calor para que el producto entre".
+      El calor moderado aumenta algo la movilidad molecular y el hinchamiento,
+      pero la limitación real en porosidad baja es que la cutícula compacta
+      admite poco material de todos modos, y el exceso queda en superficie. El
+      resultado percibido de "producto que no entra" se resuelve mejor usando
+      menos cantidad y capas más finas que aplicando calor.
+    conditions: []
+    outcome:
+      myth: low_porosity_needs_heat
+      correction_key: myth.low_porosity_heat.correction
+    message_key: myth.low_porosity_heat
+    priority: 40
+    tags: [myth, porosity]

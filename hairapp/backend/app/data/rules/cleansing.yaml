@@ -1,0 +1,101 @@
+# Pack: limpieza. Cada regla declara su nivel de evidencia y su mecanismo.
+# Ver docs/08-EVIDENCE-POLICY.md.
+pack: cleansing
+version: 1
+
+rules:
+  - id: cleanse.sulfate_free_high_porosity
+    kind: routine_step
+    evidence_level: professional_consensus
+    mechanism: >
+      Los tensioactivos aniónicos fuertes (lauril sulfato de sodio) retiran
+      lípidos superficiales con más eficacia que los anfóteros o no iónicos.
+      En cabello de porosidad alta la cutícula está más levantada y retiene
+      menos lípidos de partida, por lo que la misma limpieza deja la fibra
+      más áspera al tacto y más difícil de desenredar.
+    conditions:
+      - {fact: zone.porosity, op: in, value: [high, mixed]}
+    outcome:
+      step: cleanse
+      product_attributes: {surfactant_strength: [mild, medium]}
+      frequency_hint: as_needed
+    message_key: rule.cleanse.gentler_surfactant
+    priority: 60
+    sources: ["química de tensioactivos aniónicos vs anfóteros", "formación profesional en cabello texturizado"]
+    tags: [porosity, cleansing]
+
+  - id: cleanse.strong_surfactant_for_buildup
+    kind: routine_step
+    evidence_level: professional_consensus
+    mechanism: >
+      Las siliconas no solubles en agua y los polímeros de fijación resistentes
+      no se retiran con co-wash ni con tensioactivos suaves. Se acumulan capa
+      sobre capa y reducen la absorción de agua, lo que se percibe como cabello
+      apagado, pesado y que "ya no responde" a los productos de siempre.
+    conditions:
+      - {fact: scalp.buildup, op: is_true}
+    outcome:
+      step: clarify
+      product_attributes: {surfactant_strength: [strong]}
+      frequency_hint: occasional
+    message_key: rule.cleanse.clarify_for_buildup
+    priority: 80
+    sources: ["solubilidad de siliconas (dimeticona vs PEG-dimeticona)", "consenso de formulación"]
+    tags: [buildup, cleansing]
+
+  - id: cleanse.chelating_for_hard_water
+    kind: routine_step
+    evidence_level: scientific_evidence
+    mechanism: >
+      El agua dura aporta iones calcio y magnesio que se depositan sobre la
+      fibra y forman sales insolubles con los tensioactivos aniónicos. Un
+      quelante (EDTA, ácido cítrico, fitato) los secuestra formando complejos
+      solubles que sí se enjuagan; un champú clarificante normal retira residuo
+      orgánico pero no captura iones metálicos. Por eso clarificar y quelar no
+      son lo mismo y no se sustituyen.
+    conditions:
+      - {fact: water.hardness_ppm, op: gte, value: 180}
+    outcome:
+      step: chelate
+      product_attributes: {chelating: true}
+      frequency_hint: monthly
+    message_key: rule.cleanse.chelate_hard_water
+    priority: 70
+    sources: ["depósito de iones calcio sobre la fibra capilar", "química de agentes quelantes"]
+    tags: [water, cleansing]
+
+  - id: cleanse.scalp_focus_not_lengths
+    kind: technique
+    evidence_level: professional_consensus
+    mechanism: >
+      La grasa (sebo) se produce en el cuero cabelludo, no en los largos. La
+      espuma que baja al enjuagar es suficiente para los largos, que además son
+      la parte más antigua y más expuesta de la fibra. Frotar los largos añade
+      fricción mecánica sin beneficio de limpieza.
+    conditions: []
+    outcome:
+      technique: scalp_focused_cleansing
+      applies_to_zones: scalp
+    message_key: rule.cleanse.focus_scalp
+    priority: 55
+    sources: ["distribución del sebo desde el folículo", "formación profesional"]
+    tags: [technique, cleansing]
+
+  - id: cleanse.cowash_low_porosity_caution
+    kind: warning
+    evidence_level: professional_consensus
+    mechanism: >
+      El co-wash limpia con tensioactivos catiónicos y emolientes, que dejan
+      residuo acondicionador por diseño. En porosidad baja la cutícula está
+      compacta y absorbe poco, así que ese residuo se queda en superficie y se
+      acumula más rápido que en porosidad alta.
+    conditions:
+      - {fact: zone.porosity, op: eq, value: low}
+      - {fact: routine.uses_cowash, op: is_true}
+    outcome:
+      warning: cowash_buildup_risk
+      suggestion: alternate_with_gentle_shampoo
+    message_key: rule.cleanse.cowash_low_porosity
+    priority: 65
+    sources: ["adsorción de catiónicos sobre cutícula", "consenso de formulación"]
+    tags: [porosity, buildup]
