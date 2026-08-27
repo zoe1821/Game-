@@ -18,6 +18,7 @@ from ...core.security import (
     verify_password,
 )
 from ...db.base import utcnow
+from ...db.session import TransactionalRoute
 from ...models.hair import HairProfile
 from ...models.user import Consent, ConsentPurpose, RefreshToken, User
 from ...schemas.auth import (
@@ -32,7 +33,7 @@ from ...schemas.auth import (
 from ...services.profile_service import ensure_zones
 from ..deps import CurrentUser, DbSession
 
-router = APIRouter(prefix="/auth", tags=["auth"])
+router = APIRouter(prefix="/auth", tags=["auth"], route_class=TransactionalRoute)
 
 
 def _age_years(birth_date: date, *, today: date | None = None) -> int:

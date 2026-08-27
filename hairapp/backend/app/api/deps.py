@@ -12,7 +12,7 @@ from sqlalchemy.orm import Session
 
 from ..core.errors import ConsentRequired, NotFound, Unauthorized
 from ..core.security import decode_token
-from ..db.base import get_db
+from ..db.session import get_db
 from ..models.hair import HairProfile
 from ..models.user import ConsentPurpose, User
 

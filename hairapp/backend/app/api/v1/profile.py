@@ -5,6 +5,7 @@ from __future__ import annotations
 from fastapi import APIRouter, status
 
 from ...core.errors import NotFound, ValidationFailed
+from ...db.session import TransactionalRoute
 from ...domain.hair.attributes import CurlPattern
 from ...domain.hair.zones import ALL_ZONES, Zone
 from ...domain.routine.generator import Goal as GoalEnum
@@ -28,7 +29,7 @@ from ...services.profile_service import (
 )
 from ..deps import CurrentProfile, DbSession
 
-router = APIRouter(prefix="/profile", tags=["profile"])
+router = APIRouter(prefix="/profile", tags=["profile"], route_class=TransactionalRoute)
 
 #: Secciones válidas de la profundización opcional (B3).
 DEEP_SECTIONS = frozenset(

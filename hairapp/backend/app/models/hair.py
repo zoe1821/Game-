@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import enum
 from datetime import date, datetime
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 from sqlalchemy import (
     JSON,
@@ -23,6 +23,9 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from ..db.base import Base, IdMixin, TimestampMixin
 from ..domain.hair.zones import Zone
+
+if TYPE_CHECKING:
+    from .user import User
 
 #: `JSON` funciona igual en PostgreSQL (donde se materializa como JSONB vía
 #: dialecto) y en SQLite, que es lo que usan los tests. Los campos que llevan

@@ -15,6 +15,7 @@ from PIL import Image
 
 from ...core.errors import Forbidden, NotFound, ValidationFailed
 from ...db.base import utcnow
+from ...db.session import TransactionalRoute
 from ...domain.hair.zones import ALL_ZONES, PhotoAngle, coverage_for
 from ...domain.scan.pipeline import ScanPhoto
 from ...domain.scan.quality import assess_photo
@@ -25,7 +26,7 @@ from ...services.profile_service import apply_estimates, ensure_zones, get_zone
 from ...services.storage import get_storage, photo_key
 from ..deps import CurrentProfile, DbSession, require_consent
 
-router = APIRouter(prefix="/scans", tags=["scans"])
+router = APIRouter(prefix="/scans", tags=["scans"], route_class=TransactionalRoute)
 
 MAX_UPLOAD_BYTES = 12 * 1024 * 1024
 
@@ -75,9 +76,9 @@ async def upload_photo(
     profile: CurrentProfile,
     user: PhotoConsent,
     session: DbSession,
+    file: Annotated[UploadFile, File()],
     angle: Annotated[str, Form()],
     face_cropped: Annotated[bool, Form()] = False,
-    file: Annotated[UploadFile, File()] = ...,
 ) -> dict[str, object]:
     """Sube una foto y devuelve su calidad al momento.
 

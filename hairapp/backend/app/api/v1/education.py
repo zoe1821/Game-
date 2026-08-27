@@ -9,12 +9,13 @@ from __future__ import annotations
 
 from fastapi import APIRouter
 
+from ...db.session import TransactionalRoute
 from ...domain.evidence.levels import EvidenceLevel
 from ...domain.rules.engine import detect_myths
 from ...domain.rules.model import RuleKind
 from ...services.engine import get_rule_engine
 
-router = APIRouter(prefix="/education", tags=["education"])
+router = APIRouter(prefix="/education", tags=["education"], route_class=TransactionalRoute)
 
 
 @router.get("/myths")

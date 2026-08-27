@@ -4,11 +4,15 @@ from __future__ import annotations
 
 import enum
 from datetime import date, datetime
+from typing import TYPE_CHECKING
 
 from sqlalchemy import Boolean, Date, DateTime, Enum, ForeignKey, Integer, String, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from ..db.base import Base, IdMixin, TimestampMixin
+
+if TYPE_CHECKING:
+    from .hair import HairProfile
 
 
 class ConsentPurpose(enum.Enum):

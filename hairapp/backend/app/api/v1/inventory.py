@@ -12,6 +12,7 @@ from fastapi import APIRouter, status
 from sqlalchemy import select
 
 from ...core.errors import NotFound, ValidationFailed
+from ...db.session import TransactionalRoute
 from ...domain.products.catalog import InventoryItem, Product
 from ...domain.products.ingredients import analyse, parse_inci, summarise_functions
 from ...domain.products.matching import compare, match_for_step
@@ -21,7 +22,7 @@ from ...models.products import InventoryRow, ProductRow, SensitivityRow
 from ...schemas.journal import IngredientScanIn, InventoryItemIn, MatchRequestIn
 from ..deps import CurrentProfile, DbSession
 
-router = APIRouter(prefix="/inventory", tags=["inventory"])
+router = APIRouter(prefix="/inventory", tags=["inventory"], route_class=TransactionalRoute)
 
 
 def _to_domain_product(row: ProductRow) -> Product:
@@ -65,7 +66,7 @@ def _load_inventory(session: DbSession, profile_id: str) -> list[InventoryRow]:
 def list_inventory(profile: CurrentProfile, session: DbSession) -> list[dict[str, object]]:
     rows = _load_inventory(session, profile.id)
     today = date.today()
-    out = []
+    out: list[dict[str, object]] = []
     for row in rows:
         item = _to_domain_item(row)
         expires = row.expires_on

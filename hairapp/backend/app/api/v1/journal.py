@@ -6,6 +6,7 @@ from fastapi import APIRouter, status
 from sqlalchemy import select
 
 from ...core.errors import NotFound
+from ...db.session import TransactionalRoute
 from ...domain.common import Measured, Source
 from ...domain.hair.attributes import Density, Porosity, StrandDiameter
 from ...domain.learning.cold_start import guidance
@@ -16,7 +17,7 @@ from ...schemas.journal import JournalEntryIn, JournalEntryOut, RatingsIn
 from ...services.journal_service import to_domain_entries, to_domain_entry
 from ..deps import CurrentProfile, CurrentUser, DbSession
 
-router = APIRouter(prefix="/journal", tags=["journal"])
+router = APIRouter(prefix="/journal", tags=["journal"], route_class=TransactionalRoute)
 
 
 @router.get("", response_model=list[JournalEntryOut])

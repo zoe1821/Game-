@@ -546,3 +546,45 @@ def test_account_deletion_removes_rows_and_stored_photos(client, tmp_path) -> No
 
     assert not list(storage_root.rglob("*.jpg")), "el borrado debe purgar el storage, no solo filas"
     assert client.get("/api/v1/profile", headers=headers).status_code == 401
+
+
+# --- durabilidad de la transacción ----------------------------------------
+
+
+def test_a_successful_response_means_the_data_is_already_committed(client) -> None:
+    """La transacción se confirma **antes** de responder.
+
+    Con el patrón habitual (`commit` en la limpieza de la dependencia) el
+    commit ocurre después de generar la respuesta: el cliente recibe un 204 de
+    borrado de cuenta y, si vuelve a preguntar de inmediato, la cuenta sigue
+    ahí. Peor todavía: si el commit falla, ya se le dijo que fue bien.
+    """
+    headers = _auth(client, email="durabilidad@example.com")
+
+    assert client.delete("/api/v1/auth/account", headers=headers).status_code == 204
+    # Sin ninguna espera: si la respuesta llegó, el borrado ya es firme.
+    assert client.get("/api/v1/auth/me", headers=headers).status_code == 401
+
+
+def test_created_resources_are_readable_immediately(client) -> None:
+    headers = _auth(client, email="inmediato@example.com")
+    created = client.post(
+        "/api/v1/journal", headers=headers, json={"entry_date": "2026-05-01"}
+    )
+    assert created.status_code == 201
+    listed = client.get("/api/v1/journal", headers=headers).json()
+    assert [entry["id"] for entry in listed] == [created.json()["id"]]
+
+
+def test_a_failed_request_leaves_nothing_behind(client) -> None:
+    """Un fallo a mitad no puede dejar filas a medias."""
+    headers = _auth(client, email="rollback@example.com")
+    before = client.get("/api/v1/profile", headers=headers).json()
+
+    rejected = client.put(
+        "/api/v1/profile/goals", headers=headers, json={"goals": ["objetivo_inexistente"]}
+    )
+    assert rejected.status_code == 422
+
+    after = client.get("/api/v1/profile", headers=headers).json()
+    assert after["goals"] == before["goals"]

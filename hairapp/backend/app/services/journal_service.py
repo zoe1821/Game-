@@ -11,7 +11,13 @@ _RATING_FIELDS = ("day1", "day2", "day3", "day4_plus")
 
 
 def _rating(raw: object) -> ResultRating | None:
-    if raw is None:
+    """Convierte una valoración guardada en JSON al enum del dominio.
+
+    Un valor corrupto o fuera de rango devuelve `None` en vez de reventar: un
+    registro antiguo con un formato distinto no debe impedir leer el diario
+    entero.
+    """
+    if not isinstance(raw, (int, float, str)):
         return None
     try:
         return ResultRating(int(raw))

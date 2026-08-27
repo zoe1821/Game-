@@ -7,6 +7,7 @@ from sqlalchemy import select
 
 from ...core.errors import Forbidden, NotFound, ValidationFailed
 from ...db.base import utcnow
+from ...db.session import TransactionalRoute
 from ...domain.experiments.engine import Experiment, ExperimentArm, read_experiment
 from ...domain.learning.journal import analyse_journal
 from ...domain.twin.model import build_twin
@@ -16,7 +17,7 @@ from ...schemas.journal import ExperimentIn
 from ...services.journal_service import to_domain_entries
 from ..deps import CurrentProfile, DbSession
 
-router = APIRouter(prefix="/twin", tags=["twin"])
+router = APIRouter(prefix="/twin", tags=["twin"], route_class=TransactionalRoute)
 
 #: Límite del tier gratuito (docs/02-MONETIZATION.md §2): un experimento activo.
 #: Se cobra por profundidad analítica, nunca por acceso básico ni por los datos
@@ -81,7 +82,7 @@ def scenarios() -> list[dict[str, str]]:
 
 # --- experimentos ---------------------------------------------------------
 
-experiments_router = APIRouter(prefix="/experiments", tags=["experiments"])
+experiments_router = APIRouter(prefix="/experiments", tags=["experiments"], route_class=TransactionalRoute)
 
 
 @experiments_router.get("")

@@ -99,7 +99,11 @@ class ConsentRequired(AppError):
         )
 
 
-async def app_error_handler(_request: Request, exc: AppError) -> JSONResponse:
+async def app_error_handler(_request: Request, exc: Exception) -> JSONResponse:
+    # La firma acepta `Exception` porque es lo que Starlette declara; el
+    # registro solo lo asocia a `AppError`, así que el estrechamiento es seguro.
+    if not isinstance(exc, AppError):
+        return await unhandled_error_handler(_request, exc)
     return JSONResponse(status_code=exc.status_code, content=exc.to_payload())
 
 

@@ -203,16 +203,16 @@ def _redundancy(products: Sequence[Product]) -> list[RoutineFinding]:
                 )
             )
 
-    for group in _REDUNDANT_GROUPS:
-        present = [p for p in products if p.category in group]
+    for overlapping in _REDUNDANT_GROUPS:
+        present = [p for p in products if p.category in overlapping]
         categories = {p.category for p in present}
-        if len(categories) == len(group) and len(present) >= len(group):
+        if len(categories) == len(overlapping) and len(present) >= len(overlapping):
             findings.append(
                 RoutineFinding(
                     key="routine.overlapping_roles",
                     severity=Severity.INFO,
                     product_ids=tuple(p.id for p in present),
-                    params={"categories": [c.value for c in group]},
+                    params={"categories": [c.value for c in overlapping]},
                     suggestion_key="routine.suggestion.test_removing_one",
                 )
             )

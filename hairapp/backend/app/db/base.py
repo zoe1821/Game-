@@ -3,11 +3,10 @@
 from __future__ import annotations
 
 import uuid
-from collections.abc import Iterator
 from datetime import UTC, datetime
 
 from sqlalchemy import DateTime, MetaData, String, create_engine, func
-from sqlalchemy.orm import DeclarativeBase, Mapped, Session, mapped_column, sessionmaker
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, sessionmaker
 
 from ..core.config import get_settings
 
@@ -64,18 +63,6 @@ def get_session_factory():
     if _SessionLocal is None:
         _SessionLocal = sessionmaker(bind=get_engine(), autoflush=False, expire_on_commit=False)
     return _SessionLocal
-
-
-def get_db() -> Iterator[Session]:
-    session = get_session_factory()()
-    try:
-        yield session
-        session.commit()
-    except Exception:
-        session.rollback()
-        raise
-    finally:
-        session.close()
 
 
 def utcnow() -> datetime:

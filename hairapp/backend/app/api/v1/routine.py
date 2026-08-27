@@ -5,6 +5,7 @@ from __future__ import annotations
 from fastapi import APIRouter
 
 from ...core.errors import ValidationFailed
+from ...db.session import TransactionalRoute
 from ...domain.climate.weather import Weather, forecast
 from ...domain.routine.generator import RoutineKind
 from ...domain.routine.techniques import TECHNIQUES
@@ -12,7 +13,7 @@ from ...schemas.hair import RoutineOut, RoutineRequestIn
 from ...services.routine_service import generate_for_profile
 from ..deps import CurrentProfile, DbSession
 
-router = APIRouter(prefix="/routines", tags=["routines"])
+router = APIRouter(prefix="/routines", tags=["routines"], route_class=TransactionalRoute)
 
 
 @router.post("/generate", response_model=RoutineOut)
