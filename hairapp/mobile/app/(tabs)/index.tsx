@@ -79,13 +79,13 @@ export default function Today(): React.ReactElement {
           <Card>
             <Stack gap="md">
               <Text variant="overline" tone="muted">
-                {t(`coldStart.stage.${coldStart.data.stage}`)}
+                {t(`cold_start.stage.${coldStart.data.stage}`)}
               </Text>
               <Text variant="subheading">{tKey(coldStart.data.message_key)}</Text>
 
               {coldStart.data.based_on_reference_profiles ? (
                 <Text variant="caption" tone="warn">
-                  {t('coldStart.referenceHint', {
+                  {t('cold_start.referenceHint', {
                     count: coldStart.data.reference_sample_size,
                   })}
                 </Text>

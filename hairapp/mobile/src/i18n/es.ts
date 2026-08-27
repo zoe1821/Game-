@@ -149,6 +149,13 @@ export const es = {
   },
 
   uncertainty: {
+    uncontrolled: {
+      dew_point: 'El clima no era comparable entre los dos grupos',
+      dew_point_missing: 'Faltan datos de clima en algunos registros',
+      other_products: 'Cambiaron también otros productos',
+      techniques: 'Cambiaron también las técnicas',
+      wash_frequency: 'Cambió también la frecuencia de lavado',
+    },
     cold_start: 'Todavía no tenemos historial tuyo',
     small_sample: 'Pocos registros: puede cambiar',
     mixed_personal_results: 'Tus resultados están repartidos',
@@ -476,7 +483,10 @@ export const es = {
     unknownAttributes: 'No pudimos comprobar',
   },
 
-  coldStart: {
+  // El nombre coincide con la clave que manda el backend
+  // (`cold_start.general_consensus_only`). Si divergen, la pantalla de inicio
+  // se queda con el texto principal en blanco.
+  cold_start: {
     based_on_similar_profiles: 'Basado en perfiles parecidos al tuyo',
     general_consensus_only: 'Basado en consenso cosmético general',
     referenceHint:

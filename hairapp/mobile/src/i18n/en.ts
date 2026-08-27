@@ -143,6 +143,13 @@ export const en: Catalog = {
   },
 
   uncertainty: {
+    uncontrolled: {
+      dew_point: "The weather wasn't comparable between the two groups",
+      dew_point_missing: 'Some entries have no weather data',
+      other_products: 'Other products changed too',
+      techniques: 'The techniques changed too',
+      wash_frequency: 'The wash frequency changed too',
+    },
     cold_start: "We don't have your history yet",
     small_sample: 'Few records: this may change',
     mixed_personal_results: 'Your results are split',
@@ -469,7 +476,10 @@ export const en: Catalog = {
     unknownAttributes: "We couldn't check",
   },
 
-  coldStart: {
+  // El nombre coincide con la clave que manda el backend
+  // (`cold_start.general_consensus_only`). Si divergen, la pantalla de inicio
+  // se queda con el texto principal en blanco.
+  cold_start: {
     based_on_similar_profiles: 'Based on profiles similar to yours',
     general_consensus_only: 'Based on general cosmetic consensus',
     referenceHint:
