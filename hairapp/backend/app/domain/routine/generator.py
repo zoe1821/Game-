@@ -13,12 +13,12 @@ con productos concretos ocurre después, y empieza por el inventario (A15).
 from __future__ import annotations
 
 import enum
+from collections.abc import Mapping, Sequence
 from dataclasses import dataclass, field
 from datetime import date
-from typing import Any, Mapping, Sequence
+from typing import Any
 
 from ..common import Explanation
-from ..confidence.engine import PersonalEvidence
 from ..hair.attributes import (
     CurlPattern,
     Density,
@@ -27,11 +27,17 @@ from ..hair.attributes import (
     ProcessingState,
     StrandDiameter,
 )
-from ..hair.zones import Zone, ZoneGroup, group_of
-from ..rules.engine import EvaluatedRule, EvaluationResult, PersonalEvidenceLookup, RuleEngine, no_personal_history
+from ..hair.zones import Zone
+from ..rules.engine import (
+    EvaluatedRule,
+    EvaluationResult,
+    PersonalEvidenceLookup,
+    RuleEngine,
+    no_personal_history,
+)
 from ..rules.model import RuleKind
 from .amounts import Amount, ProductCategory, closest_reference, compute_amount
-from .techniques import Technique, TechniqueStage, TECHNIQUES_BY_ID, techniques_for
+from .techniques import TECHNIQUES_BY_ID, Technique, TechniqueStage, techniques_for
 
 
 class Goal(enum.Enum):
@@ -373,7 +379,7 @@ class RoutineGenerator:
         context: RoutineContext,
         zone_results: Mapping[Zone, EvaluationResult],
         spec: StepSpec,
-    ) -> list["_Instruction"]:
+    ) -> list[_Instruction]:
         """Agrupa zonas que reciben exactamente la misma instrucción.
 
         Esto es lo que evita una lista de quince pasos idénticos: si toda la
@@ -528,7 +534,7 @@ class RoutineGenerator:
     def _make_step(
         self,
         order: int,
-        instruction: "_Instruction",
+        instruction: _Instruction,
         context: RoutineContext,
         global_result: EvaluationResult,
     ) -> RoutineStep:
@@ -555,7 +561,7 @@ class RoutineGenerator:
             follow_up_techniques=instruction.follow_ups,
         )
 
-    def _amount_for(self, instruction: "_Instruction", context: RoutineContext) -> Amount | None:
+    def _amount_for(self, instruction: _Instruction, context: RoutineContext) -> Amount | None:
         if instruction.category is None:
             return None
         reference_zone = instruction.zones[0]
@@ -627,7 +633,7 @@ class RoutineGenerator:
 
     def _params_for(
         self,
-        instruction: "_Instruction",
+        instruction: _Instruction,
         context: RoutineContext,
         global_result: EvaluationResult,
     ) -> dict[str, Any]:
@@ -657,7 +663,7 @@ class RoutineGenerator:
         return params
 
     def _heat_temperature(
-        self, instruction: "_Instruction", global_result: EvaluationResult
+        self, instruction: _Instruction, global_result: EvaluationResult
     ) -> int | None:
         """Temperatura por estado de la fibra, nunca una universal (A16)."""
         for evaluated in global_result.active:
@@ -686,7 +692,7 @@ class RoutineGenerator:
                 return min(candidates)
         return None
 
-    def _explain(self, instruction: "_Instruction", context: RoutineContext) -> Explanation:
+    def _explain(self, instruction: _Instruction, context: RoutineContext) -> Explanation:
         if not instruction.rules:
             return Explanation(
                 summary_key=f"{instruction.action_key}.why.default",
@@ -854,14 +860,14 @@ def _median_length(context: RoutineContext) -> float | None:
     return lengths[len(lengths) // 2]
 
 
-def _wants_soaking_wet(instruction: "_Instruction") -> bool:
+def _wants_soaking_wet(instruction: _Instruction) -> bool:
     return any(
         e.rule.outcome.get("technique") == "apply_soaking_wet"
         for e in instruction.rules.values()
     ) or any(z.porosity in {Porosity.HIGH, Porosity.MIXED} for z in instruction.zones)
 
 
-def _section_count(instruction: "_Instruction", context: RoutineContext) -> int:
+def _section_count(instruction: _Instruction, context: RoutineContext) -> int:
     """Cuántas secciones para aplicar. Escala con densidad y longitud: aplicar
     en cuatro secciones sobre cabello muy denso deja zonas sin producto."""
     density = instruction.zones[0].density or Density.MEDIUM

@@ -11,7 +11,7 @@ Los pasos son claves i18n, no texto: el backend no manda copy de UI.
 from __future__ import annotations
 
 import enum
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 
 from ..evidence.levels import EvidenceLevel
 from ..hair.attributes import PatternFamily, Porosity
@@ -60,9 +60,12 @@ class Technique:
     def suits(self, family: PatternFamily, porosity: Porosity | None = None) -> bool:
         if family not in self.suits_patterns:
             return False
-        if self.suits_porosity and porosity is not None and porosity not in self.suits_porosity:
-            return False
-        return True
+        porosity_mismatch = (
+            bool(self.suits_porosity)
+            and porosity is not None
+            and porosity not in self.suits_porosity
+        )
+        return not porosity_mismatch
 
 
 TECHNIQUES: tuple[Technique, ...] = (

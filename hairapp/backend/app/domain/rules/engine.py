@@ -11,9 +11,10 @@ sobre un hecho desconocido no se cumple (ver `Condition.evaluate`).
 
 from __future__ import annotations
 
+from collections.abc import Callable, Iterable, Mapping, Sequence
 from dataclasses import dataclass
 from datetime import date
-from typing import Any, Callable, Iterable, Mapping, Sequence
+from typing import Any
 
 from ..confidence.engine import ConfidenceReport, PersonalEvidence, build_report
 from ..evidence.levels import EvidenceLevel

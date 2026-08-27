@@ -8,9 +8,10 @@ verificada por `tests/test_domain_purity.py`.
 from __future__ import annotations
 
 import enum
+from collections.abc import Iterable
 from dataclasses import dataclass, field, replace
 from datetime import date
-from typing import Generic, Iterable, TypeVar
+from typing import Generic, TypeVar
 
 T = TypeVar("T")
 
@@ -92,7 +93,7 @@ class Measured(Generic[T]):
     def is_user_confirmed(self) -> bool:
         return self.source is Source.USER
 
-    def with_confidence(self, confidence: float) -> "Measured[T]":
+    def with_confidence(self, confidence: float) -> Measured[T]:
         capped = min(confidence, self.source.confidence_ceiling)
         return replace(self, confidence=max(0.0, capped))
 

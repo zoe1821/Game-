@@ -32,7 +32,7 @@ class CurlPattern(enum.Enum):
     COILY_4C = "4c"
 
     @property
-    def family(self) -> "PatternFamily":
+    def family(self) -> PatternFamily:
         return PatternFamily(self.value[0])
 
     @property
@@ -184,7 +184,7 @@ class ZoneProfile:
     Todos los campos estimados son `Measured`: sin procedencia no entran.
     """
 
-    zone: "object"  # Zone; se tipa laxo para no crear un import circular
+    zone: object  # Zone; se tipa laxo para no crear un import circular
     pattern: Measured[CurlPattern] | None = None
     curl_diameter_mm: Measured[float] | None = None
     curve_frequency_per_cm: Measured[float] | None = None

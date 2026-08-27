@@ -10,9 +10,9 @@ from __future__ import annotations
 
 import re
 import unicodedata
+from collections.abc import Iterable, Iterator
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Iterable, Iterator
 
 import yaml
 
@@ -73,7 +73,7 @@ class ControlledLanguage:
         ]
 
     @classmethod
-    def load(cls, path: Path | None = None) -> "ControlledLanguage":
+    def load(cls, path: Path | None = None) -> ControlledLanguage:
         source = path or DEFAULT_GLOSSARY_PATH
         raw = yaml.safe_load(source.read_text(encoding="utf-8"))
         blocked = [
@@ -146,7 +146,7 @@ class ControlledLanguage:
         return findings
 
     @property
-    def errors_only(self) -> "ControlledLanguage":
+    def errors_only(self) -> ControlledLanguage:
         return self
 
 

@@ -8,13 +8,15 @@ defecto silenciosos. Un default convertiría un "no lo revisamos" en un
 
 from __future__ import annotations
 
+from collections.abc import Iterable, Iterator, Mapping, Sequence
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Iterable, Iterator, Mapping, Sequence
+from typing import Any
 
 import yaml
 
-from ..evidence.language import ControlledLanguage, errors as language_errors
+from ..evidence.language import ControlledLanguage
+from ..evidence.language import errors as language_errors
 from ..evidence.levels import EvidenceLevel
 from .model import Condition, Operator, Rule, RuleKind
 
