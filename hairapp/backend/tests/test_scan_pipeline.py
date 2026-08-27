@@ -13,11 +13,11 @@ from app.domain.scan.pipeline import (
 from app.domain.scan.quality import QualityIssue, assess_photo
 
 
-def _strand_texture(size: int = 900, seed: int = 3) -> np.ndarray:
-    """Textura de alta frecuencia parecida a hebras: lo que el Laplaciano mide."""
+def _strand_texture(size: int = 900, seed: int = 3, frequency: float = 1.7) -> np.ndarray:
+    """Textura parecida a hebras: lo que el Laplaciano mide en una foto real."""
     rng = np.random.default_rng(seed)
     y, x = np.mgrid[0:size, 0:size]
-    strands = 40 * np.sin(x * 1.7 + 8 * np.sin(y / 40.0)) + 18 * rng.standard_normal((size, size))
+    strands = 40 * np.sin(x * frequency + 8 * np.sin(y / 40.0)) + 18 * rng.standard_normal((size, size))
     base = 120 + 35 * np.sin(y / 120.0) + strands
     return np.clip(np.stack([base, base * 0.94, base * 0.88], -1), 0, 255)
 
@@ -37,9 +37,45 @@ def _blur(image: np.ndarray, iterations: int) -> np.ndarray:
 def test_blur_detection_responds_to_actual_blur() -> None:
     sharp = assess_photo(_strand_texture(), PhotoAngle.FRONT)
     blurred = assess_photo(_blur(_strand_texture(), 8), PhotoAngle.FRONT)
-    assert sharp.metrics["normalised_blur"] > blurred.metrics["normalised_blur"]
+    assert sharp.metrics["sharpness"] > blurred.metrics["sharpness"]
     assert not sharp.must_retake
     assert QualityIssue.TOO_BLURRY in blurred.issues
+
+
+def test_sharpness_is_scale_invariant() -> None:
+    """Encontrado con fotos reales: la misma foto medía 1948 a 720 px y 167 a
+    2048 px, así que el validador rechazaba por "movida" cualquier captura de
+    una cámara moderna.
+
+    La textura de prueba usa un periodo de ~7 px, que es el orden en el que se
+    ven las hebras a distancia normal de captura. Con periodos cercanos al
+    límite de Nyquist el reescalado produce aliasing y la prueba mediría eso en
+    vez de la propiedad que interesa.
+    """
+    from PIL import Image
+
+    grey = Image.fromarray(_strand_texture(1440, frequency=0.9)[..., 0].astype(np.uint8))
+    measurements = [
+        assess_photo(
+            np.stack([np.asarray(grey.resize((side, side), Image.LANCZOS), dtype=np.float64)] * 3, -1),
+            PhotoAngle.FRONT,
+        ).metrics["sharpness"]
+        for side in (2048, 1440, 1080, 800)
+    ]
+    assert min(measurements) > 0
+    # Antes la dispersión superaba 10x; ahora se mantiene acotada.
+    assert max(measurements) / min(measurements) < 2.0
+
+
+def test_flat_background_does_not_make_a_sharp_photo_look_blurry() -> None:
+    """Una foto bien compuesta tiene mucho fondo liso (camiseta, pared). Medir
+    la varianza global la penalizaba; se mide por regiones."""
+    texture = _strand_texture(900)
+    framed = np.full_like(texture, 170.0)
+    framed[250:650, 250:650] = texture[250:650, 250:650]
+
+    report = assess_photo(framed, PhotoAngle.FRONT)
+    assert QualityIssue.TOO_BLURRY not in report.issues
 
 
 def test_dark_photo_is_rejected() -> None:
@@ -54,7 +90,7 @@ def test_low_resolution_is_rejected() -> None:
 
 
 def test_quality_score_is_continuous_not_pass_fail() -> None:
-    scores = [assess_photo(_blur(_strand_texture(), n), PhotoAngle.FRONT).score for n in (0, 3, 5)]
+    scores = [assess_photo(_blur(_strand_texture(), n), PhotoAngle.FRONT).score for n in (0, 5, 9)]
     assert scores[0] > scores[1] > scores[2]
 
 

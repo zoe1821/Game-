@@ -13,6 +13,7 @@ from sqlalchemy import select
 
 from ...core.errors import NotFound, ValidationFailed
 from ...db.session import TransactionalRoute
+from ...domain.billing.entitlements import Feature
 from ...domain.products.catalog import InventoryItem, Product
 from ...domain.products.ingredients import analyse, parse_inci, summarise_functions
 from ...domain.products.matching import compare, match_for_step
@@ -20,7 +21,8 @@ from ...domain.products.routine_analysis import analyse_routine
 from ...domain.routine.amounts import ProductCategory
 from ...models.products import InventoryRow, ProductRow, SensitivityRow
 from ...schemas.journal import IngredientScanIn, InventoryItemIn, MatchRequestIn
-from ..deps import CurrentProfile, DbSession
+from ...services.billing_service import record_usage, require
+from ..deps import CurrentProfile, CurrentUser, DbSession
 
 router = APIRouter(prefix="/inventory", tags=["inventory"], route_class=TransactionalRoute)
 
@@ -214,6 +216,7 @@ def analyse_current_routine(
 def scan_ingredients(
     payload: IngredientScanIn,
     profile: CurrentProfile,
+    user: CurrentUser,
     session: DbSession,
 ) -> dict[str, object]:
     """Ingredient scanner (A11).
@@ -222,6 +225,8 @@ def scan_ingredients(
     avisa de coincidencias con las sensibilidades **declaradas** por la
     persona, sin valorarlas ni diagnosticar nada.
     """
+    require(session, user.id, Feature.INGREDIENT_SCAN)
+
     ingredients = parse_inci(payload.inci)
     if not ingredients:
         raise ValidationFailed("error.empty_inci")
@@ -245,6 +250,7 @@ def scan_ingredients(
     matches = [i.inci_name for i in ingredients if i.inci_name.lower() in lowered]
 
     findings = analyse(ingredients, porosity=dominant)
+    record_usage(session, user.id, Feature.INGREDIENT_SCAN)
     return {
         "ingredients": [
             {"inci_name": i.inci_name, "functions": [f.value for f in i.functions]}

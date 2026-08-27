@@ -485,6 +485,121 @@ def test_projection_without_history_says_what_to_log(client) -> None:
     assert body["missing_data_keys"]
 
 
+def test_billing_entitlements_show_what_is_always_included(client) -> None:
+    headers = _auth(client, email="plan@example.com")
+    body = client.get("/api/v1/billing/entitlements", headers=headers).json()
+    assert body["plan"] == "free"
+    always = {f["feature"] for f in body["always_included"]}
+    # Lo que la persona ya generó nunca está detrás del muro.
+    assert {"journal_entry", "data_export", "explanation"} <= always
+
+
+def test_scan_quota_is_charged_only_when_the_analysis_succeeds(client) -> None:
+    headers = _auth(client, email="cupo@example.com")
+    client.put(
+        "/api/v1/auth/consents",
+        headers=headers,
+        json=[{"purpose": "photo_processing", "granted": True}],
+    )
+    scan_id = client.post("/api/v1/scans", headers=headers).json()["id"]
+
+    # Crear el scan no descuenta: podría no llegar a analizarse nunca.
+    assert client.get(
+        "/api/v1/billing/check", headers=headers, params={"feature": "scan"}
+    ).json()["used"] == 0
+
+    client.post(
+        f"/api/v1/scans/{scan_id}/photos",
+        headers=headers,
+        data={"angle": "front"},
+        files={"file": ("front.jpg", _photo_bytes(), "image/jpeg")},
+    )
+    client.post(f"/api/v1/scans/{scan_id}/analyse", headers=headers)
+
+    assert client.get(
+        "/api/v1/billing/check", headers=headers, params={"feature": "scan"}
+    ).json()["used"] == 1
+
+
+def test_free_plan_blocks_a_third_scan_before_taking_photos(client) -> None:
+    """El cupo se comprueba al empezar, no después de fotografiar ocho
+    ángulos."""
+    headers = _auth(client, email="tope@example.com")
+    client.put(
+        "/api/v1/auth/consents",
+        headers=headers,
+        json=[{"purpose": "photo_processing", "granted": True}],
+    )
+    for _ in range(2):
+        scan_id = client.post("/api/v1/scans", headers=headers).json()["id"]
+        client.post(
+            f"/api/v1/scans/{scan_id}/photos",
+            headers=headers,
+            data={"angle": "front"},
+            files={"file": ("front.jpg", _photo_bytes(), "image/jpeg")},
+        )
+        client.post(f"/api/v1/scans/{scan_id}/analyse", headers=headers)
+
+    blocked = client.post("/api/v1/scans", headers=headers)
+    assert blocked.status_code == 403
+    assert blocked.json()["details"]["reason"] == "quota_exhausted"
+
+    # Y el diario sigue abierto: los datos propios nunca se limitan.
+    assert client.get("/api/v1/journal", headers=headers).status_code == 200
+
+
+def test_subscribing_lifts_the_limits(client) -> None:
+    headers = _auth(client, email="suscrito@example.com")
+    activated = client.post(
+        "/api/v1/billing/activate",
+        headers=headers,
+        params={
+            "plan": "studio",
+            "store": "app_store",
+            "store_transaction_id": "tx-123",
+            "period_end": "2099-12-31",
+            "billing_country": "MX",
+        },
+    )
+    assert activated.status_code == 200, activated.text
+    assert activated.json()["plan"] == "studio"
+
+    scan = client.get("/api/v1/billing/check", headers=headers, params={"feature": "scan"}).json()
+    assert scan["limit"] is None
+
+
+def test_cancelling_keeps_the_plan_until_the_period_ends(client) -> None:
+    headers = _auth(client, email="cancela@example.com")
+    client.post(
+        "/api/v1/billing/activate",
+        headers=headers,
+        params={
+            "plan": "studio",
+            "store": "play_store",
+            "store_transaction_id": "tx-9",
+            "period_end": "2099-12-31",
+        },
+    )
+    cancelled = client.post("/api/v1/billing/cancel", headers=headers).json()
+    assert cancelled["plan"] == "studio"
+    assert cancelled["renews"] is False
+
+
+def test_pro_plan_is_not_self_serve(client) -> None:
+    headers = _auth(client, email="pro@example.com")
+    response = client.post(
+        "/api/v1/billing/activate",
+        headers=headers,
+        params={
+            "plan": "pro",
+            "store": "app_store",
+            "store_transaction_id": "tx-1",
+            "period_end": "2099-12-31",
+        },
+    )
+    assert response.status_code == 403
+
+
 def test_free_tier_limits_active_experiments_without_blocking_data(client) -> None:
     headers = _auth(client)
     arms = [{"label_key": "arm.a"}, {"label_key": "arm.b"}]
@@ -496,7 +611,7 @@ def test_free_tier_limits_active_experiments_without_blocking_data(client) -> No
         "/api/v1/experiments", headers=headers, json={"question_key": "q2", "arms": arms}
     )
     assert second.status_code == 403
-    assert second.json()["message_key"] == "error.free_tier_experiment_limit"
+    assert second.json()["details"]["feature"] == "active_experiment"
     # El diario, que son datos de la persona, nunca se limita.
     assert client.get("/api/v1/journal", headers=headers).status_code == 200
 

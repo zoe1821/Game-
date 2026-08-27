@@ -16,11 +16,13 @@ from PIL import Image
 from ...core.errors import Forbidden, NotFound, ValidationFailed
 from ...db.base import utcnow
 from ...db.session import TransactionalRoute
+from ...domain.billing.entitlements import Feature
 from ...domain.hair.zones import ALL_ZONES, PhotoAngle, coverage_for
 from ...domain.scan.pipeline import ScanPhoto
 from ...domain.scan.quality import assess_photo
 from ...models.hair import Scan, ScanPhotoRow, ScanStatus
 from ...models.user import ConsentPurpose, User
+from ...services.billing_service import record_usage, require
 from ...services.engine import get_scan_pipeline
 from ...services.profile_service import apply_estimates, ensure_zones, get_zone
 from ...services.storage import get_storage, photo_key
@@ -63,11 +65,19 @@ def required_angles() -> dict[str, object]:
 
 
 @router.post("", status_code=status.HTTP_201_CREATED)
-def create_scan(profile: CurrentProfile, session: DbSession, _: PhotoConsent) -> dict[str, str]:
+def create_scan(profile: CurrentProfile, session: DbSession, user: PhotoConsent) -> dict[str, object]:
+    """Inicia un scan, si el plan lo permite.
+
+    El cupo se comprueba aquí, antes de que la persona haga las fotos: descubrir
+    que no te queda cupo después de fotografiarte ocho ángulos sería una falta
+    de respeto por su tiempo.
+    """
+    decision = require(session, user.id, Feature.SCAN)
+
     scan = Scan(profile_id=profile.id, status=ScanStatus.DRAFT)
     session.add(scan)
     session.flush()
-    return {"id": scan.id, "status": scan.status.value}
+    return {"id": scan.id, "status": scan.status.value, "entitlement": decision.as_dict()}
 
 
 @router.post("/{scan_id}/photos")
@@ -159,6 +169,10 @@ def analyse_scan(
     scan.interpretation = result.as_dict()
     scan.status = ScanStatus.AWAITING_CONFIRMATION
     session.add(scan)
+
+    # El cupo se descuenta aquí, con el análisis ya hecho. Descontarlo al crear
+    # el scan cobraría por un intento que quizá nunca llegó a analizarse.
+    record_usage(session, user.id, Feature.SCAN)
 
     return result.as_dict()
 

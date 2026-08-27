@@ -8,6 +8,7 @@ from sqlalchemy import select
 from ...core.errors import Forbidden, NotFound, ValidationFailed
 from ...db.base import utcnow
 from ...db.session import TransactionalRoute
+from ...domain.billing.entitlements import Feature
 from ...domain.experiments.engine import Experiment, ExperimentArm, read_experiment
 from ...domain.learning.journal import analyse_journal
 from ...domain.twin.model import build_twin
@@ -15,14 +16,10 @@ from ...domain.twin.projection import Scenario, project
 from ...models.products import ExperimentArmRow, ExperimentRow, JournalRow, TwinSnapshot
 from ...schemas.journal import ExperimentIn
 from ...services.journal_service import to_domain_entries
-from ..deps import CurrentProfile, DbSession
+from ..deps import CurrentProfile, CurrentUser, DbSession
 
 router = APIRouter(prefix="/twin", tags=["twin"], route_class=TransactionalRoute)
 
-#: Límite del tier gratuito (docs/02-MONETIZATION.md §2): un experimento activo.
-#: Se cobra por profundidad analítica, nunca por acceso básico ni por los datos
-#: que la persona ya generó.
-FREE_TIER_ACTIVE_EXPERIMENTS = 1
 
 
 def _entries(session: DbSession, profile_id: str):
@@ -116,8 +113,15 @@ def list_experiments(profile: CurrentProfile, session: DbSession) -> list[dict[s
 
 @experiments_router.post("", status_code=status.HTTP_201_CREATED)
 def create_experiment(
-    payload: ExperimentIn, profile: CurrentProfile, session: DbSession
+    payload: ExperimentIn, profile: CurrentProfile, user: CurrentUser, session: DbSession
 ) -> dict[str, object]:
+    """Crea un experimento, si el plan lo permite.
+
+    El límite sale del sistema de derechos, no de una constante escrita aquí:
+    así el paywall vive en un solo sitio y se puede auditar entero.
+    """
+    from ...services.billing_service import evaluate
+
     active = (
         session.execute(
             select(ExperimentRow).where(
@@ -128,8 +132,10 @@ def create_experiment(
         .scalars()
         .all()
     )
-    if not payload.is_premium and len(active) >= FREE_TIER_ACTIVE_EXPERIMENTS:
-        raise Forbidden("error.free_tier_experiment_limit", limit=FREE_TIER_ACTIVE_EXPERIMENTS)
+    decision = evaluate(session, user.id, Feature.ACTIVE_EXPERIMENT)
+    if decision.limit is not None and len(active) >= decision.limit:
+        details = {k: v for k, v in decision.as_dict().items() if k != "message_key"}
+        raise Forbidden(decision.message_key, **details)
 
     row = ExperimentRow(
         profile_id=profile.id,

@@ -1,0 +1,136 @@
+# Pack: cronograma capilar.
+#
+# POR QUÉ EXISTE ESTE PACK
+#
+# El cronograma capilar es el marco dominante de cuidado capilar en Brasil y en
+# el resto de LATAM. Los productos se etiquetan con su paso en el envase
+# ("Paso del cronograma capilar: Nutrición"), y la gente organiza su rutina
+# alrededor de esos tres nombres. Ignorarlo en un lanzamiento LATAM sería
+# ignorar el vocabulario que la gente ya usa.
+#
+# CÓMO LO TRATAMOS (aplicación directa de docs/08-EVIDENCE-POLICY.md §3)
+#
+# Hay que separar dos cosas que suelen ir juntas:
+#
+#   1. La distinción de fondo — agua, lípidos y proteína son tres carencias
+#      distintas que se corrigen con ingredientes distintos — es consenso
+#      profesional sólido y coincide con lo que ya modelamos en los packs de
+#      acondicionamiento.
+#
+#   2. El calendario fijo — "hidratación lunes, nutrición miércoles,
+#      reconstrucción sábado, durante cuatro semanas" — no tiene respaldo. La
+#      frecuencia que necesita cada persona depende de su porosidad, su
+#      historial químico y su clima, no del día de la semana.
+#
+# Así que se soporta el vocabulario y la distinción, y se marca el calendario
+# fijo como lo que es. Es el mismo criterio que aplicamos al Curly Girl Method:
+# quedarse con el mecanismo y descartar la prohibición universal.
+
+pack: cronograma
+version: 1
+
+rules:
+  - id: cronograma.hydration_step
+    kind: routine_step
+    evidence_level: professional_consensus
+    mechanism: >
+      El paso llamado hidratación aporta humectantes, que atraen y retienen
+      agua en la fibra. Es lo que corrige la sensación de cabello áspero y sin
+      elasticidad cuando la carencia es de agua. No aporta lípidos ni
+      proteína, así que no corrige esas otras dos carencias: por eso tiene
+      sentido distinguir los tres pasos en vez de usar siempre lo mismo.
+    conditions:
+      - {fact: cronograma.step, op: eq, value: hydration}
+    outcome:
+      step: deep_condition
+      product_attributes: {humectant_level: [medium, high]}
+      cronograma_step: hydration
+    message_key: rule.cronograma.hydration
+    priority: 64
+    sources: ["higroscopía de humectantes", "consenso de formulación cosmética"]
+    tags: [cronograma, hydration]
+
+  - id: cronograma.nutrition_step
+    kind: routine_step
+    evidence_level: professional_consensus
+    mechanism: >
+      El paso llamado nutrición aporta emolientes y aceites, que reponen la
+      capa lipídica de la superficie y reducen la fricción entre hebras. Es lo
+      que corrige el cabello opaco y con mal deslizamiento. Conviene el matiz
+      de que "nutrir" aquí es acondicionar la superficie: la fibra visible es
+      tejido sin actividad celular y no se alimenta.
+    conditions:
+      - {fact: cronograma.step, op: eq, value: nutrition}
+    outcome:
+      step: deep_condition
+      product_attributes: {emollient_level: [medium, high]}
+      cronograma_step: nutrition
+    message_key: rule.cronograma.nutrition
+    priority: 64
+    sources: ["reposición de la capa lipídica superficial", "consenso profesional"]
+    tags: [cronograma, nutrition]
+
+  - id: cronograma.reconstruction_step
+    kind: routine_step
+    evidence_level: professional_consensus
+    mechanism: >
+      El paso llamado reconstrucción aporta proteína hidrolizada, que se
+      adsorbe y rellena huecos de la cutícula de forma temporal. Aumenta la
+      rigidez aparente, que es justo lo que hace falta cuando la fibra se
+      estira demasiado y no recupera. El efecto dura hasta el siguiente
+      lavado: no reconstruye el córtex, y el nombre del paso sugiere más de lo
+      que ocurre.
+    conditions:
+      - {fact: cronograma.step, op: eq, value: reconstruction}
+    outcome:
+      step: protein_treatment
+      product_attributes: {protein_level: [medium, high]}
+      cronograma_step: reconstruction
+      caution: monitor_stiffness
+    message_key: rule.cronograma.reconstruction
+    priority: 66
+    sources: ["adsorción de hidrolizados de proteína", "consenso profesional en cabello procesado"]
+    tags: [cronograma, protein]
+
+  - id: cronograma.fixed_calendar_is_not_the_evidence
+    kind: myth
+    evidence_level: unsupported_trend
+    mechanism: >
+      La parte del cronograma que se sostiene es la distinción entre carencia
+      de agua, de lípidos y de proteína, y que cada una se corrige con
+      ingredientes distintos. Lo que no se sostiene es el calendario fijo con
+      días asignados y ciclos de cuatro semanas iguales para todo el mundo.
+      Cuánta proteína admite una fibra depende de su porosidad y de su
+      historial químico, no del día de la semana; a un cabello virgen y poco
+      poroso, un ciclo con reconstrucción semanal le sobra proteína, y a uno
+      recién decolorado puede quedársele corto. La versión útil es ajustar la
+      frecuencia de cada paso a cómo responde tu cabello, y ahí es donde el
+      diario y los experimentos hacen el trabajo.
+    conditions: []
+    outcome:
+      myth: cronograma_fixed_calendar
+      correction_key: myth.cronograma_calendar.correction
+      related_concept: personalised_frequency
+    message_key: myth.cronograma_calendar
+    priority: 46
+    tags: [myth, cronograma]
+
+  - id: cronograma.reconstruction_needs_moisture_alongside
+    kind: warning
+    evidence_level: professional_consensus
+    mechanism: >
+      Encadenar pasos de reconstrucción sin emolientes ni humectantes entre
+      medias deja la superficie rígida y con menos deslizamiento, y la fibra se
+      vuelve quebradiza al peinar en seco. Es el mismo desequilibrio que
+      describe la regla de exceso de proteína, y es reversible: se corrige
+      espaciando la reconstrucción y subiendo los otros dos pasos.
+    conditions:
+      - {fact: cronograma.step, op: eq, value: reconstruction}
+      - {fact: routine.protein_frequency_per_month, op: gte, value: 3}
+    outcome:
+      warning: cronograma_reconstruction_stacked
+      suggestion: alternate_with_hydration_and_nutrition
+    message_key: rule.cronograma.reconstruction_stacked
+    priority: 86
+    sources: ["equilibrio proteína/emoliente", "formación profesional"]
+    tags: [cronograma, protein, balance]

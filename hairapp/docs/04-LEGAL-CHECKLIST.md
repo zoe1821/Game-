@@ -108,17 +108,72 @@ storage, proveedor de clima, proveedor de LLM del asistente.
 `[ ]` Transferencias internacionales: si algún proveedor está fuera del EEE,
 documentar SCC / decisión de adecuación. **Aplica al proveedor del asistente.**
 
-### 3.4 Por región
-- **UE/EEE**: RGPD. Base jurídica = consentimiento para fotos; ejecución de
-  contrato para el resto del servicio.
-- **Reino Unido**: UK GDPR + DPA 2018.
-- **EE. UU.**: CCPA/CPRA (California) — derecho a opt-out de "venta/compartición"
-  (no vendemos, pero hay que declararlo); **BIPA (Illinois)** y leyes análogas de
-  Texas y Washington son el riesgo alto si las fotos se consideran identificadores
-  biométricos. `[ ]` **Consultar específicamente BIPA antes de lanzar en EE. UU.**
-- **Brasil**: LGPD. **Canadá**: PIPEDA + Ley 25 de Quebec.
-- `[ ]` Decidir la lista de jurisdicciones de lanzamiento v1 y acotar el alcance
-  legal a esa lista; no lanzar globalmente por defecto.
+### 3.4 Por región — **alcance decidido: LATAM + EE. UU.**
+
+Decisión de producto tomada: el lanzamiento es **LATAM (con México como
+mercado principal) y Estados Unidos**. Eso cambia el orden de prioridades
+respecto a la versión anterior de este documento, que asumía Europa primero.
+
+**El cambio más importante: EE. UU. pasa de "quizá" a riesgo principal.**
+
+#### 🔴 EE. UU. — leyes de privacidad biométrica (RIESGO MÁS ALTO DEL PROYECTO)
+
+| Ley | Qué exige | Por qué nos afecta |
+|---|---|---|
+| **BIPA** (Illinois, 740 ILCS 14) | Consentimiento **escrito** previo, política pública de retención y destrucción, prohibición de lucrarse con el dato biométrico | **Tiene derecho privado de acción**: cualquier persona puede demandar, con daños legales tasados por infracción. Es la vía de litigio colectivo más activa de EE. UU. en esta materia. |
+| **CUBI** (Texas, Bus. & Com. §503.001) | Consentimiento previo, destrucción en plazo razonable | Sin acción privada, pero el fiscal general de Texas ha abierto casos de gran cuantía |
+| **My Health My Data** (Washington) | Consentimiento separado para "datos de salud del consumidor", definidos de forma muy amplia | **También tiene acción privada.** Su definición amplia podría alcanzar datos sobre estado del cuero cabelludo |
+| **CCPA/CPRA** (California) | Derechos de acceso, supresión y opt-out; la información biométrica es categoría sensible | Obligaciones de aviso y de gestión de solicitudes |
+
+`[ ]` **BLOQUEANTE. Consultar con un abogado especializado en BIPA antes de
+publicar en EE. UU.** La pregunta concreta: nuestro pipeline mide textura
+capilar y **no identifica personas**, lo que probablemente lo deja fuera de la
+definición de "identificador biométrico" de BIPA — pero "probablemente" no es
+suficiente cuando la sanción se cuenta por usuario y hay acción colectiva.
+
+`[ ]` Decidir si se excluyen Illinois, Texas y Washington en la v1 mientras se
+resuelve. Es una opción legítima y barata de implementar (geobloqueo por
+`billing_country` y estado), y la alternativa puede costar mucho más.
+
+`[ ]` Redactar consentimiento **escrito** específico de fotos si se opera en
+Illinois, con política de retención y destrucción publicada.
+
+#### México (mercado principal)
+
+- **LFPDPPP** (Ley Federal de Protección de Datos Personales en Posesión de los
+  Particulares) y su Reglamento.
+- Requiere **aviso de privacidad** con contenido tasado, disponible antes de
+  recoger el dato. No basta con una política genérica traducida.
+- Los datos biométricos se consideran **datos personales sensibles** (art. 3
+  fr. VI), lo que exige **consentimiento expreso y por escrito** (art. 8).
+- Derechos ARCO (acceso, rectificación, cancelación, oposición) con plazos
+  propios de respuesta.
+- `[ ]` Redactar el aviso de privacidad conforme a la ley mexicana, no como
+  traducción del europeo.
+- `[ ]` Designar la persona o departamento de datos personales que exige la ley.
+- `[ ]` Confirmar si nuestro tratamiento de imagen entra en "biométrico" bajo
+  la LFPDPPP. **Misma pregunta que en la UE y en BIPA: es la consulta legal de
+  mayor impacto y conviene resolver las tres de una vez.**
+
+#### Resto de LATAM
+
+| País | Norma | Nota |
+|---|---|---|
+| **Brasil** | LGPD | Muy cercana al RGPD. La ANPD ya sanciona. Mercado grande para este producto, y **origen del cronograma capilar**. Si se lanza en Brasil hace falta portugués, no solo español. |
+| **Colombia** | Ley 1581/2012 | Exige **registro de bases de datos** ante la SIC. Trámite administrativo real. |
+| **Argentina** | Ley 25.326 | En proceso de reforma; vigilar. |
+| **Chile** | Ley 19.628 y la nueva ley de datos | Nueva autoridad de protección de datos en implantación. |
+| **Perú** | Ley 29733 | Requiere inscripción de bancos de datos. |
+| **Ecuador, Uruguay, Panamá, Costa Rica** | Leyes propias | Uruguay tiene decisión de adecuación de la UE. |
+
+`[ ]` Priorizar: México y EE. UU. primero; Colombia y Brasil en segunda fase
+por su carga administrativa (registro de bases y, en Brasil, idioma adicional).
+`[ ]` No lanzar en los 20 países a la vez. Cada uno añade obligaciones propias.
+
+#### Europa
+
+Se mantiene el análisis del RGPD en este documento **por si hay expansión
+futura**, pero deja de ser el foco. No es trabajo urgente.
 
 ## 4. Menores de edad
 
@@ -144,6 +199,30 @@ Decisión de producto v1: **la app se restringe a mayores de 16 años.**
   descriptivo; probablemente admisible, requiere confirmación).
 - `[ ]` Revisar términos de servicio de cualquier fuente de datos INCI de terceros.
 
+## 5 bis. Suscripciones
+
+El modelo de ingresos es la suscripción (docs/02-MONETIZATION.md). Obligaciones
+concretas derivadas de eso:
+
+- `[ ]` **Verificación de recibo en servidor.** Hoy `/billing/activate` confía
+  en lo que le manda el cliente, lo que basta para desarrollo pero **no** para
+  producción: un cliente modificado podría concederse el plan de pago. Hay que
+  validar contra el servidor de App Store / Google Play antes de cobrar a nadie.
+- `[ ]` **México — NOM-151 y PROFECO.** Las condiciones de la suscripción, la
+  renovación automática y el procedimiento de cancelación deben estar en
+  español, claros y accesibles antes de contratar. PROFECO vigila la renovación
+  automática y la facilidad de cancelación.
+- `[ ]` **EE. UU. — FTC "Click to Cancel"** y leyes estatales de renovación
+  automática (California ARL entre las más estrictas): cancelar debe ser tan
+  fácil como suscribirse, y por el mismo medio.
+- `[ ]` **Impuestos.** IVA mexicano sobre servicios digitales prestados por
+  extranjeros; sales tax en EE. UU. según estado. Las tiendas retienen en
+  muchos casos, pero no en todos: confirmar con asesoría fiscal.
+- `[ ]` Precio localizado por país. Un precio en dólares aplicado tal cual a
+  toda LATAM deja el producto fuera de alcance en varios mercados.
+- `[ ]` Confirmar que la app **no** vulnera las reglas de pago de las tiendas.
+  Todo cobro digital debe ir por la tienda.
+
 ## 6. Tiendas de aplicaciones
 
 - `[ ]` Apple: cuestionario de privacidad (App Privacy) coherente con lo real.
@@ -165,9 +244,17 @@ Decisión de producto v1: **la app se restringe a mayores de 16 años.**
 
 Ninguno de estos es negociable por presión de calendario:
 
-1. `[ ]` Revisión legal completa de este documento por profesional cualificado.
-2. `[ ]` Respuesta cerrada a la pregunta del art. 9 RGPD (§3.1).
-3. `[ ]` DPIA completada si aplica.
-4. `[ ]` Política de privacidad y ToS redactados por legal, no por IA.
-5. `[ ]` Borrado de cuenta verificado end-to-end (incluida purga de storage).
-6. `[ ]` Auditoría de lenguaje: 0 hallazgos del test de glosario controlado.
+1. `[ ]` Revisión legal completa de este documento por profesional cualificado,
+   con competencia en **México y EE. UU.**, no solo en la UE.
+2. `[ ]` **Respuesta cerrada a la pregunta biométrica, en las tres
+   jurisdicciones a la vez**: BIPA (Illinois), LFPDPPP (México) y art. 9 RGPD.
+   Es la misma pregunta de fondo — ¿medir textura capilar sin identificar a
+   nadie es tratamiento biométrico? — y resolverla desbloquea el resto.
+3. `[ ]` Decisión sobre si se excluyen Illinois, Texas y Washington en la v1.
+4. `[ ]` Verificación de recibo de suscripción en servidor (§5 bis).
+5. `[ ]` Aviso de privacidad mexicano conforme a la LFPDPPP.
+6. `[ ]` Política de privacidad y ToS redactados por legal, no por IA.
+7. `[x]` Borrado de cuenta verificado end-to-end, incluida la purga del
+   almacenamiento de fotos. Cubierto por test.
+8. `[x]` Auditoría de lenguaje: 0 hallazgos del glosario controlado, verificado
+   en backend y en los catálogos de la app.

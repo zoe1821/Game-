@@ -52,23 +52,43 @@ _BLOCKING = frozenset(
 # ---------------------------------------------------------------------------
 # UMBRALES — estado de calibración
 #
-# Honestidad sobre lo que estos números son: **provisionales**. Se eligieron a
-# partir del comportamiento del Laplaciano sobre textura de alta frecuencia
-# (que es lo que el cabello produce: hebras finas) y verifican la propiedad
-# que importa — la métrica cae de forma monótona al desenfocar — pero **no
-# están calibrados contra un conjunto real de fotos de cabello etiquetadas**,
-# porque ese conjunto todavía no existe.
+# Calibrados contra un conjunto real de 35 fotos (cabello rizado y texturizado
+# en distintas condiciones, más fotos de etiquetas de producto), no contra
+# imágenes sintéticas.
 #
-# Consecuencia práctica: la etapa marca lo obviamente inservible (foto muy
-# movida, muy oscura, de baja resolución) con fiabilidad, y la frontera entre
-# "aceptable" y "buena" es aproximada. Por eso `score` es continuo y alimenta
-# la penalización de confianza: una foto justa produce una estimación menos
-# confiada, no un rechazo ni una estimación falsamente segura.
+# Lo que ese conjunto reveló y aquí está corregido: la varianza del Laplaciano
+# **no es invariante a la escala**. La misma foto medía 1948 a 720 px y 167 a
+# 2048 px, un factor de doce. La versión anterior intentaba compensarlo
+# multiplicando por la raíz del cociente de lados, lo que empeoraba el
+# problema, y acababa rechazando por "movida" toda foto de cámara moderna.
 #
-# Pendiente antes de producción: recalibrar con fotos reales anotadas.
+# La corrección es medir siempre a una resolución de trabajo fija
+# (`BLUR_WORKING_SIDE_PX`): así el número significa lo mismo venga de donde
+# venga la foto.
+#
+# Lo que el conjunto **no** mostró, y conviene dejar escrito para no repetir la
+# sospecha: no hay sesgo por luminancia. A igual resolución, la correlación
+# entre brillo medio y la métrica fue +0.01. El cabello oscuro no se penaliza.
+#
+# `score` sigue siendo continuo y alimenta la penalización de confianza: una
+# foto justa produce una estimación menos confiada, no un rechazo ni una
+# estimación falsamente segura.
 # ---------------------------------------------------------------------------
+
+#: Resolución a la que se mide el desenfoque. Fija a propósito: es lo que hace
+#: la métrica comparable entre una foto de 720 px y una de 4032 px.
+BLUR_WORKING_SIDE_PX = 720
+
+#: Rejilla en la que se divide el encuadre para medir nitidez por regiones.
+_TILE_GRID = 6
+
+#: Percentil de celdas que se toma como "lo más nítido del encuadre". No es el
+#: máximo: una sola celda con un reflejo o un borde duro no debe decidir por
+#: toda la foto.
+_SHARPEST_PERCENTILE = 90
+
 MIN_SHORT_SIDE_PX = 720
-BLUR_VARIANCE_THRESHOLD = 60.0
+BLUR_VARIANCE_THRESHOLD = 300.0
 CLIPPED_HIGHLIGHT_RATIO = 0.12
 CLIPPED_SHADOW_RATIO = 0.25
 MIN_CONTRAST_STD = 25.0
@@ -113,11 +133,67 @@ def _to_grayscale(image: np.ndarray) -> np.ndarray:
     ).astype(np.float64)
 
 
+def _resize_nearest(gray: np.ndarray, target_short_side: int) -> np.ndarray:
+    """Reescala por muestreo, sin dependencias de imagen en el dominio.
+
+    Basta para medir nitidez: lo que importa es llevar todas las fotos a la
+    misma densidad de detalle antes de comparar, no la calidad del reescalado.
+    """
+    height, width = gray.shape
+    short_side = min(height, width)
+    if short_side <= target_short_side:
+        return gray
+    factor = target_short_side / short_side
+    rows = (np.arange(int(height * factor)) / factor).astype(np.int64)
+    cols = (np.arange(int(width * factor)) / factor).astype(np.int64)
+    return gray[np.clip(rows, 0, height - 1)][:, np.clip(cols, 0, width - 1)]
+
+
+def sharpness(gray: np.ndarray) -> float:
+    """Nitidez de la parte más nítida del encuadre, a resolución fija.
+
+    Dos correcciones sobre la varianza del Laplaciano a secas, ambas salidas de
+    mirar fotos reales:
+
+    1. **Resolución fija.** Sin ella la misma foto medía 1948 a 720 px y 167 a
+       2048 px.
+
+    2. **Por regiones, no global.** Una foto bien compuesta de cabello tiene
+       mucho fondo liso: una camiseta de color plano, una pared, un armario.
+       Todo eso es superficie sin detalle que hunde la varianza global y hacía
+       que fotos perfectamente nítidas se rechazaran por "movidas". Lo mismo
+       ocurría con los primeros planos de etiquetas, donde el fondo sale
+       desenfocado a propósito.
+
+       Se divide el encuadre en celdas y se toma un percentil alto. La pregunta
+       que responde es la correcta: *¿hay alguna parte de esta foto que esté
+       enfocada?* Si el cabello está nítido, la foto sirve, por mucho fondo
+       plano que la rodee.
+    """
+    working = _resize_nearest(gray, BLUR_WORKING_SIDE_PX)
+    height, width = working.shape
+    if min(height, width) < _TILE_GRID * 4:
+        return laplacian_variance(working)
+
+    tile_h, tile_w = height // _TILE_GRID, width // _TILE_GRID
+    variances = [
+        laplacian_variance(
+            working[row * tile_h : (row + 1) * tile_h, col * tile_w : (col + 1) * tile_w]
+        )
+        for row in range(_TILE_GRID)
+        for col in range(_TILE_GRID)
+    ]
+    return float(np.percentile(variances, _SHARPEST_PERCENTILE))
+
+
 def laplacian_variance(gray: np.ndarray) -> float:
     """Varianza de la respuesta del Laplaciano: la medida estándar de nitidez.
 
     Una imagen enfocada tiene bordes marcados, que producen una respuesta amplia
     y dispersa; una movida los suaviza y la varianza se hunde.
+
+    Es sensible a la escala: para comparar fotos de distinto tamaño hay que
+    usar `sharpness()`, que mide a una resolución fija.
     """
     kernel = np.array([[0.0, 1.0, 0.0], [1.0, -4.0, 1.0], [0.0, 1.0, 0.0]])
     padded = np.pad(gray, 1, mode="edge")
@@ -171,13 +247,10 @@ def assess_photo(
     if short_side < MIN_SHORT_SIDE_PX:
         issues.append(QualityIssue.LOW_RESOLUTION)
 
-    blur = laplacian_variance(gray)
-    # La varianza escala con la resolución; se normaliza para que el umbral
-    # signifique lo mismo en una foto de 720p y en una de 4K.
-    normalised_blur = blur * (MIN_SHORT_SIDE_PX / max(short_side, 1)) ** 0.5
-    metrics["laplacian_variance"] = blur
-    metrics["normalised_blur"] = normalised_blur
-    if normalised_blur < BLUR_VARIANCE_THRESHOLD:
+    measured_sharpness = sharpness(gray)
+    metrics["laplacian_variance"] = laplacian_variance(gray)
+    metrics["sharpness"] = measured_sharpness
+    if measured_sharpness < BLUR_VARIANCE_THRESHOLD:
         issues.append(QualityIssue.TOO_BLURRY)
 
     highlights = float(np.mean(gray >= 250))
@@ -219,7 +292,7 @@ def _score(metrics: dict[str, float], issues: Sequence[QualityIssue]) -> float:
     La usa el calibrador de confianza: una foto justa produce una estimación
     menos confiada, no una estimación falsa.
     """
-    sharpness = clamp(metrics.get("normalised_blur", 0.0) / (BLUR_VARIANCE_THRESHOLD * 4))
+    sharp = clamp(metrics.get("sharpness", 0.0) / (BLUR_VARIANCE_THRESHOLD * 4))
     exposure = clamp(
         1.0
         - metrics.get("clipped_highlights", 0.0) / CLIPPED_HIGHLIGHT_RATIO * 0.5
@@ -228,7 +301,7 @@ def _score(metrics: dict[str, float], issues: Sequence[QualityIssue]) -> float:
     contrast = clamp(metrics.get("contrast_std", 0.0) / (MIN_CONTRAST_STD * 2.5))
     resolution = clamp(metrics.get("short_side_px", 0.0) / (MIN_SHORT_SIDE_PX * 1.5))
 
-    score = 0.4 * sharpness + 0.25 * exposure + 0.2 * contrast + 0.15 * resolution
+    score = 0.4 * sharp + 0.25 * exposure + 0.2 * contrast + 0.15 * resolution
     if any(i.is_blocking for i in issues):
         score *= 0.4
     return clamp(score)

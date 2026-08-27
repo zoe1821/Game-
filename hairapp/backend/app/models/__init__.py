@@ -1,5 +1,6 @@
 """Modelos de persistencia. Importar aquí todo lo que Alembic debe ver."""
 
+from .billing import FeatureUsageRow, SubscriptionRow  # noqa: F401
 from .hair import (  # noqa: F401
     ChemicalEvent,
     Goal,
@@ -24,6 +25,8 @@ from .user import Consent, ConsentPurpose, DepthLevel, RefreshToken, User  # noq
 
 __all__ = [
     "ChemicalEvent",
+    "FeatureUsageRow",
+    "SubscriptionRow",
     "Consent",
     "ConsentPurpose",
     "DepthLevel",

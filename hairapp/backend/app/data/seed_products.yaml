@@ -1,0 +1,68 @@
+# Catálogo semilla — productos reales, transcritos de fotos de etiqueta.
+#
+# Solo datos fácticos del envase: marca, nombre, categoría, INCI y en qué
+# países se distribuye. Los atributos (fijación, proteína, tensioactivo...) NO
+# se escriben aquí: se derivan del INCI en `Product.from_inci`, para que sean
+# reproducibles y auditables en vez de opinión de quien cargó la ficha.
+#
+# Recordatorio de docs/02-MONETIZATION.md §4: aquí no hay, ni puede haber,
+# ningún campo comercial.
+
+version: 1
+source_note: >
+  Transcrito de fotografías de envase aportadas para el desarrollo. Los
+  fabricantes reformulan sin cambiar el nombre del producto, así que cada
+  ficha lleva la fecha de lectura y el INCI debe reverificarse antes de
+  cualquier uso en producción.
+read_on: 2026-08-27
+
+products:
+  - id: skala-oleo-argan-cond
+    brand: Skala Brasil
+    name: Óleo de Argán — acondicionador
+    category: conditioner
+    available_in: [BR, CO, PE, BO, EC, PA, VE, UY, CL, AR, PY, US]
+    cronograma_step: nutrition
+    inci: >
+      Aqua/Water, Cetearyl Alcohol, Glyceryl Stearate, Cetrimonium Chloride,
+      Shea Butter Cetyl Esters, Parfum/Fragrance, Citric Acid,
+      Argania Spinosa (Argan) Kernel Oil, Panthenol, Tocopheryl Acetate,
+      Methylchloroisothiazolinone, Methylisothiazolinone
+
+  - id: skala-divino-potao
+    brand: Skala Brasil
+    name: Divino Potão — crema de tratamiento
+    category: deep_conditioner
+    available_in: [BR, CO, PE, BO, EC, PA, DO, VE, UY, CL, AR, PY, US]
+    cronograma_step: reconstruction
+    inci: >
+      Aqua/Water, Cetearyl Alcohol, Glyceryl Stearate, Cetrimonium Chloride,
+      Stearamidopropyl Dimethylamine, Parfum/Fragrance, Shea Butter Cetyl Esters,
+      Benzyl Alcohol, Phenoxyethanol, Citric Acid, Terpineol,
+      Tetramethyl Acetyloctahydronaphtalenes, Argania Spinosa (Argan) Kernel Oil,
+      Ricinus Communis (Castor) Seed Oil, Hexyl Cinnamal, Hexamethylindanopyran,
+      Limonene, Benzyl Salicylate, Citrus Aurantium (Bitter Orange) Peel Oil,
+      Vanillin, Hydroxycitronellal, Linalyl Acetate, Coumarin,
+      Alpha-Isomethyl Ionone, Panthenol, Tocopheryl Acetate,
+      Hydrolyzed Wheat Protein, Hydrolyzed Corn Protein, Hydrolyzed Soy Protein,
+      Porphyra Umbilicalis Extract, Caesalpinia Spinosa Gum
+
+  - id: gvp-gentle-moisture-cond
+    brand: Generic Value Products
+    name: Gentle Moisture Conditioner
+    category: conditioner
+    available_in: [US]
+    inci: >
+      Water (Aqua, Eau), Cetyl Alcohol, Dicetyldimonium Chloride,
+      Propylene Glycol, Cetrimonium Chloride,
+      Hibiscus Rosa-Sinensis Flower Extract,
+      Helianthus Annuus (Sunflower) Seed Extract, Squalane, Fragrance (Parfum),
+      Keratin Amino Acids, Sodium PCA, Symphytum Officinale Leaf Extract,
+      Punica Granatum Fruit Extract, Sodium Ascorbyl Phosphate, Amodimethicone,
+      Silk Amino Acids, Aloe Barbadensis Leaf Juice,
+      Aspalathus Linearis Leaf Extract, Zingiber Officinale (Ginger) Root Extract,
+      Morinda Citrifolia Fruit Extract, Argania Spinosa Kernel Oil,
+      Elaeis Guineensis (Palm) Oil, Linum Usitatissimum (Linseed) Seed Oil,
+      Moringa Oleifera Seed Extract, Euterpe Oleracea Fruit Extract, Sorbitol,
+      Panthenol, Tetrasodium EDTA, Bisabolol, Butylene Glycol, DMDM Hydantoin,
+      Ethyl Canolate, Glycerin, Linalool, Citric Acid, Hexyl Cinnamal, Limonene
