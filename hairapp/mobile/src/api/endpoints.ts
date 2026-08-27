@@ -312,6 +312,33 @@ export function endpoints(client: ApiClient) {
         >('/api/v1/education/rules', { query: { evidence_level: evidenceLevel } }),
     },
 
+    billing: {
+      entitlements: () => client.request<unknown>('/api/v1/billing/entitlements'),
+
+      check: (feature: string) =>
+        client.request<{
+          allowed: boolean;
+          reason: string;
+          used: number;
+          limit: number | null;
+          remaining: number | null;
+          message_key: string;
+        }>('/api/v1/billing/check', { query: { feature } }),
+
+      /** El cobro lo hace la tienda; aquí solo se registra el resultado. */
+      activate: (params: {
+        plan: string;
+        store: 'app_store' | 'play_store';
+        store_transaction_id: string;
+        period_end: string;
+        billing_country?: string;
+      }) => client.request<unknown>('/api/v1/billing/activate', { method: 'POST', query: params }),
+
+      cancel: () => client.request<unknown>('/api/v1/billing/cancel', { method: 'POST' }),
+
+      plans: () => client.request<unknown>('/api/v1/billing/plans'),
+    },
+
     meta: {
       disclaimer: () =>
         client.request<{

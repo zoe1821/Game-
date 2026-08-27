@@ -523,6 +523,83 @@ export const es = {
     },
   },
 
+
+  plan: {
+    free: 'Gratis',
+    studio: 'Trichon Estudio',
+    pro: 'Trichon Pro',
+    currentPlan: 'Tu plan',
+    renews: 'Se renueva el %{date}',
+    endsOn: 'Activo hasta el %{date}',
+    notRenewing: 'No se renovará. Sigues teniendo todo hasta esa fecha.',
+    upgrade: 'Pasar a Estudio',
+    cancel: 'Cancelar la renovación',
+    // La promesa que más importa dejar visible.
+    alwaysIncludedTitle: 'Esto no se limita nunca',
+    alwaysIncludedBody:
+      'Tus datos son tuyos en cualquier plan. Si cancelas, conservas todo tu historial y puedes exportarlo.',
+    remaining: 'Te quedan %{count} de %{limit} este mes',
+    unlimited: 'Sin límite',
+    notIncluded: 'No está en tu plan',
+    periodResets: 'El cupo se renueva el %{date}',
+    whatYouGet: 'Qué incluye',
+  },
+
+  feature: {
+    scan: 'Mapa capilar',
+    scalp_scan: 'Análisis de cuero cabelludo',
+    ingredient_scan: 'Análisis de ingredientes',
+    assistant_query: 'Preguntas al asistente',
+    active_experiment: 'Experimentos a la vez',
+    active_routine: 'Rutinas guardadas',
+    twin_projection: 'Proyecciones "¿qué pasa si...?"',
+    stylist_report: 'Informe para tu estilista',
+    extended_history: 'Historial más allá de 6 meses',
+    product_comparison: 'Comparar productos',
+    journal_entry: 'Diario',
+    inventory_item: 'Inventario',
+    explanation: '"¿Por qué esto?"',
+    education: 'Enciclopedia y mitos',
+    zone_correction: 'Corregir tus zonas',
+    data_export: 'Exportar tus datos',
+  },
+
+  entitlement: {
+    allowed: 'Disponible',
+    quota_exhausted: {
+      scan: 'Has usado tus %{limit} mapas de este mes. El cupo se renueva el %{period_end}.',
+      ingredient_scan: 'Has usado tus %{limit} análisis de ingredientes este mes.',
+      assistant_query: 'Has usado tus %{limit} preguntas de este mes.',
+      active_experiment: 'Ya tienes un experimento en marcha. Termínalo o pásate a Estudio.',
+      twin_projection: 'Has usado tus %{limit} proyecciones de este mes.',
+      product_comparison: 'Has usado tus %{limit} comparaciones de este mes.',
+    },
+    not_in_plan: {
+      scalp_scan: 'El análisis de cuero cabelludo está en Estudio.',
+      stylist_report: 'El informe para estilista está en Estudio.',
+      extended_history: 'Ver más de 6 meses de historial está en Estudio.',
+    },
+  },
+
+  cronograma: {
+    title: 'Cronograma capilar',
+    subtitle: 'Agua, lípidos y proteína son tres carencias distintas.',
+    step: {
+      hydration: 'Hidratación',
+      nutrition: 'Nutrición',
+      reconstruction: 'Reconstrucción',
+    },
+    label_matches: 'La etiqueta y los ingredientes coinciden',
+    label_differs_from_inci:
+      'La etiqueta dice %{declared}, pero por los ingredientes se parece más a %{inferred}.',
+    covers_several_steps: 'Cubre varios pasos a la vez, aunque la etiqueta nombre solo uno',
+    no_declared_step: 'El envase no declara paso',
+    cannot_verify: 'No podemos deducirlo de la lista de ingredientes',
+    // El matiz que evita convertir el cronograma en dogma.
+    calendarNote:
+      'Lo que se sostiene es la distinción entre las tres carencias. El calendario fijo de días asignados no: cuánta proteína admite tu cabello depende de tu porosidad y tu historial, no del día de la semana.',
+  },
+
   error: {
     generic: 'Algo no ha ido bien.',
     internal: 'Ha fallado algo por nuestra parte. Vuelve a intentarlo en un momento.',

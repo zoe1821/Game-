@@ -2,7 +2,7 @@
 
 Archivo de estado entre sesiones. Se actualiza al cerrar cada bloque de trabajo.
 
-**Última actualización:** 2026-08-27
+**Última actualización:** 2026-08-27 (segunda sesión)
 
 ## Estado por fase
 
@@ -13,7 +13,9 @@ Archivo de estado entre sesiones. Se actualiza al cerrar cada bloque de trabajo.
 | 3 — Experiencia principal | ✅ Completa | Onboarding partido, perfil, mapa de zonas, rutina, scan, inventario, diario, twin, privacidad. |
 | 4 — Inteligencia | ✅ Completa | Reglas, confianza doble, matching, cold start, aprendizaje, twin, experimentos. |
 | 5 — Polish | 🟡 Parcial | Accesibilidad, dark mode y estados vacío/error/carga hechos. Faltan animaciones y comparación fotográfica. |
-| 6 — Validación | ✅ Completa | 149 tests backend + 59 mobile; ruff, mypy, tsc y eslint limpios; smoke test contra servidor real. |
+| 6 — Validación | ✅ Completa | 174 tests backend + 59 mobile; ruff, mypy, tsc y eslint limpios; smoke test contra servidor real. |
+| Monetización | ✅ Implementada | Derechos de uso, cupo, suscripción y pantalla de plan. Falta verificar recibo en servidor. |
+| LATAM | 🟡 En curso | Cronograma capilar, catálogo semilla y legal reenfocado. Falta portugués para Brasil. |
 
 ## Contexto del repositorio
 
@@ -65,8 +67,38 @@ aplicado a la interfaz, cliente con refresco compartido, y las pantallas de
 portada, onboarding, mapa, rutina, scan, inventario, diario, twin, educación y
 privacidad.
 
+## Alcance de lanzamiento (decidido)
+
+**LATAM con México como mercado principal, más EE. UU.** Consecuencias que ya
+están reflejadas en el código y los documentos:
+
+- El riesgo legal principal pasa a ser **BIPA (Illinois)** y las leyes de
+  privacidad biométrica de EE. UU. con acción privada. Ver
+  `04-LEGAL-CHECKLIST.md` §3.4.
+- México exige aviso de privacidad propio bajo la LFPDPPP, no una traducción
+  del europeo.
+- El **cronograma capilar** es el vocabulario dominante en la región y ya es
+  un concepto de primera clase del motor.
+- Si se entra en Brasil hace falta portugués. La arquitectura i18n lo soporta;
+  el catálogo no existe todavía.
+
+## Calibración con fotos reales
+
+Con 35 fotos reales se encontró y corrigió un fallo que rechazaba 16 de ellas.
+La varianza del Laplaciano no es invariante a la escala y se medía sobre el
+fotograma entero. Ahora se mide a resolución fija y por regiones. Rechazo
+actual: 7 de 35, casi todas de baja resolución real.
+
+Se descartó, con datos, la sospecha de sesgo por cabello oscuro: correlación
+con la luminancia +0.01.
+
+**Pendiente:** los umbrales están calibrados contra 35 fotos, que es poco. Con
+unos cientos etiquetados como buena/mala se podrían ajustar bien.
+
 ## Siguiente
 
+0. **Verificar el recibo de suscripción en servidor.** Hoy `/billing/activate`
+   confía en el cliente. Es bloqueante antes de cobrar a nadie.
 1. **Fase 5 restante**: animaciones sobrias respetando `reduceMotion`,
    comparación fotográfica con slider, hair timeline y growth tracker.
 2. Reporte exportable para estilista (A26) y su flujo de consentimiento.

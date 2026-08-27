@@ -515,6 +515,81 @@ export const en: Catalog = {
     },
   },
 
+
+  plan: {
+    free: 'Free',
+    studio: 'Trichon Studio',
+    pro: 'Trichon Pro',
+    currentPlan: 'Your plan',
+    renews: 'Renews on %{date}',
+    endsOn: 'Active until %{date}',
+    notRenewing: "It won't renew. You keep everything until that date.",
+    upgrade: 'Go to Studio',
+    cancel: 'Cancel renewal',
+    alwaysIncludedTitle: 'This is never limited',
+    alwaysIncludedBody:
+      'Your data is yours on any plan. If you cancel, you keep your whole history and can export it.',
+    remaining: '%{count} of %{limit} left this month',
+    unlimited: 'Unlimited',
+    notIncluded: 'Not in your plan',
+    periodResets: 'Your allowance resets on %{date}',
+    whatYouGet: "What's included",
+  },
+
+  feature: {
+    scan: 'Hair map',
+    scalp_scan: 'Scalp analysis',
+    ingredient_scan: 'Ingredient analysis',
+    assistant_query: 'Assistant questions',
+    active_experiment: 'Experiments at once',
+    active_routine: 'Saved routines',
+    twin_projection: '"What if...?" projections',
+    stylist_report: 'Report for your stylist',
+    extended_history: 'History beyond 6 months',
+    product_comparison: 'Compare products',
+    journal_entry: 'Journal',
+    inventory_item: 'Inventory',
+    explanation: '"Why this?"',
+    education: 'Encyclopaedia and myths',
+    zone_correction: 'Correcting your zones',
+    data_export: 'Exporting your data',
+  },
+
+  entitlement: {
+    allowed: 'Available',
+    quota_exhausted: {
+      scan: "You've used your %{limit} maps this month. Your allowance resets on %{period_end}.",
+      ingredient_scan: "You've used your %{limit} ingredient analyses this month.",
+      assistant_query: "You've used your %{limit} questions this month.",
+      active_experiment: 'You already have one experiment running. Finish it or move to Studio.',
+      twin_projection: "You've used your %{limit} projections this month.",
+      product_comparison: "You've used your %{limit} comparisons this month.",
+    },
+    not_in_plan: {
+      scalp_scan: 'Scalp analysis is part of Studio.',
+      stylist_report: 'The stylist report is part of Studio.',
+      extended_history: 'Seeing more than 6 months of history is part of Studio.',
+    },
+  },
+
+  cronograma: {
+    title: 'Hair schedule',
+    subtitle: 'Water, lipids and protein are three different things to be short of.',
+    step: {
+      hydration: 'Hydration',
+      nutrition: 'Nutrition',
+      reconstruction: 'Reconstruction',
+    },
+    label_matches: 'The label and the ingredients agree',
+    label_differs_from_inci:
+      'The label says %{declared}, but the ingredients look more like %{inferred}.',
+    covers_several_steps: 'It covers several steps at once, even though the label names one',
+    no_declared_step: 'The packaging declares no step',
+    cannot_verify: "We can't work it out from the ingredient list",
+    calendarNote:
+      'What holds up is the distinction between the three. The fixed calendar with assigned days does not: how much protein your hair takes depends on its porosity and its history, not on the day of the week.',
+  },
+
   error: {
     generic: 'Something went wrong.',
     internal: 'Something failed on our side. Try again in a moment.',
