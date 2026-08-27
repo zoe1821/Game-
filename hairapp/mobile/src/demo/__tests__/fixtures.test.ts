@@ -14,12 +14,12 @@ const api = createDemoEndpoints();
 
 describe('datos de demostración', () => {
   it('el perfil trae las 15 zonas del mapa', async () => {
-    const profile = (await api.profile.read()) as { zones: unknown[] };
+    const profile = (await api.profile.read()) as unknown as { zones: unknown[] };
     expect(profile.zones).toHaveLength(15);
   });
 
   it('cada zona tiene lo que la pantalla del mapa lee', async () => {
-    const zones = (await api.profile.zones()) as Array<Record<string, unknown>>;
+    const zones = (await api.profile.zones()) as unknown as Array<Record<string, unknown>>;
     for (const zone of zones) {
       expect(typeof zone.zone).toBe('string');
       expect(typeof zone.label_key).toBe('string');
@@ -36,7 +36,7 @@ describe('datos de demostración', () => {
   });
 
   it('la rutina trae pasos y todos explican por qué', async () => {
-    const routine = (await api.routines.generate({})) as {
+    const routine = (await api.routines.generate({})) as unknown as {
       steps: Array<Record<string, unknown>>;
       total_minutes: number;
       halted: boolean;
@@ -60,7 +60,7 @@ describe('datos de demostración', () => {
   });
 
   it('las cantidades traen referencia visual, no solo mililitros', async () => {
-    const routine = (await api.routines.generate({})) as {
+    const routine = (await api.routines.generate({})) as unknown as {
       steps: Array<{ amount: Record<string, unknown> | null }>;
     };
     const withAmount = routine.steps.filter((step) => step.amount !== null);
@@ -74,13 +74,13 @@ describe('datos de demostración', () => {
   });
 
   it('el modo rápido devuelve menos pasos que el completo', async () => {
-    const full = (await api.routines.generate({})) as { steps: unknown[] };
-    const quick = (await api.routines.generate({ kind: 'quick_10' })) as { steps: unknown[] };
+    const full = (await api.routines.generate({})) as unknown as { steps: unknown[] };
+    const quick = (await api.routines.generate({ kind: 'quick_10' })) as unknown as { steps: unknown[] };
     expect(quick.steps.length).toBeLessThan(full.steps.length);
   });
 
   it('el diario tiene entradas con valoraciones', async () => {
-    const journal = (await api.journal.list()) as Array<Record<string, unknown>>;
+    const journal = (await api.journal.list()) as unknown as Array<Record<string, unknown>>;
     expect(journal.length).toBeGreaterThan(5);
     for (const entry of journal) {
       expect(typeof entry.id).toBe('string');
@@ -90,7 +90,7 @@ describe('datos de demostración', () => {
   });
 
   it('los hallazgos declaran su tamaño de muestra y su fuerza', async () => {
-    const insights = (await api.journal.insights()) as {
+    const insights = (await api.journal.insights()) as unknown as {
       findings: Array<Record<string, unknown>>;
       has_enough_data: boolean;
     };
@@ -104,7 +104,7 @@ describe('datos de demostración', () => {
   });
 
   it('el twin trae rasgos y separa lo conocido de lo desconocido', async () => {
-    const twin = (await api.twin.read()) as {
+    const twin = (await api.twin.read()) as unknown as {
       traits: Array<Record<string, unknown>>;
       completeness: number;
     };
@@ -117,10 +117,10 @@ describe('datos de demostración', () => {
   });
 
   it('hay proyección para cada escenario que ofrece la pantalla', async () => {
-    const scenarios = (await api.twin.scenarios()) as Array<{ scenario: string }>;
+    const scenarios = (await api.twin.scenarios()) as unknown as Array<{ scenario: string }>;
     expect(scenarios.length).toBeGreaterThan(0);
     for (const { scenario } of scenarios) {
-      const projection = (await api.twin.project(scenario)) as Record<string, unknown>;
+      const projection = (await api.twin.project(scenario)) as unknown as Record<string, unknown>;
       expect(typeof projection.direction).toBe('string');
       expect(typeof projection.can_project).toBe('boolean');
       expect(projection).toHaveProperty('explanation');
@@ -137,7 +137,7 @@ describe('datos de demostración', () => {
   });
 
   it('los mitos traen su mecanismo, no solo el desmentido', async () => {
-    const myths = (await api.education.myths()) as Array<Record<string, unknown>>;
+    const myths = (await api.education.myths()) as unknown as Array<Record<string, unknown>>;
     expect(myths.length).toBeGreaterThan(5);
     for (const myth of myths) {
       expect(myth.evidence_level).toBe('unsupported_trend');
@@ -146,7 +146,7 @@ describe('datos de demostración', () => {
   });
 
   it('las reglas son auditables con su procedencia', async () => {
-    const rules = (await api.education.rules()) as Array<Record<string, unknown>>;
+    const rules = (await api.education.rules()) as unknown as Array<Record<string, unknown>>;
     expect(rules.length).toBeGreaterThan(20);
     for (const rule of rules) {
       expect(typeof rule.evidence_level).toBe('string');
@@ -155,17 +155,19 @@ describe('datos de demostración', () => {
   });
 
   it('el arranque en frío ofrece hitos concretos', async () => {
-    const coldStart = (await api.journal.coldStart()) as { milestone_keys: string[] };
+    const coldStart = (await api.journal.coldStart()) as unknown as { milestone_keys: string[] };
     expect(coldStart.milestone_keys.length).toBeGreaterThan(0);
   });
 
   it('una corrección se refleja al momento, aunque no persista', async () => {
     await api.profile.correctZone('crown', 'porosity', 'low');
-    const zones = (await api.profile.zones()) as Array<Record<string, unknown>>;
+    const zones = (await api.profile.zones()) as unknown as Array<Record<string, unknown>>;
     const crown = zones.find((z) => z.zone === 'crown');
     const measurements = crown?.measurements as Record<string, Record<string, unknown>>;
-    expect(measurements.porosity.value).toBe('low');
-    expect(measurements.porosity.source).toBe('user');
+    const porosity = measurements.porosity;
+    expect(porosity).toBeDefined();
+    expect(porosity?.value).toBe('low');
+    expect(porosity?.source).toBe('user');
   });
 
   it('se generaron con el motor real, no a mano', () => {
