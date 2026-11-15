@@ -42,7 +42,7 @@ Three properties drive every architectural decision below:
 | Godot | Not preinstalled. Current stable is **4.7.2** (official download page). Installed and pinned via `lifeverse/tools/install_godot.sh` (SHA-256 checked); `godot --version` → `4.7.2.stable.official.ed1daf0bf`. |
 | Headless execution | Works: `godot --headless --path <proj> --script x.gd` and headless scene runs. |
 | Rendering | Works under `xvfb-run` with `--rendering-driver opengl3` (llvmpipe software GL). A Control scene with a tween rendered and was captured to PNG. UI can therefore be screenshot-verified in this container. No audio device (dummy driver). |
-| Blender | Not installed. `download.blender.org` is reachable (5.3 is current). **Not needed until Milestone 7 at the earliest**; not installed now. |
+| Blender | Not preinstalled. **5.3.0** installed and pinned via `lifeverse/tools/install_blender.sh` (official SHA-256 checked). Runs headless (`blender -b --python`). Verified end to end: a scripted mesh with material and keyframe animation exported to `.glb` and imported by Godot 4.7.2 with mesh, material and animation intact; Cycles CPU render to PNG works. No GPU here, so EEVEE/viewport rendering is untested. Still **not needed before Milestone 7**. |
 | SQLite | No `sqlite3` binary. Godot has no built-in SQLite; it needs a third-party GDExtension. |
 | Third-party GitHub repos | Blocked by this session's proxy (HTTP 403 for GUT and godot-sqlite archives). They could be attached on request, but see dependency policy §14. |
 | Export templates | Download URL for 4.7.2 templates is reachable. **Not yet downloaded or tested** (needed in Milestone 8). |
@@ -99,7 +99,7 @@ from this branch is **an open decision for the project owner** (see ROADMAP §7)
 | Runtime state | Plain typed GDScript objects (`RefCounted`) with `to_dict()/from_dict()` | `Resource` + `ResourceSaver` | `ResourceSaver` saves can execute embedded scripts on load (unsafe for save files) and have no migration story. Explicit dicts give versioned migrations (§11). |
 | Persistence | Versioned JSON documents, ZSTD-compressed, atomic writes, rolling backups | SQLite via GDExtension | The whole world fits in memory (a few MB); saves are snapshots, not queries. SQLite would add a native third-party binary per export platform. Revisit only if a save exceeds ~50 MB or needs partial loading (§11.6). |
 | Tests | Small in-repo test runner (headless scene) | GUT, gdUnit4 | Zero external dependency; the core is engine-light pure logic. The runner's surface is ~150 lines. Can be swapped for GUT later without rewriting tests' intent. |
-| 3D / Blender | Optional, deferred to Milestone 7, behind a clean seam | 3D-first workspaces | The brief makes 3D optional. Depth of simulation and UI quality come first; a hollow 3D hospital would violate "no decorative features". |
+| 3D / Blender | Optional, deferred to Milestone 7, behind a clean seam. Pipeline when used: `.blend` sources → scripted headless export → `.glb` committed and imported by Godot (verified, §2) | 3D-first workspaces; Godot's direct `.blend` import | The brief makes 3D optional. Depth of simulation and UI quality come first; a hollow 3D hospital would violate "no decorative features". Committing `.glb` means running or testing the game never requires Blender. |
 | Localization | All player-facing text via translation keys from day one (Godot `TranslationServer`, CSV) | Hard-coded English | Retro-fitting localization is expensive; existing project docs are Spanish, so EN + ES is a likely requirement. |
 
 ---
@@ -781,7 +781,9 @@ A workspace may embed a `SubViewportContainer` showing a 3D scene (e.g. a hospit
 corridor or consulting room) that *presents* the same simulation state the 2D
 interface drives. 3D never owns rules. This is deliberately deferred: it will only
 be built if, at Milestone 7, the 2D experience is complete and Blender-authored
-assets can be produced at a quality that adds rather than subtracts.
+assets can be produced at a quality that adds rather than subtracts. The tooling
+is no longer the obstacle (Blender is installed and the export/import path is
+verified); asset quality and scope are.
 
 ---
 
@@ -807,8 +809,8 @@ The game simulates illness, death, crime, family conflict and psychiatric care.
 - **Zero third-party code by default.** Engine + in-repo GDScript only. Any future
   addon needs: a written justification in this document, a pinned version, a licence
   check, and a verification test.
-- External tools used only at development time: pinned Godot, Python (optional
-  linting), xvfb (screenshots).
+- External tools used only at development time: pinned Godot, pinned Blender
+  (asset authoring only), Python (optional linting), xvfb (screenshots).
 - No network access at runtime. The game is fully offline.
 
 ---

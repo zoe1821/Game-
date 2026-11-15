@@ -165,8 +165,9 @@ specializations.
 - Localization pass (EN + ES if confirmed).
 - Onboarding and contextual help; balance pass using soak-test telemetry.
 - Performance profiling on long saves.
-- **Decision point:** optional 3D workspace scenes (requires Blender; only if 2D is
-  complete and the result would be an improvement).
+- **Decision point:** optional 3D workspace scenes (Blender is installed and the
+  export pipeline verified; build only if 2D is complete and the result would be
+  an improvement).
 
 ### Milestone 8 — Comprehensive testing and release build
 

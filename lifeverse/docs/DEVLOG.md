@@ -5,6 +5,37 @@ what was decided and why, and what was left undone.
 
 ---
 
+## 2026-11-15 — Blender installed and asset pipeline verified
+
+Requested by the project owner after the Milestone 1 review package.
+
+### Done
+
+- Installed Blender **5.3.0** (current release on download.blender.org) and wrote
+  `tools/install_blender.sh`, pinned to the official SHA-256. Tested from a clean
+  state and re-run for idempotence.
+- Verified the integration instead of assuming it: a headless Blender Python script
+  created a mesh with a material and a keyframe animation and exported `.glb`;
+  Godot 4.7.2 imported it and reported the mesh, the material by name and the
+  animation. A Cycles CPU render to PNG also succeeded.
+- Updated ARCHITECTURE §2/§4/§12.5/§14, PROJECT_STATUS, KNOWN_ISSUES, ROADMAP.
+
+### Decisions
+
+- Asset pipeline when 3D is used: `.blend` source → scripted headless export →
+  committed `.glb`. Running and testing the game will never require Blender.
+- 3D remains optional and scheduled for the Milestone 7 decision point; installing
+  the tool does not change the roadmap order.
+
+### Not done / honest gaps
+
+- No 3D asset has been made for the game. The spike files were not committed.
+- No GPU in the container: EEVEE and viewport rendering are untested.
+- Godot's direct `.blend` import (editor setting pointing at Blender) was not tested;
+  the plan does not rely on it.
+
+---
+
 ## 2026-11-15 — Milestone 1: research and architecture
 
 ### Done
@@ -52,7 +83,8 @@ what was decided and why, and what was left undone.
 - No game code, no tests, no build. Milestone 1 was scoped as research and design.
 - Research relied on direct tests against the pinned engine rather than a survey of
   external articles; no third-party architecture references were consulted.
-- Export pipeline untested. Blender not installed. Unity prototype not run.
+- Export pipeline untested. Blender not installed (at the time of this entry; see
+  the entry above). Unity prototype not run.
 - Workload figures in ROADMAP §1 are estimates, not measurements.
 
 ### Next

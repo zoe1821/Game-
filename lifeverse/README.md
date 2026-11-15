@@ -25,6 +25,12 @@ lifeverse/tools/install_godot.sh     # downloads, checksum-verifies, links `godo
 ```
 
 On Windows/macOS, download the same version from <https://godotengine.org/download/archive/>.
+
+Optional, only for authoring 3D assets — Blender **5.3.0**, pinned:
+
+```bash
+lifeverse/tools/install_blender.sh   # ~400 MB download, checksum-verified, links `blender`
+```
 The Godot project will live in `lifeverse/game/` from Milestone 2.
 
 ## Relationship to the rest of this repository

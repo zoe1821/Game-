@@ -1,6 +1,6 @@
 # LIFEVERSE — Project Status
 
-_Last updated: 2026-11-15 (end of Milestone 1)_
+_Last updated: 2026-11-15 (end of Milestone 1; Blender tooling added)_
 
 ## Summary
 
@@ -10,6 +10,7 @@ _Last updated: 2026-11-15 (end of Milestone 1)_
 | Next milestone | 2 — Playable life-simulation foundation (not started) |
 | Playable build | **None.** No game code exists yet. |
 | Engine | Godot 4.7.2 stable (pinned; `tools/install_godot.sh`) |
+| 3D authoring tool | Blender 5.3.0 (pinned; `tools/install_blender.sh`) — installed, not yet used for any game asset |
 | Automated tests | None yet (test runner is a Milestone 2 deliverable) |
 
 ## What exists and has been verified
@@ -19,6 +20,8 @@ _Last updated: 2026-11-15 (end of Milestone 1)_
 | Environment inspection | Done | Commands run in the dev container; results in `docs/ARCHITECTURE.md` §2 |
 | Pinned Godot install script | Working | Ran from a clean state and again (idempotent); `godot --version` → 4.7.2 |
 | Headless Godot execution | Working | Spike scripts executed |
+| Pinned Blender install script | Working | Ran from a clean state and again (idempotent); `blender --version` → 5.3.0 |
+| Blender → glTF → Godot pipeline | Working | Scripted mesh + material + animation exported headless to `.glb`; Godot import reported 1 mesh, material `Wood`, animation `DeskAction`. Cycles CPU render produced a PNG. |
 | Rendered UI capture (xvfb + OpenGL) | Working | Spike scene rendered and saved to PNG, inspected |
 | Technical spikes (JSON typing, RNG persistence, atomic writes, plugin loading, performance, API checks) | Done | Throwaway projects; results recorded in ARCHITECTURE §2. Spike code was intentionally not committed. |
 | Architecture document | Written | `docs/ARCHITECTURE.md` |
@@ -32,8 +35,8 @@ No part of the game is implemented: no Godot project, no simulation core, no UI,
 save system, no events, no careers, no psychiatry module, no content, no tests, no
 exported build. The documents describe intended design only.
 
-Not installed / not tested: Blender, export templates, any export, audio,
-real-GPU rendering, touch input, screen readers.
+Not installed / not tested: export templates, any export, audio, real-GPU
+rendering (including Blender EEVEE), touch input, screen readers. No 3D assets exist.
 
 ## Existing Unity prototype
 
@@ -68,5 +71,5 @@ Legend: ⬜ not started · 🟨 in progress · ✅ implemented and tested
 | Psychiatry management ranks and other specializations | ⬜ | 6 |
 | Additional careers | ⬜ | 6+ |
 | Accessibility, localization, polish | ⬜ | 7 |
-| Optional 3D / Blender | ⬜ (undecided) | 7 |
+| Optional 3D / Blender | ⬜ (tooling verified; content undecided) | 7 |
 | Release build | ⬜ | 8 |
