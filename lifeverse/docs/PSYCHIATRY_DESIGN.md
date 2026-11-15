@@ -1,7 +1,9 @@
 # LIFEVERSE — Psychiatry Career Module: Design
 
 Status: **design, awaiting review** (Milestone 1). Nothing here is implemented.
-Implementation is Milestone 5; it depends on the career framework of Milestone 4.
+Implementation is Milestones 5 and 6; it depends on the conversation engine
+(Milestone 3) and the career framework (Milestone 4). Sections 12–14 were added on
+2026-11-15 for the additional requirements (`A3`, `A4`).
 
 > **Fiction notice.** Every condition, treatment, rule and outcome in this module is
 > a game simulation with invented, internally consistent rules. It is not clinical
@@ -13,8 +15,10 @@ Carried over from the repository's earlier Unity design (`DESIGN.md`): the hidde
 patient model (§5, §20), strict separation of symptoms / observations / history /
 tests / diagnosis / treatment / evolution (§27), "the diagnosis is never shown
 automatically" (§9), delayed and imperfect treatment response (§12), and correctable
-errors (§21). Dropped: owning and building the hospital — in LIFEVERSE the player is
-an employee until the top two ranks, where management arrives as a career stage.
+errors (§21). The Unity design's *management* ambitions (staff, economy, reputation,
+departments) return here as the hospital operations and management layer of §12–§14,
+required by the additional requirements (`A4`). What stays out is building the
+hospital room by room on a grid: capacity changes are administrative decisions.
 
 ---
 
@@ -334,3 +338,146 @@ The rest of Milestone 5 extends the slice across the four clinical ranks (traine
 resident, attending, senior specialist) with the adult specialization. The two
 management ranks and the child, forensic and geriatric specializations are designed
 above but scheduled for Milestone 6 (see `ROADMAP.md`).
+
+---
+
+## 12. Hospital operations (A4)
+
+The hospital is an institution simulated with the `institution` kernel
+(`ARCHITECTURE.md` §21). It operates every day whether or not the player is on
+shift, and whether or not the player has any authority over it.
+
+### 12.1 Departments
+
+| Department | Role in play |
+|---|---|
+| Outpatient psychiatry | Clinics, waiting list for first appointments, follow-up capacity. |
+| Adult inpatient unit(s) | Beds, observation levels, ward rounds, leave and discharge. |
+| Emergency psychiatric assessment | Unscheduled arrivals, triage, short-stay observation, on-call cover. |
+| Child & adolescent, geriatric, forensic services | Specialist case mix and rules (§9). |
+| Psychology and therapies | Receives referrals; capacity limits how fast a plan can start. |
+| Social work | Housing, benefits, family work; discharge often waits on it. |
+| Nursing | Staffs every unit on a rota; nurses observe patients and write the notes you read. |
+| Pharmacy | Dispenses treatment classes; stock levels and queries about plans. |
+| Laboratory and imaging | Runs investigations with turnaround times that depend on load. |
+| General medicine liaison | Consults on physical-health questions; accepts and requests transfers. |
+| Medical records | Holds charts; old-record requests; audits access. |
+| Administration | Budget, staffing, complaints, inspections, policy. |
+
+Departments outside psychiatry are simulated as working units with staff, queues
+and capacity — they are **collaborators, not playable careers**, until the
+corresponding medical career modules exist.
+
+### 12.2 People
+
+Doctors, nurses, therapists, social workers, pharmacists, clerks and managers are
+persistent people (Tier A or B) with a role, grade, skills, a rota and relationships
+with the player. Their competence and workload affect what happens to patients:
+an exhausted night nurse misses an observation; a psychologist you have a good
+working relationship with squeezes your patient in.
+
+### 12.3 Patient flow
+
+```
+referral ─▶ waiting list ─▶ outpatient assessment ─▶ follow-up … ─▶ discharge to referrer
+                 │                    │
+ emergency ──────┴──▶ assessment ─────┼──▶ admission ─▶ ward stay ─▶ discharge plan ─▶ follow-up
+ arrival                              │         │  ▲
+                                      │         ▼  │
+                                      └──▶ transfer to / from another unit or department
+```
+
+- **Waiting lists** have real length and priority; delay changes patients' conditions
+  (the progression model of §7 runs while they wait).
+- **Admissions** need a bed on a suitable unit; when there is none, the choices are
+  to wait in the emergency area, discharge someone, use another unit, or transfer out.
+- **Transfers** between units and departments carry the chart and need a handover;
+  a poor handover loses information.
+- **Discharges** need a plan (follow-up, social support, family informed with
+  consent); premature discharge raises readmission risk.
+- **Emergencies** interrupt whatever is happening and are triaged by urgency.
+
+### 12.4 Staff schedules
+
+A rota assigns every clinical post to shifts. Leave, sickness and vacancies create
+gaps that someone must cover — sometimes the player. Staffing level is an input to
+ward safety, waiting times and staff morale.
+
+### 12.5 Medical documentation
+
+The chart (§3.2) is institution-wide: admission and discharge summaries, nursing
+observations, medication and treatment charts, risk assessments, handovers,
+referrals and replies, incident reports, consent records. Documents have authors,
+times and completeness; audits, complaints and inspections read them.
+
+### 12.6 Interdepartmental collaboration
+
+Requests to another department (a consult, an investigation, a social-work
+assessment, a therapy slot) enter that department's queue. How fast and how well
+they are answered depends on its load, its staff, and the player's working
+relationships. Requests also arrive for the player — a medical ward asking for a
+psychiatric opinion is a case that begins in someone else's chart.
+
+---
+
+## 13. Privacy and confidentiality mechanics (A4)
+
+Confidentiality is a system with rules the player can break, not a line of flavour
+text. All rules belong to the fictional country's code.
+
+| Mechanic | How it plays |
+|---|---|
+| Need-to-know access | Every chart opened is logged. Opening the record of someone who is not your patient — a neighbour, a celebrity, an ex-partner admitted last night — is possible, tempting, and auditable. |
+| Consent | Speaking to family, employers or schools requires the patient's recorded consent, with defined exceptions for serious and imminent risk that must be documented. |
+| Disclosure dilemmas | Warning a third party, a police request, a court order, a relative demanding information, a minor asking you not to tell their parents. |
+| Careless disclosure | In ordinary conversations (`ARCHITECTURE.md` §19) the option to talk about a patient exists. Friends and partners remember what you told them, and can repeat it. |
+| Physical and digital handling | Notes left in a shared office, a misdirected letter, a screen left open: incident events with a traceable cause. |
+| Patients you know | When a friend, relative or colleague becomes a patient, the rules about treating them and about what you may do with what you learn apply. |
+| Audit and consequences | Records staff audit access; breaches lead to an incident report, an investigation, and outcomes from a warning to licence proceedings, plus loss of trust if the patient finds out. |
+
+Privacy also has a positive side: patients who trust that you keep confidences
+disclose more (the disclosure model of §4.2 reads it).
+
+---
+
+## 14. Management play and private practice (A3, A4)
+
+### 14.1 What authority adds
+
+| Rank | Levers |
+|---|---|
+| Attending / senior specialist | Own clinic templates, supervision of trainees, case allocation within the team. |
+| Department director | Rota and vacancies, hiring and appraisal, the departmental **budget**, **equipment and supplies**, local policies (observation standards, clinic lengths, waiting-list rules), complaint handling, **quality indicators**, inspection readiness, relations with other departments. |
+| Hospital administrator | Budgets across departments, capital decisions (beds, units, equipment replacement), staffing strategy, contracts, external regulators, crises, and the hospital's public reputation. |
+
+### 14.2 Budget, equipment and supplies
+
+- **Budget lines**: staff, agency cover, treatments, investigations, maintenance,
+  training, capital. Income follows activity and the fictional funding rules;
+  the macro economy (`ARCHITECTURE.md` §20) moves the total.
+- **Equipment** has purchase cost, lifespan, maintenance and failure; a failed
+  monitoring system or a closed assessment room has clinical consequences.
+- **Supplies** are consumed by activity and must be reordered; shortages constrain
+  treatment options that day.
+
+### 14.3 Quality assessments
+
+Indicators the hospital is judged on: waiting times, readmission rate, incident
+rate, documentation completeness, patient feedback, staff turnover and sickness,
+safety-hold decisions overturned on review, complaint outcomes, budget variance.
+Periodic **inspections** sample real charts and real incidents from the save — the
+evidence is whatever the player and the NPC staff actually did.
+
+Every management decision changes the conditions that clinicians (the player at an
+earlier rank, and every NPC now) work under. Cutting agency cover balances the
+budget and lengthens the night shift.
+
+### 14.4 Private practice
+
+From attending rank with a full licence, the psychiatrist can open a private
+practice (a `Business`): premises and rent, a receptionist, appointment pricing,
+referral sources and reputation, professional insurance, bookkeeping and tax —
+alongside or instead of hospital employment. The clinical work is the same
+simulation; what changes is that the waiting list, the income and the liability are
+the player's own.
+

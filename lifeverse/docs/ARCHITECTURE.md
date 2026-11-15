@@ -1,6 +1,9 @@
 # LIFEVERSE — Technical Architecture
 
 Status: **proposed, awaiting review** (Milestone 1). No game code exists yet.
+Requirements: [`requirements/01_original_brief.md`](requirements/01_original_brief.md) (`B1`–`B15`)
+and [`requirements/02_additional_requirements.md`](requirements/02_additional_requirements.md)
+(`A1`–`A10`, covered in Part II, §18–§25). Feature status: [`FEATURE_REGISTRY.md`](FEATURE_REGISTRY.md).
 Companion documents: [`PSYCHIATRY_DESIGN.md`](PSYCHIATRY_DESIGN.md) (first career module),
 [`UI_DIRECTION.md`](UI_DIRECTION.md) (interface reference and original visual direction),
 [`ROADMAP.md`](ROADMAP.md) (milestones, workload), [`DEVLOG.md`](DEVLOG.md),
@@ -60,6 +63,11 @@ Spike results (throwaway projects, not committed) that shaped the design:
 | Runtime plugin loading | `load(path_from_json).new()` + `is BaseClass` check works; typed `Dictionary[StringName, Callable]` handler registries work. | Basis of the career plugin and effect/condition registries (§8, §9). |
 | Atomic save write | `store → rename_absolute` works; ZSTD-compressed files round-trip. | Save write protocol in §11. |
 | Simulation cost | 2,000 NPC records × 80 ticks: 38 ms. Stringify+parse of 2,000 small records: 6 ms. | The NPC budget in §7.4 has ample headroom. |
+| Expansion packs | A separately exported `.pck` mounted with `ProjectSettings.load_resource_pack` exposed its JSON and a script, which ran. Directory listings inside a pack show `.gdc`/`.remap` names for scripts. | Content packs (§23); confirms the explicit-registry rule in §6. |
+| Error capture | A custom `Logger` registered with `OS.add_logger` received a script error. | Error logging (§25). |
+| Localization | A CSV with `es` and `en` columns imported to translations; live locale switching and placeholder formatting worked. The `.translation` files exist only after an import pass. | §24; run scripts import before running. |
+| Audio pipeline | A tone synthesized in Python, encoded to Ogg Vorbis with ffmpeg, loaded as `AudioStreamOggVorbis` with the correct length; audio buses can be created and set. Nothing can be *heard* here. | §22. |
+| Input rebinding | `InputMap` actions can be created and rebound at runtime. | §24. |
 | Engine API facts | Strict-typing warnings (`untyped_declaration`, `unsafe_*`) exist as project settings; `Control.set_accessibility_name` and `DisplayServer.accessibility_screen_reader_active` exist in 4.7.2; stretch settings exist. | Coding standards §15, accessibility §12.4. |
 
 Because 4.7.2 is newer than much published Godot material, the rule for this project
@@ -102,7 +110,7 @@ from this branch is **an open decision for the project owner** (see ROADMAP §7)
 | Persistence | Versioned JSON documents, ZSTD-compressed, atomic writes, rolling backups | SQLite via GDExtension | The whole world fits in memory (a few MB); saves are snapshots, not queries. SQLite would add a native third-party binary per export platform. Revisit only if a save exceeds ~50 MB or needs partial loading (§11.6). |
 | Tests | Small in-repo test runner (headless scene) | GUT, gdUnit4 | Zero external dependency; the core is engine-light pure logic. The runner's surface is ~150 lines. Can be swapped for GUT later without rewriting tests' intent. |
 | 3D / Blender | Optional, deferred to Milestone 7, behind a clean seam. Pipeline when used: `.blend` sources → scripted headless export → `.glb` committed and imported by Godot (verified, §2) | 3D-first workspaces; Godot's direct `.blend` import | The brief makes 3D optional. Depth of simulation and UI quality come first; a hollow 3D hospital would violate "no decorative features". Committing `.glb` means running or testing the game never requires Blender. |
-| Localization | All player-facing text via translation keys from day one (Godot `TranslationServer`, CSV). **Spanish is the primary authored language**, English second | Hard-coded text; English-first | Retro-fitting localization is expensive. The project owner works in Spanish and asked for Spanish (2026-11-15); keyed strings keep any further language cheap. |
+| Localization | All player-facing text via translation keys from day one (Godot `TranslationServer`, CSV). **Spanish and English are both required and both complete at every milestone**; Spanish is authored first | Hard-coded text; English-first | Retro-fitting localization is expensive. The project owner works in Spanish and asked for Spanish (2026-11-15); keyed strings keep any further language cheap. |
 
 ---
 
@@ -182,7 +190,10 @@ ops and condition predicates it provides.
 | `EconomySystem` | `economy` | Accounts, ledger, recurring items, tax, loans, property, investments, market cycle. |
 | `CareerHost` | `careers` | Job market, contracts, ranks, reviews, promotions; hosts career plugins. |
 | `EventDirector` | `events` | Selecting, binding, presenting and resolving events and storylines. |
-| `WorldEventSystem` | `world_context` | Macro state (economic cycle, policy changes, notable world events). |
+| `WorldEventSystem` | `world_context`, `localities`, `businesses`, `news` | Macro economy, business lifecycle, job market, social calendar, news, seasons and weather (§20). |
+| `DailyLifeSystem` | `daily` (needs, routines, schedules), `inventory`, `homes`, `pets`, `trips` | Needs, routines, activities, shopping, transport, home, pets, hobbies, travel, occasions (§18). |
+| `ConversationSystem` | `conversations`, `secrets`, `conflicts` | Dialogue sessions, topics, approaches, secrets, arguments, relationship stages (§19). |
+| `ProfileService` (app layer) | `user://profile.json` | Achievements and cross-life progression (§25). |
 
 Systems talk to each other only through (a) `WorldState` data they are documented to
 read, (b) effect ops, and (c) `SimBus` signals. No system calls another system's
@@ -213,6 +224,7 @@ Game-/                              (repository root)
         ├── project.godot
         ├── app/                     autoloads
         │   ├── game.gd              session: holds Simulation, new/load/quit flow
+        │   ├── log_service.gd  audio_service.gd  profile_service.gd  input_service.gd
         │   ├── save_service.gd
         │   ├── settings.gd          video, audio, accessibility, language
         │   └── router.gd            screen stack + transitions
@@ -229,11 +241,17 @@ Game-/                              (repository root)
         │   ├── education/           education_system.gd  enrolment.gd  qualification.gd
         │   ├── economy/             economy_system.gd  ledger.gd  account.gd  loan.gd  property.gd  market.gd  tax.gd
         │   ├── events/              event_director.gd  event_instance.gd  storyline.gd  role_binder.gd
-        │   ├── world/               world_event_system.gd
+        │   ├── world/               world_event_system.gd  locality.gd  business.gd  news.gd  weather.gd
+        │   ├── daily/               daily_life_system.gd  needs.gd  routine.gd  day_schedule.gd  activity.gd
+        │   │                        inventory.gd  item.gd  home.gd  pet.gd  transport.gd  trip.gd  occasions.gd
+        │   ├── conversation/        conversation_system.gd  conversation.gd  topic_provider.gd
+        │   │                        reaction_model.gd  secret.gd  conflict.gd  relationship_stages.gd
+        │   ├── meta/                achievements.gd  difficulty.gd  tutorial.gd
         │   ├── career/              career_host.gd  career_module.gd  career_context.gd
         │   │                        employment.gd  performance.gd  shift_session.gd
         │   └── work/                reusable gameplay kernels (§9.4):
-        │                            case_file/  interview/  inference/  shift_clock/  org/
+        │                            case_file/  interview/ (profile of core/conversation)
+        │                            inference/  shift_clock/  institution/
         ├── careers/
         │   ├── index.json           explicit list of installed career modules
         │   └── psychiatry/
@@ -245,8 +263,13 @@ Game-/                              (repository root)
         │       │                    treatments.json  hospital_events.json  rooms.json  …
         │       ├── ui/              workspace scenes
         │       └── tests/
+        ├── packs/                   optional content packs, same layout as the base game (§23)
+        ├── presentation/            character rig, expressions, place scenes, weather, audio (§22)
         ├── data/
         │   ├── events/*.json  storylines/*.json  npc_actions/*.json
+        │   ├── activities/  items/  hobbies/  destinations/  occasions/  dialogue/
+        │   ├── world/               localities, business types, news templates, weather
+        │   ├── meta/                achievements, difficulty presets, tutorials
         │   ├── people/              names, traits, appearance parts, goals
         │   ├── education/           stages, programs, institutions
         │   ├── economy/             tax, housing, costs, market
@@ -610,10 +633,10 @@ kernels. Each kernel is built when the first career needs it — never speculati
 | Kernel | What it models | Built in | First user | Later users |
 |---|---|---|---|---|
 | `case_file` | Persistent case with hidden truth, discovered findings (with source, date, reliability), documents, decisions, outcome | M5 | Psychiatry | All medicine, law, detective, forensics, analyst |
-| `interview` | Question bank, approach/tone, subject disposition (rapport, guardedness), disclosure and distortion | M5 | Psychiatry | Police interview, cross-examination, GP, teacher–parent, journalist-style careers |
+| `interview` | A profile of the shared conversation engine (§19): question bank, subject disposition (rapport, guardedness), disclosure and distortion of a hidden truth | engine M3, profile M5 | Psychiatry | Police interview, cross-examination, GP, teacher–parent, journalist-style careers |
 | `inference` | Findings ↔ hypotheses likelihood model, differential ranking, evidence sufficiency | M5 | Psychiatry | Diagnosis in all medicine, detective deduction, forensic analysis, financial analysis |
 | `shift_clock` | Shift time, action costs, task queue, triage/prioritisation, interruptions | M5 | Psychiatry | ER, police patrol, court docket, class timetable |
-| `org` | Staff rota, budget, policy decisions, inspections, morale | M5 (lite) → M6 | Dept. director / administrator | CEO, school administrator, entrepreneur |
+| `institution` | Departments, roster and rota, capacity, queues and waiting lists, patient/client flows, budget, equipment and supplies, quality assessments, policies (§21) | operations M5, management M6 | Hospital | School, police department, company, CEO, entrepreneur |
 | `argument` | Claims, evidence admissibility, persuasion of a decider | later | Law | Prosecutor, judge, corporate negotiation |
 | `project` | Brief → multi-stage work with quality axes, deadline, client satisfaction | later | A creative career | Designer, photographer, producer, researcher, entrepreneur |
 | `lesson` | Group of learners with individual states, plan → deliver → assess | later | Teacher | Professor, school administrator |
@@ -630,6 +653,28 @@ at least one mechanic that is uniquely its own.
 | Teacher, professor, school administrator, researcher | lesson, project, org | Classroom management; grant → study → publication pipeline |
 | Entrepreneur, CEO, financial analyst, real-estate investor | org, project, inference | Company model with market; valuation calls; property deal pipeline |
 | Fashion / interior designer, makeup artist, photographer, actor, music producer | project | Design/composition editor; shoot planning; audition and role preparation; track arrangement |
+
+### 9.5 Complete professional workflow (A3)
+
+`CareerHost` owns the parts of working life that are the same in every profession,
+so each is built once: vacancies and **applications**; **interviews** (a conversation
+profile, §19, scored against the vacancy); **offers and rejections** with reasons;
+**contracts** (salary, hours, leave, probation, notice, non-compete); **schedules**;
+**colleagues and supervisors** as persistent people with roles; **professional
+conflicts** through the conflict model (§19); **performance reviews**; **promotions**;
+**resignation** (notice, references, burned bridges) and **dismissal** (warnings,
+process, consequences for future applications); **certifications and licences**
+(exams, renewal, suspension); **specializations**.
+
+**Entrepreneurship and private practice** use the `Business` entity (§20): a
+professional with the required licence can open a practice or firm, which adds
+premises, staff, clients, pricing, cash flow and liability to the same career
+module's daily work. A career declares in its manifest whether and from which rank
+private practice is available.
+
+What stays specific to each career is the work itself; the registry tracks, per
+career, that its loop is genuinely different (a different kernel mix and at least
+one mechanic of its own; see the table in §9.4).
 
 ---
 
@@ -870,6 +915,11 @@ The game simulates illness, death, crime, family conflict and psychiatric care.
 | 10 | Ephemeral dev container: nothing preinstalled; third-party repos blocked. | Low | `tools/setup_dev_env.sh` rebuilds the whole toolchain from pinned downloads (tested from clean: 2 min 47 s for everything); zero-dependency policy for the game itself. |
 | 11 | Sensitive subject matter handled badly. | High (reputational) | Policy §13; content tags and settings; review of all clinical writing. |
 | 12 | Export pipeline. | Low (was Medium) | Retired as an unknown: Linux, Windows, Web and Android exports of a trivial project succeeded (§2). Remaining: repeat with the real project at each milestone; Windows and Android builds must be run on real hardware by the owner; store release needs the owner's own signing key. |
+| 13 | Audiovisual quality without an artist, composer or sound designer, and with no way to hear audio during development. | High | Vector and procedural assets; scripted, reproducible audio; CC0 sources with licences recorded; owner listens to and approves every audio pass; presentation never carries rules, so weak assets cannot break gameplay. |
+| 14 | Writing volume: bilingual dialogue lines, events, cases, news and activities number in the thousands. | High | Template + variant system; coverage and repetition metrics; content packs so volume can grow after release; honest counts in the registry rather than claims of completeness. |
+| 15 | The combined scope (daily life + social + hospital management + world + audiovisual) now exceeds the original brief several times over. | Critical | Depth tiers and sub-milestones in `ROADMAP.md`; the registry makes unfinished work visible; module entry gate (§25); stability before content. |
+| 16 | Daily-life detail makes a 90-year life tedious. | High | Three zoom levels over one simulation (§18.1); routines by default; tuned with playtests from Milestone 3. |
+| 17 | Expansion packs carrying scripts are a code-execution surface. | Medium | Only first-party packs, never downloaded; data-only packs cannot run code (§23). |
 
 ---
 
@@ -877,3 +927,296 @@ The game simulates illness, death, crime, family conflict and psychiatric care.
 
 Listed with the default that will be used if no preference is given — see
 `ROADMAP.md` §7.
+
+---
+
+# Part II — Extensions from the additional requirements (2026-11-15)
+
+Sections 18–25 extend the architecture to cover `docs/requirements/02_additional_requirements.md`
+(`A1`–`A10`). They are design, not implemented software. Earlier sections were
+amended where the extension changes them (systems table §5.2, directory tree §6,
+kernels §9.4, risks §16).
+
+## 18. Daily life simulation (A1)
+
+### 18.1 The pacing problem and its answer
+
+A life is roughly 30,000 days. Nobody can, or should have to, brush a character's
+teeth 30,000 times, yet the requirement is that hygiene, sleep, food, transport,
+home, pets, hobbies, travel and occasions are real systems. The answer is **one
+simulation at three zoom levels**:
+
+| Level | What the player does | When |
+|---|---|---|
+| **Routine** | Edits a persistent plan: sleep schedule, self-care level, diet, commute mode, chores split, pet care, hobbies, social time. The plan executes every simulated day. | Default while pressing Continue. |
+| **Day** | Opens a specific day and schedules its blocks by hand. | Any time; the game suggests it on days that matter (first day at a job, a birthday, a crisis, a vacation). |
+| **Moment** | Plays one activity as an interactive scene: a conversation, a shopping trip, a vet visit, a work shift. | Chosen from the day, or triggered by an event. |
+
+All three run the **same activity definitions through the same code**. The routine
+is not a cheaper model: it is the day scheduler choosing the planned activities.
+This is the same principle as auto-resolved work shifts (§9.3).
+
+### 18.2 Needs
+
+Six fictional daily-state values (0–100) join the attributes of §7.2: `energy`,
+`hygiene`, `nutrition`, `comfort`, `fun`, `social`. They decay daily at rates shaped
+by age, traits and circumstances, are restored by activities, and feed the long-term
+attributes (health, happiness, stress, looks) and performance: sleep debt raises the
+error rate in a work shift; poor hygiene changes first impressions, interviews and
+reputation; chronic poor nutrition lowers health over years. Daily needs are
+simulated in full for the controlled person, their household and their pets, and
+coarsely for everyone else, which keeps the daily tick cheap.
+
+### 18.3 Activities
+
+An **activity** is a data definition interpreted by `DailyLifeSystem`:
+
+```jsonc
+{
+  "id": "home.cook_dinner", "category": "food",
+  "duration_min": 60, "place": "home.kitchen",
+  "requires": {"items": [{"tag": "groceries", "units": 1}], "time_window": [17, 22]},
+  "costs": {"energy": 6},
+  "participants": {"optional": {"with": "household", "max": 4}},
+  "effects": [
+    {"need.add": {"nutrition": 35, "fun": 4}},
+    {"skill.add": {"cooking": 1}},
+    {"item.consume": {"tag": "groceries", "units": 1}},
+    {"rel.add": {"with": "$with", "affection": 1}}
+  ],
+  "quality_from": ["skill.cooking", "item.quality"],
+  "hooks": ["on_activity.cook"],
+  "presentation": {"anim": "cook", "ambience": "kitchen"}
+}
+```
+
+Every activity therefore touches time (duration against the day's 24 hours), money
+(directly or through the items it consumes), relationships (participants) and
+attributes (effects) — the requirement's four axes — by construction, and a content
+linter rejects an activity that affects none of them.
+
+### 18.4 Subsystems
+
+| Area | Model |
+|---|---|
+| Hygiene & self-care | Routine level plus grooming items; affects hygiene, looks, illness risk, social and professional reactions. |
+| Sleep & energy | Sleep window in the routine; sleep debt accumulates and must be repaid; night shifts and newborns disrupt it. |
+| Food & nutrition | Diet plan (cook, eat out, skip), cooking skill, household grocery stock with quality level; cost and health trade-offs. |
+| Shopping & inventory | `Item` definitions (consumable, durable, clothing, gift, equipment, vehicle); personal inventory and shared household stock; shops are `Business` entities (§20) with catalogue, price level and opening hours; shopping costs time and money. Gifts are matched against the recipient's preferences. |
+| Transport | Commute mode (walk, cycle, transit, car) with time, cost, stress, fitness and reliability; vehicles are assets with fuel, maintenance and breakdown events. Home and workplace sit in districts with travel times, so where you live trades rent against hours of your day. |
+| Home | `Home` with rooms, condition, cleanliness, furnishing and appliances; chores, bills and repairs; household members share chores, and unfair splits become memories. |
+| Pets | `Pet` (species, temperament, age, health, needs, bond); care activities, vet costs, ageing and death; pets take part in events and are remembered. |
+| Hobbies | Skill tracks with equipment and clubs; clubs are a source of new people; some hobbies lead into creative careers. |
+| Vacations & travel | `Trip` (destination, season, companions, budget, itinerary of activities); uses leave from the employment contract; produces shared memories. |
+| Occasions | Calendar of every known person's birthday, anniversaries and the fictional country's holidays; occasions create agenda items and NPC expectations — remembering or forgetting them is recorded. |
+
+## 19. Conversation and social dialogue (A2)
+
+One engine, `core/conversation/`, serves every dialogue in the game. The psychiatry
+interview, a job interview, a quarrel with a spouse and a chat with a friend are
+*profiles* of it. This replaces the separately planned `interview` kernel with a
+specialisation of the shared engine (rule B14.5: no duplicate systems) and moves it
+earlier, to Milestone 3.
+
+- **Session.** A `Conversation` is plain data — participants, setting (place,
+  privacy, occasion), rapport, tension, each participant's current emotion, topics
+  covered — so it can be saved and resumed mid-sentence.
+- **Context-sensitive topics.** Topic candidates are produced by context providers:
+  shared memories, recent events in either life, each party's goals and emotions,
+  known or suspected secrets, the occasion, relationship kind and stage, news (§20),
+  and — for professional profiles — the question bank. Topic definitions carry
+  conditions, so a topic exists only when the world makes it sayable.
+- **Approaches.** Warm, direct, playful, flirtatious, assertive, evasive, apologetic,
+  probing, supportive, silent. The NPC's reaction is a function of personality,
+  current emotion, relationship axes, memory modifiers, topic sensitivity, approach
+  and how private the setting is.
+- **Lines.** Authored templates with variants keyed by personality, emotion and
+  relationship, filled from world state, in Spanish and English. There is no runtime
+  text generation: output is deterministic, offline and reviewable. The cost is
+  writing volume (risk 14).
+- **Emotional reactions** are shown (expression and posture, §22), stored (emotion
+  on the person) and remembered (memory).
+- **Secrets.** `Secret {owner, fact, sensitivity, known_by, suspected_by}`. Learned
+  through disclosure (trust and emotional state thresholds), contradiction,
+  third-party gossip or observation. Keeping, using or revealing a secret creates
+  memories and moves reputation. The player's own secrets can be discovered.
+- **Arguments and reconciliation.** `Conflict {parties, grievances → memory ids,
+  heat, stage}` moves through brewing → open → cooling → resolved or estranged. An
+  argument is a conversation mode with escalating and de-escalating moves;
+  reconciliation requires actually addressing the grievance (acknowledgement,
+  restitution, time), which changes the residue of the underlying memory modifiers.
+- **Progression.** Friendship (acquaintance → friend → close → confidant) and romance
+  (interest → dating → committed → engaged → married, with exits) are stage machines
+  gated by relationship axes, shared activities and specific conversations. NPCs can
+  advance, hesitate or refuse on their own account.
+- **NPC initiative.** `NpcAgentSystem` (§7.4) gains conversation intents — ask a
+  favour, confess, confront, invite, share news, seek comfort, gossip, apologise.
+  They reach the player as incoming interactions that can be accepted, postponed or
+  ignored, and ignoring is itself remembered.
+
+## 20. World simulation (A5)
+
+- **Locality.** The fictional country contains localities made of districts (housing
+  cost, travel times, amenities) hosting institutions and businesses.
+- **Businesses.** `Business {sector, owner, district, staff jobs, coarse finances,
+  founded, closed}`. A periodic lifecycle pass opens and closes businesses according
+  to the macro cycle, local demand and the owner's traits. Closures remove jobs and
+  shops; openings post vacancies. A business the player owns (entrepreneurship,
+  private practice — §9.5) is the same entity with its management exposed.
+- **Economy.** `WorldEventSystem` drives a cycle (expansion, slowdown, recession,
+  recovery) with indicators — growth, unemployment, inflation, interest rate, housing
+  index — read by salaries, prices, loans, investments, job postings and institution
+  budgets.
+- **Employment.** Vacancies come from real institutions and businesses; NPCs compete
+  for them; conditions change with the cycle.
+- **Independent lives.** Tier A/B simulation (§7.4) now runs against real employers,
+  homes and businesses, so an NPC's layoff, move or new shop has a cause.
+- **Social calendar.** Community events (festivals, weddings, funerals, reunions,
+  club meetings) with invitations, attendance and consequences.
+- **News.** `NewsItem`s are generated from world events, institution events (for
+  example a hospital inspection result), notable lives — including the player's own
+  public actions — and business changes. News is read in a feed, supplies
+  conversation topics, and can trigger events.
+- **Generations.** A lineage record carries family reputation, wealth, heirlooms,
+  family secrets, inherited dispositions and upbringing effects to heirs; the world
+  itself persists, so a predecessor's enemies, debts, businesses and patients are
+  still there.
+- **Seasons and weather.** A simple per-locality seasonal model on its own RNG
+  stream affects activity availability, commuting, some events and presentation.
+
+## 21. Institution simulation (A4)
+
+The planned `org` kernel is replaced by a fuller **`institution`** kernel
+(`core/work/institution/`): departments, staff roster and rota, capacity (rooms,
+beds, appointment slots), queues and waiting lists, admissions/transfers/discharges
+as generic *flows*, budget lines, equipment (with maintenance and failure) and
+supplies (consumption and reordering), quality indicators and assessments, policies
+and incidents.
+
+An institution **runs whether or not the player manages it**: NPC managers decide by
+policy, and their decisions shape the conditions the player works in. The player's
+rank decides which levers they hold. The hospital is the first user (design in
+`PSYCHIATRY_DESIGN.md` §12–§14); schools, police departments and companies reuse it.
+
+## 22. Presentation: animation, sound and environments (A6)
+
+**Principle.** Presentation observes the simulation and never owns rules. It can be
+reduced or switched off without changing any outcome, and the headless test suite
+never needs it. Where an animation conveys information (a patient avoiding eye
+contact), that information also exists as simulation data, so it is never
+*only* visual.
+
+- **Characters.** A 2D cut-out rig assembled from the same appearance data as the
+  portraits (§12.3), aged by life stage. Animation set: idle, walk, sit, talk,
+  gestures, plus activity clips. **Facial expressions** are driven by the person's
+  current emotion (brows, eyes, mouth, blink, speech movement).
+- **Contextual animation.** Each activity and professional action names an animation
+  tag; place scenes show the people present doing what the simulation says they are
+  doing. In a consultation the patient's body language is part of the observation
+  mechanic, which is what makes it gameplay rather than illustration.
+- **Environments.** Layered 2D scenes per place type (rooms of the home at their
+  furnishing level, hospital areas, school, street), lit by the game clock
+  (`CanvasModulate` and 2D lights for day and night) and dressed by the weather model
+  (§20) with particles.
+- **Sound.** `AudioService` with buses Master / Music / Ambience / SFX / UI.
+  Ambience beds keyed by place, time and weather; ambient music as layered states
+  (calm, tense, sad, joyful); effects for UI and actions; captions for every sound
+  that carries meaning (§24).
+- **Interface motion.** Router transitions and micro-interactions, all scaled by the
+  animation-intensity setting.
+- **Assets.** There is no artist, composer or sound designer. Visuals are vector
+  parts authored in-repo. Audio will be (a) generated by scripts committed to the
+  repository, so it is reproducible and licence-clean (verified: a synthesized tone
+  encoded to Ogg Vorbis loads in Godot with the right length), and (b) CC0 material
+  with its licence recorded, where obtainable. **Sound cannot be heard in the
+  development environment**, so mix and quality must be judged by the owner (risk 13).
+
+## 23. Content packs and authoring pipeline (A7)
+
+- **Pack.** A folder with `pack.json` (`id`, `version`, `requires`, `provides`) and
+  the same sub-layout as the base game (`data/`, `careers/`, `locale/`,
+  `presentation/`). The base game is the pack `base`. Extra packs live under
+  `res://packs/<id>/`, built in or mounted at start-up from `.pck` files with
+  `ProjectSettings.load_resource_pack` (verified: JSON and a script inside a mounted
+  pack were read and executed).
+- **Merging.** `ContentDB` loads packs in dependency order. IDs are namespaced by
+  pack. A pack may add anything; it may change existing content only through an
+  explicit `patches` list. Collisions are load errors, not last-writer-wins.
+- **What a pack can add without engine changes:** events, storylines, NPC actions
+  and personalities, traits, activities, items, business and institution types,
+  dialogue topics and lines, hobbies, destinations, holidays, news templates,
+  achievements, tutorials, difficulty presets, careers, specializations for an
+  existing career (`extends_career`), professional case content, locale strings and
+  presentation tags.
+- **Code in packs.** Only career modules contain scripts, and only first-party packs
+  are loaded; the game never downloads packs. Data-only packs cannot execute code.
+- **Saves.** A save records the packs and versions it was made with; loading without
+  a required pack is refused with a clear message.
+- **Authoring tools.** One schema per content type; `tools/content.py` (scaffold,
+  validate, statistics, unused/missing locale keys); authoring guides under
+  `docs/content/`; the fuzz player and linter of §8.5; a developer console and hot
+  reload in debug builds.
+- **Updates.** Game version plus save migrations (§11.4); pack versions are checked
+  against `requires`.
+
+## 24. Player options: languages, accessibility, difficulty (A8)
+
+| Requirement | Design |
+|---|---|
+| English and Spanish | Both complete at every milestone; a test fails on any key missing in either language. Spanish is authored first. Switching is live (verified with a CSV translation). |
+| Scalable text | Text scale 80–200 % through the theme; layouts are container-based so they re-flow. |
+| Colour accessibility | Default, colour-vision-safe and high-contrast palettes from the same tokens; colour is never the only signal. |
+| Animation intensity | Full / reduced / off, applied to interface motion, character animation, weather and screen effects. |
+| Remappable controls | Every action is an `InputMap` action with a rebinding screen for keyboard and gamepad (verified: runtime rebinding works). Touch has nothing to remap. |
+| Audio and subtitles | Per-bus volume, mute, mono; captions for meaningful sounds; size and background options for conversation text and captions. |
+| Difficulty and customization | Presets (relaxed / standard / demanding) over individually adjustable settings: economic harshness, event severity, need decay, time pressure in shifts, amount of clinical guidance, auto-resolve defaults, content filters (§13), life pace. Stored per save. |
+
+## 25. Production and verification (A9, A10)
+
+- **Regression tests.** The suites of §15; every fixed bug adds a test.
+- **Performance monitoring.** A budget table (time to advance a year, load time,
+  save size, frame time on the reference scene) measured by the soak benchmark and
+  appended to `docs/perf/history.csv`; a threshold breach fails the run. A debug
+  overlay reads the engine's `Performance` monitors.
+- **Save backup and recovery.** §11, plus a recovery screen to choose a backup and
+  save export/import.
+- **Error logging.** A custom `Logger` (verified: registered with `OS.add_logger`,
+  it captured a script error) writes rotating files under `user://logs/` with game
+  version, save slot and the last commands executed, so a report can be reproduced.
+  Nothing is sent over the network.
+- **Data validation.** Content at load (§8.5), saves on load (schema and
+  invariants), settings on read.
+- **Version control.** Git with pull requests; a single version number stamped into
+  builds, saves and logs; a changelog.
+- **Build automation.** `tools/build.sh` exports and packages every target with the
+  version stamp; a CI workflow runs tests and builds on push and keeps the artifacts
+  — this is how a **playable build exists at every milestone**. Not yet written.
+- **Installation and packaging.** Linux archive, Windows portable zip, Web bundle,
+  Android APK (debug-signed for testing; store release needs the owner's key). A
+  Windows installer is not planned unless requested.
+- **Settings.** §24, stored in `user://settings.cfg`.
+- **Tutorials and onboarding.** Data-driven contextual tips with conditions, a
+  guided first life, the supervisor as the diegetic tutor in psychiatry (see
+  `PSYCHIATRY_DESIGN.md` §9), and a glossary. All skippable.
+- **Achievements and progression.** Achievements are data with conditions in the
+  shared condition language (§8.1). A profile outside the save slots records
+  achievements, a gallery of past lives and lineages, and unlocked starting options.
+- **Documentation.** This document set, authoring guides, and per-module READMEs.
+- **Feature registry.** `docs/feature_registry.json` is the single source of truth,
+  rendered to `docs/FEATURE_REGISTRY.md` and checked by `tools/feature_registry.py`:
+
+  | State | Meaning |
+  |---|---|
+  | PLANNED | Specified; no code. |
+  | IN DEVELOPMENT | Being built; incomplete. |
+  | IMPLEMENTED | Code complete; no passing automated test recorded. |
+  | TESTED | Automated tests exist, pass, and are listed. |
+  | VERIFIED | Tested **and** confirmed by a recorded, reproducible procedure (command, date, commit, observed result). |
+  | BLOCKED | Cannot progress; the reason is recorded. |
+
+  The tool refuses a VERIFIED entry without that record, and refuses references to
+  test files that do not exist.
+- **Module entry gate.** Before a major module starts: the full test suite passes,
+  the module's listed dependencies are at least TESTED, and the check is written
+  into the dev log. No module starts on a red or unverified base.
+- **Stability rule.** Content is never added by weakening an existing test or system.
