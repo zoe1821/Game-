@@ -5,6 +5,53 @@ what was decided and why, and what was left undone.
 
 ---
 
+## 2026-11-15 — Full development toolchain installed; export pipeline verified
+
+Owner instruction: install everything needed; and "en español".
+
+### Done
+
+- Godot 4.7.2 **export templates** installed (`tools/install_export_templates.sh`,
+  SHA-256 pinned).
+- **Android SDK** installed (`tools/install_android_sdk.sh`): command-line tools,
+  platform-tools, build-tools 35.0.1, platform 35, debug keystore, at Godot's
+  default paths. Package list taken from the Godot 4.7 Android export documentation.
+- **gdtoolkit 4.5.0** and **jsonschema 4.26.0** (`tools/requirements-dev.txt`).
+- `tools/setup_dev_env.sh` (`--all`) runs every installer. Tested by deleting every
+  tool and running it: 2 min 47 s; second run 1 s.
+- Export smoke test with a trivial portrait (720×1280, Compatibility renderer)
+  project that writes and re-reads a `user://` JSON file and prints a check line:
+  - Linux: binary launched, check line printed.
+  - Web: served locally, loaded in headless Chromium, check line seen in console.
+  - Windows: `.exe` produced, PE x86-64 header valid. Not executed.
+  - Android: debug APK produced; signature and alignment verified; manifest read
+    back (min SDK 24, target SDK 36, arm64-v8a + x86_64). Not run on a device.
+- Recorded the language decision: Spanish is the primary authored language of the
+  game. Added `RESUMEN.md`, a Spanish summary of status, decisions and plan.
+
+### Findings worth remembering
+
+- A hand-written `export_presets.cfg` must include `include_filter` and
+  `exclude_filter` keys or the exporter logs errors (it still exports).
+- The Android export logs an error when the project has no icon; the real project
+  needs launcher icons before M2's Android build.
+- The preinstalled JDK is 21; Godot's docs recommend 17 but accept newer, and the
+  export succeeded.
+- Web build size is dominated by the 39.5 MB engine `.wasm`.
+
+### Not done / honest gaps
+
+- Windows and Android builds have never been executed. macOS/iOS not attempted.
+- Android NDK/CMake not installed (only for custom Gradle builds).
+- Release signing for an app store needs the owner's own keystore; only a debug
+  key exists, and it is machine-local, not in the repository.
+- Export templates and the Android SDK are **not** in the cloud environment's
+  automatic setup script (they add ~2.5 GB of downloads to every session start).
+  They are installed on demand with `setup_dev_env.sh --all`.
+- Technical documents are still in English.
+
+---
+
 ## 2026-11-15 — UI reference received; direction recorded
 
 The project owner supplied two BitLife store screenshots (birth/stat screen and the

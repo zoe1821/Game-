@@ -80,7 +80,9 @@ dev log and known-issues documents written. No game code.
   determinism test, autosave, resume.
 - UI: theme tokens and kit basics, main menu/slots, minimal character creation,
   dashboard, event dialog, timeline, settings shell.
-- Export smoke test for the chosen desktop target (risk #12).
+- Export the real project to Linux, Windows, Web and Android and repeat the checks
+  already passed by the trivial project (ARCHITECTURE §2), so an early playable build
+  can be handed to the owner.
 
 **Acceptance:** start a life → play to old age and death with events and choices →
 quit at arbitrary points → reload exactly. A bot completes 200 lives headless with
@@ -218,8 +220,8 @@ Defaults will be used if no preference is given.
 | # | Decision | Default | Why it matters |
 |---|---|---|---|
 | 1 | **Existing Unity prototype** in this repo: keep in place / move to `legacy/` / remove from this branch | Keep in place, untouched | Rule "never silently remove functionality"; only the owner can retire it. |
-| 2 | **Target platforms** | **Portrait-first interface** (following the owner's phone-portrait reference, see `UI_DIRECTION.md`) that also re-flows for desktop. Builds: desktop (Windows + Linux) first because that is what can be produced and launched in development; Android export when confirmed | The interface shape is now set by the reference. Still open: whether an Android build is required and by which milestone (needs SDK and signing, KNOWN_ISSUES T-8). |
-| 3 | **Languages** | English text now, all strings keyed; Spanish added in M7 | Existing docs are Spanish. Say if Spanish should be primary or simultaneous. |
+| 2 | **Target platforms** | **Portrait-first interface** (following the owner's phone-portrait reference, see `UI_DIRECTION.md`) that also re-flows for desktop. All four export targets work in development (Linux, Windows, Web, Android), so builds for each can be produced from Milestone 2. | Still open: which build the owner will actually play on — it decides where testing effort goes. Windows and Android builds cannot be run in development and need the owner's device. |
+| 3 | **Languages** | **Decided 2026-11-15: Spanish primary**, English second, all strings keyed | Owner instruction ("en español"). Interpreted as covering the game's text; technical documents remain in English for now with a Spanish summary in `RESUMEN.md` — say if the documents should be translated too. |
 | 4 | **Time model** | Continue-until-interrupt with week/month/year stride; 336-day year | Defines the feel of the whole game; cheap to change now, costly later. |
 | 5 | **Clinical naming** | Plain descriptive condition labels; abstract treatment classes; fictional country and law | Satisfies "fictional, not real-world guidance". Alternative: fully invented terminology. |
 | 6 | **Tone and age rating** | Mature themes handled seriously and non-graphically; content settings | Affects event writing from M2. |

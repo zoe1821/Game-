@@ -17,7 +17,7 @@ checking on real hardware by the project owner once builds exist.
 | U-2 | Real-GPU rendering and performance | Only software OpenGL (llvmpipe) is available. Blender is limited to Cycles on CPU here; EEVEE and viewport rendering are untested. |
 | U-3 | Touch, gamepad and "feel" of input | Scripted input only. |
 | U-4 | Screen-reader behaviour | Accessibility API exists in 4.7.2; behaviour with real assistive tech untested. |
-| U-5 | Windows / macOS / Android runtime | Only Linux can be launched here. |
+| U-5 | Windows / macOS / Android runtime | Only Linux and Web (Chromium) builds can be launched here. Windows `.exe` and Android APK are produced and structurally verified but never executed. macOS/iOS exports not attempted (signing needs a Mac). |
 | U-6 | Existing Unity prototype | Not opened or run; no Unity installation. |
 
 ## Unresolved tasks
@@ -25,13 +25,13 @@ checking on real hardware by the project owner once builds exist.
 | ID | Task | Needed by |
 |---|---|---|
 | T-1 | Owner review of architecture and open decisions (ROADMAP §7) | before M2 |
-| T-2 | Export smoke test (templates ~1 GB download, export a trivial project, launch it) | M2 |
+| T-2 | ~~Export smoke test~~ **Done 2026-11-15** with a trivial project (Linux, Windows, Web, Android). Repeat with the real project. | M2 |
 | T-3 | Decide fate of the Unity prototype in this repository | any time |
-| T-4 | Decide target platforms and languages | before M2 UI work |
+| T-4 | Decide which build the owner will play on (language decided: Spanish primary) | before M2 UI work |
 | T-5 | Name the fictional country, currency and hospital (working names in docs are placeholders for discussion) | M2–M3 |
 | T-6 | Continuous integration (run `tools/run_tests.sh` on push) | M2 |
 | T-7 | Decide whether to build optional 3D scenes (Blender 5.3.0 is installed and the export pipeline is verified) | M7 decision point |
-| T-8 | Android toolchain (SDK, signing) if Android is a target | when confirmed |
+| T-8 | ~~Android toolchain~~ **Installed 2026-11-15** (debug signing). Still needed for store release: the owner's own release keystore; a device or emulator test | before any public release |
 
 ## Design questions still open
 

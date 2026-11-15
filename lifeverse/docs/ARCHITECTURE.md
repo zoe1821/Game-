@@ -46,8 +46,9 @@ Three properties drive every architectural decision below:
 | Blender | Not preinstalled. **5.3.0** installed and pinned via `lifeverse/tools/install_blender.sh` (official SHA-256 checked). Runs headless (`blender -b --python`). Verified end to end: a scripted mesh with material and keyframe animation exported to `.glb` and imported by Godot 4.7.2 with mesh, material and animation intact; Cycles CPU render to PNG works. No GPU here, so EEVEE/viewport rendering is untested. Still **not needed before Milestone 7**. |
 | SQLite | No `sqlite3` binary. Godot has no built-in SQLite; it needs a third-party GDExtension. |
 | Third-party GitHub repos | Blocked by this session's proxy (HTTP 403 for GUT and godot-sqlite archives). They could be attached on request, but see dependency policy §14. |
-| Export templates | Download URL for 4.7.2 templates is reachable. **Not yet downloaded or tested** (needed in Milestone 8). |
-| Other tools | Python 3.13, Node 22, ImageMagick, ffmpeg, git-lfs, xvfb. 4 cores, 15 GB RAM. |
+| Export templates | 4.7.2 templates installed via `tools/install_export_templates.sh` (SHA-256 pinned, ~2 GB on disk). **Export verified** with a trivial portrait project: Linux binary launched and passed a file read/write check; Windows `.exe` produced (valid PE x64, **not executed** — no Windows here); Web build loaded and ran in headless Chromium (WebGL 2, `user://` storage works, 39.5 MB wasm); Android debug APK produced, signature (v2/v3) and alignment verified, arm64-v8a + x86_64, **not run on a device**. macOS/iOS exports not attempted. |
+| Android toolchain | JDK 21 preinstalled (docs recommend 17, accept newer; export worked). SDK installed via `tools/install_android_sdk.sh`: command-line tools 23.0, platform-tools 37.0.1, build-tools 35.0.1, platform 35, debug keystore — at Godot's default paths, so no editor setting changes. NDK/CMake not installed (only needed for custom Gradle builds, which a GDScript-only project does not need). |
+| Other tools | Python 3.13, Node 22 with Playwright + Chromium (used to test the Web export), ImageMagick, ffmpeg, git-lfs, xvfb. `gdtoolkit` 4.5.0 (`gdlint`/`gdformat`) installed from PyPI and confirmed to parse 4.7 syntax including typed dictionaries; `jsonschema` 4.26.0. 4 cores, 15 GB RAM. |
 
 Spike results (throwaway projects, not committed) that shaped the design:
 
@@ -101,7 +102,7 @@ from this branch is **an open decision for the project owner** (see ROADMAP §7)
 | Persistence | Versioned JSON documents, ZSTD-compressed, atomic writes, rolling backups | SQLite via GDExtension | The whole world fits in memory (a few MB); saves are snapshots, not queries. SQLite would add a native third-party binary per export platform. Revisit only if a save exceeds ~50 MB or needs partial loading (§11.6). |
 | Tests | Small in-repo test runner (headless scene) | GUT, gdUnit4 | Zero external dependency; the core is engine-light pure logic. The runner's surface is ~150 lines. Can be swapped for GUT later without rewriting tests' intent. |
 | 3D / Blender | Optional, deferred to Milestone 7, behind a clean seam. Pipeline when used: `.blend` sources → scripted headless export → `.glb` committed and imported by Godot (verified, §2) | 3D-first workspaces; Godot's direct `.blend` import | The brief makes 3D optional. Depth of simulation and UI quality come first; a hollow 3D hospital would violate "no decorative features". Committing `.glb` means running or testing the game never requires Blender. |
-| Localization | All player-facing text via translation keys from day one (Godot `TranslationServer`, CSV) | Hard-coded English | Retro-fitting localization is expensive; existing project docs are Spanish, so EN + ES is a likely requirement. |
+| Localization | All player-facing text via translation keys from day one (Godot `TranslationServer`, CSV). **Spanish is the primary authored language**, English second | Hard-coded text; English-first | Retro-fitting localization is expensive. The project owner works in Spanish and asked for Spanish (2026-11-15); keyed strings keep any further language cheap. |
 
 ---
 
@@ -815,8 +816,11 @@ The game simulates illness, death, crime, family conflict and psychiatric care.
 - **Zero third-party code by default.** Engine + in-repo GDScript only. Any future
   addon needs: a written justification in this document, a pinned version, a licence
   check, and a verification test.
-- External tools used only at development time: pinned Godot, pinned Blender
-  (asset authoring only), Python (optional linting), xvfb (screenshots).
+- External tools used only at development time, all installed by
+  `tools/setup_dev_env.sh`: pinned Godot and export templates, pinned Blender (asset
+  authoring only), Android SDK (APK export only), `gdtoolkit` and `jsonschema`
+  (linting), xvfb and Chromium (screenshots, Web-build checks). None of them ship
+  with the game.
 - No network access at runtime. The game is fully offline.
 
 ---
@@ -863,9 +867,9 @@ The game simulates illness, death, crime, family conflict and psychiatric care.
 | 7 | Engine/API drift: 4.7.2 is newer than most reference material. | Medium | Verify against the pinned engine; pin version; upgrade only behind a green test suite. |
 | 8 | UI quality without artists; "commercial quality" visuals. | Medium | Design tokens, procedural portraits, vector art, motion polish; honest limits stated in §12.3. |
 | 9 | Things this container cannot verify: audio, real GPU rendering, touch input, screen readers, non-Linux builds. | Medium | Listed in `KNOWN_ISSUES.md`; require owner playtesting on target hardware. |
-| 10 | Ephemeral dev container: engine not preinstalled; third-party repos blocked. | Low | `install_godot.sh` (tested from clean); zero-dependency policy. |
+| 10 | Ephemeral dev container: nothing preinstalled; third-party repos blocked. | Low | `tools/setup_dev_env.sh` rebuilds the whole toolchain from pinned downloads (tested from clean: 2 min 47 s for everything); zero-dependency policy for the game itself. |
 | 11 | Sensitive subject matter handled badly. | High (reputational) | Policy §13; content tags and settings; review of all clinical writing. |
-| 12 | Export pipeline untested (templates ~1 GB; Android needs SDK + signing). | Medium | Do a trivial export smoke test early (Milestone 2) on the chosen desktop target instead of discovering problems at Milestone 8. |
+| 12 | Export pipeline. | Low (was Medium) | Retired as an unknown: Linux, Windows, Web and Android exports of a trivial project succeeded (§2). Remaining: repeat with the real project at each milestone; Windows and Android builds must be run on real hardware by the owner; store release needs the owner's own signing key. |
 
 ---
 

@@ -10,6 +10,7 @@ There is no playable game yet.** See [`PROJECT_STATUS.md`](PROJECT_STATUS.md).
 
 | Document | Contents |
 |---|---|
+| [`docs/RESUMEN.md`](docs/RESUMEN.md) | **Resumen en español** del estado, las decisiones y el plan |
 | [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) | Environment findings, technology decisions, layers, directory structure, data models, event/consequence engine, career plugin architecture, save system, UI, testing, risks |
 | [`docs/PSYCHIATRY_DESIGN.md`](docs/PSYCHIATRY_DESIGN.md) | Design of the first deep career module |
 | [`docs/UI_DIRECTION.md`](docs/UI_DIRECTION.md) | Interface reference, what is and is not taken from it, original visual direction, layouts |
@@ -27,11 +28,20 @@ lifeverse/tools/install_godot.sh     # downloads, checksum-verifies, links `godo
 
 On Windows/macOS, download the same version from <https://godotengine.org/download/archive/>.
 
-Optional, only for authoring 3D assets — Blender **5.3.0**, pinned:
+Everything else a developer machine needs, in one command:
 
 ```bash
-lifeverse/tools/install_blender.sh   # ~400 MB download, checksum-verified, links `blender`
+lifeverse/tools/setup_dev_env.sh          # core: Godot + lint tools (enough to run and test)
+lifeverse/tools/setup_dev_env.sh --all    # + Blender 5.3.0, export templates, Android SDK
 ```
+
+| Script | Installs | Needed for |
+|---|---|---|
+| `install_godot.sh` | Godot 4.7.2 editor | running, testing |
+| `install_blender.sh` | Blender 5.3.0 (~400 MB) | authoring 3D assets only |
+| `install_export_templates.sh` | Godot export templates (~1.2 GB) | producing builds |
+| `install_android_sdk.sh` | Android SDK packages + debug keystore (needs a JDK) | Android APKs |
+| `requirements-dev.txt` | `gdtoolkit`, `jsonschema` | linting |
 
 The Godot project will live in `lifeverse/game/` from Milestone 2.
 

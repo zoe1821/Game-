@@ -1,6 +1,8 @@
 # LIFEVERSE — Project Status
 
-_Last updated: 2026-11-15 (end of Milestone 1; Blender tooling added)_
+_Last updated: 2026-11-15 (end of Milestone 1; full development toolchain installed and verified)_
+
+Resumen en español: [`docs/RESUMEN.md`](docs/RESUMEN.md).
 
 ## Summary
 
@@ -11,6 +13,8 @@ _Last updated: 2026-11-15 (end of Milestone 1; Blender tooling added)_
 | Playable build | **None.** No game code exists yet. |
 | Engine | Godot 4.7.2 stable (pinned; `tools/install_godot.sh`) |
 | 3D authoring tool | Blender 5.3.0 (pinned; `tools/install_blender.sh`) — installed, not yet used for any game asset |
+| Export | Templates 4.7.2 + Android SDK installed; Linux / Windows / Web / Android export verified with a trivial project |
+| One-command setup | `tools/setup_dev_env.sh --all` (tested from a clean state: 2 min 47 s) |
 | Automated tests | None yet (test runner is a Milestone 2 deliverable) |
 
 ## What exists and has been verified
@@ -22,6 +26,12 @@ _Last updated: 2026-11-15 (end of Milestone 1; Blender tooling added)_
 | Headless Godot execution | Working | Spike scripts executed |
 | Pinned Blender install script | Working | Ran from a clean state and again (idempotent); `blender --version` → 5.3.0 |
 | Blender → glTF → Godot pipeline | Working | Scripted mesh + material + animation exported headless to `.glb`; Godot import reported 1 mesh, material `Wood`, animation `DeskAction`. Cycles CPU render produced a PNG. |
+| Export: Linux | Working | Exported binary launched headless and printed the expected check line after a `user://` write/read |
+| Export: Web | Working | Loaded in headless Chromium (WebGL 2); same check line seen in the browser console |
+| Export: Windows | Produced, **not executed** | Valid PE x86-64 file; no Windows machine here |
+| Export: Android | Produced, **not run on a device** | Debug APK; `apksigner verify` OK (v2/v3), `zipalign -c` OK, package/ABIs read back with `aapt` |
+| GDScript linter (`gdlint` 4.5.0) | Working | Parsed 4.7 syntax incl. typed dictionaries and reported a real line-length finding |
+| `setup_dev_env.sh --all` | Working | Removed every tool, ran it (2 min 47 s), re-ran (1 s, no-op), then repeated all four exports |
 | Rendered UI capture (xvfb + OpenGL) | Working | Spike scene rendered and saved to PNG, inspected |
 | Technical spikes (JSON typing, RNG persistence, atomic writes, plugin loading, performance, API checks) | Done | Throwaway projects; results recorded in ARCHITECTURE §2. Spike code was intentionally not committed. |
 | Architecture document | Written | `docs/ARCHITECTURE.md` |
@@ -36,8 +46,9 @@ No part of the game is implemented: no Godot project, no simulation core, no UI,
 save system, no events, no careers, no psychiatry module, no content, no tests, no
 exported build. The documents describe intended design only.
 
-Not installed / not tested: export templates, any export, audio, real-GPU
-rendering (including Blender EEVEE), touch input, screen readers. No 3D assets exist.
+Not tested: running the Windows or Android builds, macOS/iOS export, audio,
+real-GPU rendering (including Blender EEVEE), touch input, screen readers. Not
+installed: Android NDK/CMake (not needed), Wine, any emulator. No 3D assets exist.
 
 ## Existing Unity prototype
 
