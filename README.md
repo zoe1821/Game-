@@ -1,3 +1,8 @@
+> **Nota / Note — este repositorio contiene dos proyectos · this repository holds two projects**
+>
+> - **LIFEVERSE** (Godot 4, en fase de arquitectura / architecture stage) → [`lifeverse/`](lifeverse/README.md)
+> - **Psychiatric Hospital Simulator** (Unity, V0.2) → este documento / this document, sin cambios / unchanged
+
 # Psychiatric Hospital Simulator
 
 Simulador de gestión hospitalaria psiquiátrica para Android, hecho en Unity 2D.

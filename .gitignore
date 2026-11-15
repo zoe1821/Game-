@@ -45,3 +45,10 @@ ExportedObj/
 # OS files
 .DS_Store
 Thumbs.db
+
+# --- LIFEVERSE (Godot 4) ---
+lifeverse/game/.godot/
+lifeverse/game/android/
+lifeverse/build/
+lifeverse/**/*.translation
+lifeverse/**/export_credentials.cfg
