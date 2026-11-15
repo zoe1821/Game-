@@ -5,6 +5,33 @@ what was decided and why, and what was left undone.
 
 ---
 
+## 2026-11-15 — UI reference received; direction recorded
+
+The project owner supplied two BitLife store screenshots (birth/stat screen and the
+main life-log screen) as a guide for the menus, to be followed by our own designs
+when the interface is built.
+
+### Done
+
+- Wrote `UI_DIRECTION.md`: which structural patterns we learn from the reference,
+  what is explicitly not reused (name, logo, colours, avatar style, icons, wording),
+  where LIFEVERSE differs because of its design, a proposed original identity, and
+  portrait and wide layouts.
+- Changed the layout baseline in ARCHITECTURE §12.4 from 1280×720 landscape to
+  **portrait-first** with a wide re-flow, and updated open decision 2 in ROADMAP §7.
+
+### Decisions
+
+- Reference = structure and flow. Visual identity = original, validated with real
+  screenshots in Milestone 2 before being recorded as settled.
+- The reference images are not committed to the repository.
+
+### Not done
+
+- No screens, theme, icons or portraits exist. Nothing visual has been validated.
+
+---
+
 ## 2026-11-15 — Blender installed and asset pipeline verified
 
 Requested by the project owner after the Milestone 1 review package.

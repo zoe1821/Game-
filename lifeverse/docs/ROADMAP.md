@@ -218,7 +218,7 @@ Defaults will be used if no preference is given.
 | # | Decision | Default | Why it matters |
 |---|---|---|---|
 | 1 | **Existing Unity prototype** in this repo: keep in place / move to `legacy/` / remove from this branch | Keep in place, untouched | Rule "never silently remove functionality"; only the owner can retire it. |
-| 2 | **Target platforms** | Desktop first (Windows + Linux; macOS unsigned), layouts kept mobile-capable | The Unity prototype targeted Android landscape. Android/touch-first changes UI density and testing from M2. |
+| 2 | **Target platforms** | **Portrait-first interface** (following the owner's phone-portrait reference, see `UI_DIRECTION.md`) that also re-flows for desktop. Builds: desktop (Windows + Linux) first because that is what can be produced and launched in development; Android export when confirmed | The interface shape is now set by the reference. Still open: whether an Android build is required and by which milestone (needs SDK and signing, KNOWN_ISSUES T-8). |
 | 3 | **Languages** | English text now, all strings keyed; Spanish added in M7 | Existing docs are Spanish. Say if Spanish should be primary or simultaneous. |
 | 4 | **Time model** | Continue-until-interrupt with week/month/year stride; 336-day year | Defines the feel of the whole game; cheap to change now, costly later. |
 | 5 | **Clinical naming** | Plain descriptive condition labels; abstract treatment classes; fictional country and law | Satisfies "fictional, not real-world guidance". Alternative: fully invented terminology. |

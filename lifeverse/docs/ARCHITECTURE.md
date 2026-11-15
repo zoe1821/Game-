@@ -2,6 +2,7 @@
 
 Status: **proposed, awaiting review** (Milestone 1). No game code exists yet.
 Companion documents: [`PSYCHIATRY_DESIGN.md`](PSYCHIATRY_DESIGN.md) (first career module),
+[`UI_DIRECTION.md`](UI_DIRECTION.md) (interface reference and original visual direction),
 [`ROADMAP.md`](ROADMAP.md) (milestones, workload), [`DEVLOG.md`](DEVLOG.md),
 [`KNOWN_ISSUES.md`](KNOWN_ISSUES.md), [`../PROJECT_STATUS.md`](../PROJECT_STATUS.md).
 
@@ -745,6 +746,10 @@ section structure above is designed so that this needs no model changes.
 
 ### 12.2 Screens
 
+Structure follows the owner's reference (identity strip, life log, one primary
+time-advance action, domain navigation, wellbeing meters); the visual identity is
+original. Both are specified in `UI_DIRECTION.md`.
+
 Main menu / slots · Character creation · **Dashboard** (status, agenda, Continue) ·
 Life timeline · People list & character profile · NPC interaction · Family tree ·
 Education · Career dashboard · **Professional workspace** (module-owned) · Finance
@@ -765,9 +770,10 @@ interface, not hand-painted illustration.
 
 ### 12.4 Responsiveness and accessibility
 
-- Base 1280×720, `canvas_items` stretch, `expand` aspect; container-based layouts; a
-  compact layout variant below a width breakpoint (phones/portrait) if mobile is a
-  target (open decision).
+- **Portrait-first** (see [`UI_DIRECTION.md`](UI_DIRECTION.md)): base 720×1280,
+  `canvas_items` stretch, `expand` aspect; container-based layouts; the same
+  components re-flow into a multi-column layout above a width breakpoint
+  (desktop, tablet landscape). Both layouts are covered by the UI smoke test.
 - UI scale and font size settings; high-contrast theme; colour-blind-safe palette
   with **no colour-only signals** (icon/shape/text always accompany colour);
   reduce-motion toggle; full keyboard/gamepad focus navigation; accessible names on

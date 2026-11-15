@@ -12,6 +12,7 @@ There is no playable game yet.** See [`PROJECT_STATUS.md`](PROJECT_STATUS.md).
 |---|---|
 | [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) | Environment findings, technology decisions, layers, directory structure, data models, event/consequence engine, career plugin architecture, save system, UI, testing, risks |
 | [`docs/PSYCHIATRY_DESIGN.md`](docs/PSYCHIATRY_DESIGN.md) | Design of the first deep career module |
+| [`docs/UI_DIRECTION.md`](docs/UI_DIRECTION.md) | Interface reference, what is and is not taken from it, original visual direction, layouts |
 | [`docs/ROADMAP.md`](docs/ROADMAP.md) | Milestones, acceptance criteria, workload estimate, open decisions |
 | [`docs/DEVLOG.md`](docs/DEVLOG.md) | Development log |
 | [`docs/KNOWN_ISSUES.md`](docs/KNOWN_ISSUES.md) | Known bugs, unverified items, unresolved tasks |

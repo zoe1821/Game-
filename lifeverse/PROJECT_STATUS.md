@@ -27,6 +27,7 @@ _Last updated: 2026-11-15 (end of Milestone 1; Blender tooling added)_
 | Architecture document | Written | `docs/ARCHITECTURE.md` |
 | Psychiatry module design | Written | `docs/PSYCHIATRY_DESIGN.md` |
 | Roadmap and workload estimate | Written | `docs/ROADMAP.md` |
+| UI direction (reference analysis, original identity proposal, layouts) | Written — direction only, no screens built | `docs/UI_DIRECTION.md` |
 | Dev log, known issues | Started | `docs/DEVLOG.md`, `docs/KNOWN_ISSUES.md` |
 
 ## What does not exist yet (everything else)
