@@ -9,8 +9,8 @@ Last updated: 2026-11-15 · 182 features
 | PLANNED | 170 | Specified; no code. |
 | IN DEVELOPMENT | 0 | Being built; incomplete. |
 | IMPLEMENTED | 3 | Code complete; no passing automated test recorded. |
-| TESTED | 3 | Automated tests exist, pass, and are listed. |
-| VERIFIED | 5 | Tested and confirmed by a recorded, reproducible procedure. |
+| TESTED | 2 | Automated tests exist, pass, and are listed. |
+| VERIFIED | 6 | Tested and confirmed by a recorded, reproducible procedure. |
 | BLOCKED | 1 | Cannot progress; reason recorded. |
 
 Requirement ids: `B<n>` = section n of the original brief, `A<n>` = section n of the additional requirements (both in `docs/requirements/`).
@@ -26,7 +26,7 @@ Requirement ids: `B<n>` = section n of the original brief, `A<n>` = section n of
 | INF-05 | Windows export | A9 | 1 | TESTED | `tools/export_smoke_test.sh` — PE x86-64 header checked; never executed on Windows |
 | INF-06 | Android SDK installer and Android export | A9 | 1 | TESTED | `tools/install_android_sdk.sh`, `tools/export_smoke_test.sh` — APK signed and aligned; never run on a device or emulator |
 | INF-07 | GDScript lint and JSON schema tooling | B12 A9 | 1 | VERIFIED | `gdlint tools/export_smoke/main.gd tools/blender_pipeline/check_import.gd` — Success: no problems found (4.7 syntax parsed) (2026-11-15, `85705d4`) |
-| INF-08 | Feature registry with enforced states | A10 | 1 | TESTED | `tools/feature_registry.py` — Checker self-test passes; promoted to VERIFIED once recorded against a commit |
+| INF-08 | Feature registry with enforced states | A10 | 1 | VERIFIED | `tools/feature_registry.py selftest && tools/feature_registry.py check` — 9 of 9 invalid-entry cases rejected as expected; registry of 182 features valid (2026-11-15, `023d299`) |
 | INF-09 | Cloud environment auto-setup (Godot and Blender at session start) | B1 | 1 | IMPLEMENTED | Saved to the environment; unproven until a fresh session starts |
 | INF-10 | Game test runner and tools/run_tests.sh | B12 B14 A9 | 2 | PLANNED |  |
 | INF-11 | Build automation and packaging (tools/build.sh) | A9 A10 | 2 | PLANNED |  |
