@@ -3,6 +3,7 @@
 
     feature_registry.py check     validate docs/feature_registry.json (exit 1 on any problem)
     feature_registry.py render    regenerate docs/FEATURE_REGISTRY.md from the JSON
+    feature_registry.py selftest  prove that the checker rejects invalid entries
 
 The JSON file is the single source of truth. The rules enforced here are the
 project's completion protocol:
@@ -101,6 +102,8 @@ def render(data):
                 ev = f"`{v['how']}` — {v['result']} ({v['date']}, `{v['commit']}`)"
             elif f["state"] == "TESTED":
                 ev = ", ".join(f"`{t}`" for t in f["tests"])
+                if f.get("note"):
+                    ev += f" — {f['note']}"
             elif f["state"] == "BLOCKED":
                 ev = f["blocked_reason"]
             elif f.get("note"):
@@ -111,8 +114,33 @@ def render(data):
     return "\n".join(out)
 
 
+def selftest():
+    base = {"areas": [{"id": "a", "title": "A"}], "features": []}
+    good = {"id": "X-1", "title": "t", "area": "a", "requirements": ["A1"], "milestone": "2", "state": "PLANNED"}
+    cases = {
+        "valid entry accepted": (dict(good), 0),
+        "VERIFIED without tests or procedure": (dict(good, state="VERIFIED"), 5),
+        "VERIFIED with tests but no procedure": (dict(good, state="VERIFIED", tests=["tools/feature_registry.py"]), 4),
+        "TESTED without tests": (dict(good, state="TESTED"), 1),
+        "missing test file": (dict(good, state="TESTED", tests=["tools/does_not_exist.sh"]), 1),
+        "BLOCKED without reason": (dict(good, state="BLOCKED"), 1),
+        "unknown state": (dict(good, state="DONE"), 1),
+        "bad requirement id": (dict(good, requirements=["Z9"]), 1),
+        "unknown area": (dict(good, area="zzz"), 1),
+    }
+    failed = 0
+    for name, (entry, expected) in cases.items():
+        got = len(check(dict(base, features=[entry])))
+        ok = got == expected
+        failed += 0 if ok else 1
+        print(f"{'ok  ' if ok else 'FAIL'} {name}: {got} problem(s), expected {expected}")
+    return 1 if failed else 0
+
+
 def main():
     cmd = sys.argv[1] if len(sys.argv) > 1 else "check"
+    if cmd == "selftest":
+        return selftest()
     data = load()
     problems = check(data)
     if problems:

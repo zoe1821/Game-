@@ -11,7 +11,9 @@ There is no playable game yet.** See [`PROJECT_STATUS.md`](PROJECT_STATUS.md).
 | Document | Contents |
 |---|---|
 | [`docs/RESUMEN.md`](docs/RESUMEN.md) | **Resumen en español** del estado, las decisiones y el plan |
-| [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) | Environment findings, technology decisions, layers, directory structure, data models, event/consequence engine, career plugin architecture, save system, UI, testing, risks |
+| [`docs/requirements/`](docs/requirements/) | The original brief and the additional requirements, verbatim |
+| [`docs/FEATURE_REGISTRY.md`](docs/FEATURE_REGISTRY.md) | Every feature with its state (PLANNED … VERIFIED) and evidence |
+| [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) | Environment findings, technology decisions, layers, data models, events, careers, saves, UI, testing, risks; Part II: daily life, conversation, world, institutions, presentation, content packs, options, production |
 | [`docs/PSYCHIATRY_DESIGN.md`](docs/PSYCHIATRY_DESIGN.md) | Design of the first deep career module |
 | [`docs/UI_DIRECTION.md`](docs/UI_DIRECTION.md) | Interface reference, what is and is not taken from it, original visual direction, layouts |
 | [`docs/ROADMAP.md`](docs/ROADMAP.md) | Milestones, acceptance criteria, workload estimate, open decisions |
@@ -42,6 +44,9 @@ lifeverse/tools/setup_dev_env.sh --all    # + Blender 5.3.0, export templates, A
 | `install_export_templates.sh` | Godot export templates (~1.2 GB) | producing builds |
 | `install_android_sdk.sh` | Android SDK packages + debug keystore (needs a JDK) | Android APKs |
 | `requirements-dev.txt` | `gdtoolkit`, `jsonschema` | linting |
+
+Reproducible checks: `tools/export_smoke_test.sh`, `tools/blender_pipeline_test.sh`,
+`tools/feature_registry.py check`.
 
 The Godot project will live in `lifeverse/game/` from Milestone 2.
 

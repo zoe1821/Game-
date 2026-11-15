@@ -48,6 +48,9 @@ These follow from the design in `ARCHITECTURE.md`, not from wanting to look diff
 | Money | A balance | Accounts, ledger, loans, property, investments, tax, with charts. |
 | Wellbeing meters | Colour-coded bars | Icon + label + value on every meter; colour is never the only signal (accessibility). |
 | Agenda | — | Upcoming exams, appointments, shifts and deadlines are always visible. |
+| Places and people | Static icons | Place scenes (home, hospital, street) with animated characters doing what the simulation says, facial expressions driven by emotion, day/night and weather (ARCHITECTURE §22). |
+| Daily life | Menu actions | A routine you edit, a day you can open and schedule, and moments played as scenes (ARCHITECTURE §18). |
+| Conversations | Single-tap interactions | Dialogue with topics that depend on shared history, a choice of approach, and visible emotional reactions (ARCHITECTURE §19). |
 
 ---
 

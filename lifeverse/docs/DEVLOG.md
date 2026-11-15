@@ -5,6 +5,57 @@ what was decided and why, and what was left undone.
 
 ---
 
+## 2026-11-15 — Additional requirements integrated
+
+The project owner supplied ten further mandatory requirement groups (`A1`–`A10`):
+daily life, social dialogue, complete professional workflow, expanded hospital
+simulation, world simulation, audiovisual immersion, content expansion,
+accessibility and languages, production quality, and a completion protocol.
+
+### Done
+
+- Stored both requirement sets verbatim under `docs/requirements/`.
+- Spiked the engine mechanisms the new requirements depend on (all passed, results
+  in ARCHITECTURE §2): mounting an exported `.pck` and running a script from it;
+  capturing errors with a custom `Logger`; CSV translations with live es/en
+  switching; a generated tone encoded to Ogg Vorbis and loaded; audio buses;
+  runtime input rebinding; presence of the 2D lighting, particle, skeleton and
+  interactive-audio classes.
+- ARCHITECTURE Part II, §18–§25: daily life (three zoom levels over one
+  simulation), conversation engine, world simulation, institution simulation,
+  presentation, content packs, player options, production and verification.
+  Amended §2, §4, §5.2, §6, §9.4, §9.5 (new), §16.
+- PSYCHIATRY_DESIGN §12–§14: hospital operations, privacy and confidentiality
+  mechanics, management play and private practice.
+- ROADMAP rewritten: depth tiers, module entry gate, playable build in the
+  definition of done, sub-milestones 3a/3b/3c, 5a/5b, 6a/6b/6c, revised estimate.
+- Made earlier verifications reproducible: `tools/export_smoke_test.sh` and
+  `tools/blender_pipeline_test.sh`, each with its small fixture.
+- Feature registry: `docs/feature_registry.json` (182 features, each tied to
+  requirement ids), `tools/feature_registry.py` (check, render, selftest),
+  rendered `docs/FEATURE_REGISTRY.md`.
+
+### Decisions
+
+- **One conversation engine** for social dialogue, job interviews and clinical
+  interviews; the `interview` kernel becomes a profile of it and moves to M3.
+- **`org` kernel replaced by `institution`**, which runs without the player.
+- **Daily life is Tier 2 (systemic) by default**: routines with consequences, any
+  day playable by hand. Not a minigame per chore.
+- **Spanish and English both complete at every milestone.**
+- Only tooling is marked VERIFIED. Windows and Android exports stay TESTED because
+  they have never been executed. macOS/iOS export is BLOCKED (no Mac).
+
+### Honest gaps
+
+- No game code. Everything in Part II is design.
+- The estimate roughly doubled (≈64k lines, ≈3,400 bilingual content items, ≈57
+  sessions); the combined scope exceeds what this roadmap can finish.
+- Sound cannot be heard in development; no artist, composer or sound designer.
+- `tools/build.sh`, CI and the game's own test runner do not exist yet (M2).
+
+---
+
 ## 2026-11-15 — Full development toolchain installed; export pipeline verified
 
 Owner instruction: install everything needed; and "en español".
